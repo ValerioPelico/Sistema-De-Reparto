@@ -10,12 +10,22 @@ import java.awt.Image;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import java.sql.*;
+import javax.swing.JOptionPane;
+
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 /**
  *
  * @author dairy
  */
 public class menu extends javax.swing.JFrame {
+    
+    //Instancias y variables---------
+    Conexion cn = new Conexion();
+    Connection con = cn.getConnection();
+    PreparedStatement ps;
 
     FondoPanel fondoso = new FondoPanel();
     /**
@@ -77,19 +87,44 @@ public class menu extends javax.swing.JFrame {
         setBackground(java.awt.Color.red);
 
         img_cliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cliente.png"))); // NOI18N
+        img_cliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                img_clienteActionPerformed(evt);
+            }
+        });
 
         img_camion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/camion.png"))); // NOI18N
+        img_camion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                img_camionActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("MENU");
 
         img_empleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/empleados.png"))); // NOI18N
+        img_empleados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                img_empleadosActionPerformed(evt);
+            }
+        });
 
         img_paquete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/paquete.png"))); // NOI18N
+        img_paquete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                img_paqueteActionPerformed(evt);
+            }
+        });
 
         img_reporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/reporte.png"))); // NOI18N
 
         img_consulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/consulta.png"))); // NOI18N
+        img_consulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                img_consultaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -141,7 +176,38 @@ public class menu extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void img_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_clienteActionPerformed
+        // TODO add your handling code here:
+        zonasdestinadas zona = new zonasdestinadas();
+        zona.show();
+    }//GEN-LAST:event_img_clienteActionPerformed
+
+    private void img_camionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_camionActionPerformed
+        // TODO add your handling code here:
+        vehiculo carro = new vehiculo();
+        carro.show();
+    }//GEN-LAST:event_img_camionActionPerformed
+
+    private void img_consultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_consultaActionPerformed
+        // TODO add your handling code here:
+        paquete paquete = new paquete();
+        paquete.show();
+    }//GEN-LAST:event_img_consultaActionPerformed
+
+    private void img_empleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_empleadosActionPerformed
+        // TODO add your handling code here:
+        quejas queja = new quejas();
+        queja.show();
+    }//GEN-LAST:event_img_empleadosActionPerformed
+
+    private void img_paqueteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_paqueteActionPerformed
+        // TODO add your handling code here:
+        puesto puesto = new puesto();
+        puesto.show();
+    }//GEN-LAST:event_img_paqueteActionPerformed
 
     /**
      * @param args the command line arguments

@@ -5,6 +5,8 @@
  */
 package sistemaderepartos;
 
+import com.placeholder.PlaceHolder;
+
 /**
  *
  * @author dairy
@@ -14,8 +16,16 @@ public class bodega extends javax.swing.JFrame {
     /**
      * Creates new form bodega
      */
+    PlaceHolder holder;
     public bodega() {
         initComponents();
+        holder = new PlaceHolder(txt_buscar,"Codigo a buscar");
+        holder = new PlaceHolder(txt_cod_bodega,"Codigo de bodega");
+        holder = new PlaceHolder(txt_nombre,"Nombre bodega");
+        holder = new PlaceHolder(txt_direccion,"Direccion bodega");
+        holder = new PlaceHolder(txt_correo,"Correo bodega");
+        holder = new PlaceHolder(txt_telefono,"Telefono bodega");
+        holder = new PlaceHolder(txt_empleado,"Codigo empleado");
     }
 
     /**
@@ -45,12 +55,14 @@ public class bodega extends javax.swing.JFrame {
         btn_eliminar = new javax.swing.JButton();
         lbl_texto = new javax.swing.JLabel();
         txt_buscar = new javax.swing.JTextField();
+        btn_regresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lbl_nombre.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbl_nombre.setText("Nombre:");
 
+        btn_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionBuscar.png"))); // NOI18N
         btn_buscar.setText("Buscar");
 
         lbl_codigo_emp.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -68,14 +80,20 @@ public class bodega extends javax.swing.JFrame {
         lbl_empleado.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbl_empleado.setText("Empleado:");
 
+        btn_guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionGuardar.png"))); // NOI18N
         btn_guardar.setText("Guardar");
 
+        btn_modificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionModificar.png"))); // NOI18N
         btn_modificar.setText("Modificar");
 
+        btn_eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionEliminar.png"))); // NOI18N
         btn_eliminar.setText("Eliminar");
 
         lbl_texto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lbl_texto.setText("BODEGA");
+
+        btn_regresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionRegresar.png"))); // NOI18N
+        btn_regresar.setText("Regresar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -109,16 +127,20 @@ public class bodega extends javax.swing.JFrame {
                                         .addGap(78, 78, 78)
                                         .addComponent(btn_eliminar))))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(230, 230, 230)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_modificar)
-                            .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(149, 149, 149)
-                        .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(154, 154, 154)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(149, 149, 149)
+                                .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(230, 230, 230)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btn_modificar)
+                                    .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(61, 61, 61)
                         .addComponent(btn_buscar)))
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_regresar)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -159,6 +181,10 @@ public class bodega extends javax.swing.JFrame {
                     .addComponent(btn_modificar)
                     .addComponent(btn_eliminar))
                 .addGap(23, 23, 23))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_regresar)
+                .addContainerGap())
         );
 
         pack();
@@ -204,6 +230,7 @@ public class bodega extends javax.swing.JFrame {
     private javax.swing.JButton btn_eliminar;
     private javax.swing.JButton btn_guardar;
     private javax.swing.JButton btn_modificar;
+    private javax.swing.JButton btn_regresar;
     private javax.swing.JLabel lbl_codigo_emp;
     private javax.swing.JLabel lbl_correo;
     private javax.swing.JLabel lbl_direccion;

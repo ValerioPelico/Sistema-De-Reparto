@@ -9,7 +9,7 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
-    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -95,6 +95,9 @@
           <Image iconType="3" name="/imagenes/cliente.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="img_clienteActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="img_camion">
       <Properties>
@@ -102,6 +105,9 @@
           <Image iconType="3" name="/imagenes/camion.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="img_camionActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
@@ -117,6 +123,9 @@
           <Image iconType="3" name="/imagenes/empleados.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="img_empleadosActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="img_paquete">
       <Properties>
@@ -124,6 +133,9 @@
           <Image iconType="3" name="/imagenes/paquete.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="img_paqueteActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="img_reporte">
       <Properties>
@@ -138,6 +150,9 @@
           <Image iconType="3" name="/imagenes/consulta.png"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="img_consultaActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

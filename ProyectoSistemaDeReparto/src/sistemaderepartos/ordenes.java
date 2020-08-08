@@ -5,6 +5,8 @@
  */
 package sistemaderepartos;
 
+import com.placeholder.PlaceHolder;
+
 /**
  *
  * @author dairy
@@ -14,8 +16,14 @@ public class ordenes extends javax.swing.JFrame {
     /**
      * Creates new form ordenes
      */
+    PlaceHolder holder;
     public ordenes() {
         initComponents();
+        holder = new PlaceHolder(txt_buscar,"Codigo a buscar");
+        holder = new PlaceHolder(txt_cod_orden,"Codigo de orden");
+        holder = new PlaceHolder(txt_descripcion,"Descripcion de orden");
+        holder = new PlaceHolder(txt_paquete,"Codigo paquete");
+        holder = new PlaceHolder(txt_cliente,"Codigo Cliente");
     }
 
     /**
@@ -36,13 +44,14 @@ public class ordenes extends javax.swing.JFrame {
         txt_descripcion = new javax.swing.JTextField();
         lbl_paquete = new javax.swing.JLabel();
         btn_guardar = new javax.swing.JButton();
-        txt_cod_puesto = new javax.swing.JTextField();
+        txt_cod_orden = new javax.swing.JTextField();
         btn_modificar = new javax.swing.JButton();
         btn_eliminar = new javax.swing.JButton();
         txt_cliente = new javax.swing.JTextField();
         lbl_cliente = new javax.swing.JLabel();
         lbl_estado = new javax.swing.JLabel();
         cbx_estado = new javax.swing.JComboBox<>();
+        btn_regresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -52,6 +61,7 @@ public class ordenes extends javax.swing.JFrame {
         lbl_descripcion.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbl_descripcion.setText("Descripcion:");
 
+        btn_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionBuscar.png"))); // NOI18N
         btn_buscar.setText("Buscar");
 
         lbl_codigo_orden.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -60,10 +70,13 @@ public class ordenes extends javax.swing.JFrame {
         lbl_paquete.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbl_paquete.setText("Paquete:");
 
+        btn_guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionGuardar.png"))); // NOI18N
         btn_guardar.setText("Guardar");
 
+        btn_modificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionModificar.png"))); // NOI18N
         btn_modificar.setText("Modificar");
 
+        btn_eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionEliminar.png"))); // NOI18N
         btn_eliminar.setText("Eliminar");
 
         lbl_cliente.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -74,6 +87,9 @@ public class ordenes extends javax.swing.JFrame {
 
         cbx_estado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Completo", "Incompleto", " " }));
 
+        btn_regresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionRegresar.png"))); // NOI18N
+        btn_regresar.setText("Regresar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -81,39 +97,47 @@ public class ordenes extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl_codigo_orden, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_descripcion)
-                            .addComponent(lbl_paquete)
-                            .addComponent(lbl_cliente)
-                            .addComponent(lbl_estado))
-                        .addGap(105, 105, 105)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txt_cliente, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
-                            .addComponent(txt_paquete, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
-                            .addComponent(txt_cod_puesto, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
-                            .addComponent(txt_descripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
-                            .addComponent(cbx_estado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(230, 230, 230)
-                        .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(149, 149, 149)
-                        .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(154, 154, 154)
-                        .addComponent(btn_buscar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(81, 81, 81)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btn_guardar)
-                                .addGap(232, 232, 232)
-                                .addComponent(btn_eliminar))
+                                .addGap(58, 58, 58)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbl_codigo_orden, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbl_descripcion)
+                                    .addComponent(lbl_paquete)
+                                    .addComponent(lbl_cliente)
+                                    .addComponent(lbl_estado))
+                                .addGap(105, 105, 105)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txt_cliente, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+                                    .addComponent(txt_paquete, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+                                    .addComponent(txt_cod_orden, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+                                    .addComponent(txt_descripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+                                    .addComponent(cbx_estado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(158, 158, 158)
-                                .addComponent(btn_modificar)))))
-                .addContainerGap(18, Short.MAX_VALUE))
+                                .addGap(81, 81, 81)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btn_guardar)
+                                        .addGap(232, 232, 232)
+                                        .addComponent(btn_eliminar))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(158, 158, 158)
+                                        .addComponent(btn_modificar))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(149, 149, 149)
+                                        .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addGap(230, 230, 230)
+                                        .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(51, 51, 51)
+                                .addComponent(btn_buscar)))
+                        .addGap(0, 8, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btn_regresar)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,7 +151,7 @@ public class ordenes extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_codigo_orden)
-                    .addComponent(txt_cod_puesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_cod_orden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_descripcion)
@@ -144,12 +168,14 @@ public class ordenes extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbx_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_guardar)
                     .addComponent(btn_modificar)
                     .addComponent(btn_eliminar))
-                .addGap(43, 43, 43))
+                .addGap(12, 12, 12)
+                .addComponent(btn_regresar)
+                .addContainerGap())
         );
 
         pack();
@@ -195,6 +221,7 @@ public class ordenes extends javax.swing.JFrame {
     private javax.swing.JButton btn_eliminar;
     private javax.swing.JButton btn_guardar;
     private javax.swing.JButton btn_modificar;
+    private javax.swing.JButton btn_regresar;
     private javax.swing.JComboBox<String> cbx_estado;
     private javax.swing.JLabel lbl_cliente;
     private javax.swing.JLabel lbl_codigo_orden;
@@ -204,7 +231,7 @@ public class ordenes extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_texto;
     private javax.swing.JTextField txt_buscar;
     private javax.swing.JTextField txt_cliente;
-    private javax.swing.JTextField txt_cod_puesto;
+    private javax.swing.JTextField txt_cod_orden;
     private javax.swing.JTextField txt_descripcion;
     private javax.swing.JTextField txt_paquete;
     // End of variables declaration//GEN-END:variables
