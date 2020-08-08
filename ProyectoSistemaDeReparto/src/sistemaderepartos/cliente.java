@@ -4,12 +4,38 @@
  * and open the template in the editor.
  */
 package sistemaderepartos;
-
+import com.sun.xml.internal.bind.v2.model.core.ID;
+import java.sql.*;
+import javax.swing.JOptionPane;
 /**
  *
  * @author dairy
  */
 public class cliente extends javax.swing.JFrame {
+    public static final String URL="jdbc:mysql://localhost/mydb"; // variables globales para 
+    public static final String USER="root";
+    public static final String PASSWORD="";
+    
+    PreparedStatement ps;
+    ResultSet rs;
+    
+    public static Connection getConnection(){
+        Connection con=null;
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            con=(Connection)DriverManager.getConnection(URL,USER,PASSWORD);
+        }catch(Exception e){
+            System.err.println(e);
+        }
+        return con;
+    }
+     public void limpiar(){
+        txt_nombre.setText(null);
+        txt_apellido.setText(null);
+        txt_nit.setText(null);
+    }
+   
+    
 
     /**
      * Creates new form cliente
@@ -42,138 +68,184 @@ public class cliente extends javax.swing.JFrame {
         txt_direccion = new javax.swing.JTextField();
         lbl_telefono = new javax.swing.JLabel();
         btn_guardar = new javax.swing.JButton();
-        txt_cod_empleado = new javax.swing.JTextField();
         btn_modificar = new javax.swing.JButton();
         btn_eliminar = new javax.swing.JButton();
         lbl_texto = new javax.swing.JLabel();
         txt_buscar = new javax.swing.JTextField();
+        label_status = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbl_nombre.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbl_nombre.setText("Nombre:");
+        getContentPane().add(lbl_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 138, -1, -1));
+        getContentPane().add(txt_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(296, 180, 214, -1));
 
+        btn_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionEliminar.png"))); // NOI18N
         btn_buscar.setText("Buscar");
+        btn_buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_buscarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(371, 68, -1, -1));
 
         lbl_codigo_cliente.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbl_codigo_cliente.setText("Codigo Empleado:");
+        getContentPane().add(lbl_codigo_cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(46, 71, 142, -1));
+        getContentPane().add(txt_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(296, 137, 214, -1));
 
         lbl_apellido.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbl_apellido.setText("Apellido:");
+        getContentPane().add(lbl_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 181, -1, -1));
+        getContentPane().add(txt_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(296, 274, 214, -1));
 
         lbl_correo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbl_correo.setText("Correo:");
+        getContentPane().add(lbl_correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 228, -1, -1));
+        getContentPane().add(txt_correo, new org.netbeans.lib.awtextra.AbsoluteConstraints(296, 227, 214, -1));
 
         lbl_direccion.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbl_direccion.setText("Dirección:");
+        getContentPane().add(lbl_direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 313, -1, -1));
+        getContentPane().add(txt_nit, new org.netbeans.lib.awtextra.AbsoluteConstraints(296, 350, 214, -1));
 
         lbl_nit.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbl_nit.setText("NIT:");
+        getContentPane().add(lbl_nit, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 351, -1, -1));
+        getContentPane().add(txt_direccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(296, 312, 214, -1));
 
         lbl_telefono.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbl_telefono.setText("Teléfono:");
+        getContentPane().add(lbl_telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 275, -1, -1));
 
+        btn_guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionGuardar.png"))); // NOI18N
         btn_guardar.setText("Guardar");
+        btn_guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_guardarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 405, -1, -1));
 
+        btn_modificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionModificar.png"))); // NOI18N
         btn_modificar.setText("Modificar");
+        btn_modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_modificarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(245, 405, -1, -1));
 
+        btn_eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionEliminar.png"))); // NOI18N
         btn_eliminar.setText("Eliminar");
+        btn_eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_eliminarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btn_eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(418, 405, -1, -1));
 
         lbl_texto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lbl_texto.setText("CLIENTE");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl_codigo_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_nombre)
-                            .addComponent(lbl_correo)
-                            .addComponent(lbl_telefono)
-                            .addComponent(lbl_direccion)
-                            .addComponent(lbl_nit)
-                            .addComponent(lbl_apellido))
-                        .addGap(96, 96, 96)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_nit, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_telefono, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_cod_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_direccion, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(230, 230, 230)
-                        .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(149, 149, 149)
-                        .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(154, 154, 154)
-                        .addComponent(btn_buscar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(87, 87, 87)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btn_guardar)
-                                .addGap(223, 223, 223)
-                                .addComponent(btn_eliminar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(158, 158, 158)
-                                .addComponent(btn_modificar)))))
-                .addContainerGap(58, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_buscar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_codigo_cliente)
-                    .addComponent(txt_cod_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_nombre)
-                    .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_apellido)
-                    .addComponent(txt_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_correo)
-                    .addComponent(txt_correo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_telefono)
-                    .addComponent(txt_telefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_direccion)
-                    .addComponent(txt_direccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_nit)
-                    .addComponent(txt_nit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_guardar)
-                    .addComponent(btn_modificar)
-                    .addComponent(btn_eliminar))
-                .addGap(88, 88, 88))
-        );
+        getContentPane().add(lbl_texto, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 26, 90, 31));
+        getContentPane().add(txt_buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(206, 70, 68, -1));
+        getContentPane().add(label_status, new org.netbeans.lib.awtextra.AbsoluteConstraints(87, 457, 320, 40));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
+        // TODO add your handling code here:
+          try{
+            Connection con=null;
+            con=getConnection();
+            ps = con.prepareStatement("insert into Tbl_Clientes (iId_cliente, cNombre_Cliente, cApellido_Cliente, cNit_Cliente) values(?,?,?,?)");
+            
+            ps.setString(1, "0");
+            ps.setString(2, txt_nombre.getText().trim());
+            ps.setString(3, txt_apellido.getText().trim());
+            ps.setString(4, txt_nit.getText().trim());
+            int res=ps.executeUpdate();
+            if(res>0){
+            limpiar();
+            label_status.setText("Registro exitoso.");}
+            else{
+               label_status.setText("No se pudieron guardar los datos."); 
+            }
+            con.close();
+        }catch (Exception e){
+            label_status.setText("error en la bd");
+        }
+    }//GEN-LAST:event_btn_guardarActionPerformed
+
+    private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
+        // TODO add your handling code here:
+         try {
+            Connection con = null;
+            con = getConnection();
+            ps = con.prepareStatement("select * from Tbl_Clientes  where iId_Cliente = ?");
+            ps.setInt(1, Integer.parseInt(txt_buscar.getText().trim()));
+
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                limpiar();
+                txt_nombre.setText(rs.getString("cNombre_Cliente"));
+                txt_apellido.setText(rs.getString("cApellido_Cliente"));
+                txt_nit.setText(rs.getString("cNit_Cliente"));
+            } else {
+                JOptionPane.showMessageDialog(null, "no hay registros.");
+            }
+            con.close();
+        } catch (Exception e) {
+            label_status.setText("error en la bd .");
+        }
+
+                      
+    }//GEN-LAST:event_btn_buscarActionPerformed
+
+    private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
+        // TODO add your handling code here:
+             try {
+            Connection con=null;
+            con=getConnection();
+            ps = con.prepareStatement("UPDATE Tbl_Clientes SET cNombre_Cliente = ?, cApellido_Cliente = ?, cNit_Cliente =? WHERE iId_Cliente = ?");
+            
+            ps.setInt(1, 0);
+            ps.setString(2, (txt_nombre.getText().trim()));
+            ps.setString(3, txt_apellido.getText().trim());
+            ps.setString(4, txt_nit.getText().trim());
+            int res=ps.executeUpdate();
+            if(res>0){
+            label_status.setText("Modificación exitosa.");
+            }else{
+               label_status.setText("no se pudo modificar."); 
+            }
+            con.close();
+        } catch (Exception e) {
+            label_status.setText(e.toString());
+        }
+    }//GEN-LAST:event_btn_modificarActionPerformed
+
+    private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
+        // TODO add your handling code here:
+            try {
+            Connection con=null;
+            con=getConnection();
+            ps=con.prepareStatement("DELETE from Tbl_Clientes WHERE iId_Cliente = ?");
+            
+            ps.setInt(1, Integer.parseInt(txt_buscar.getText()));
+            ps.executeUpdate();
+            
+            limpiar();
+            label_status.setText("Registro eliminado.");
+            con.close();
+        } catch (Exception e) {
+            label_status.setText(e.toString());
+        }
+    }//GEN-LAST:event_btn_eliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -215,6 +287,7 @@ public class cliente extends javax.swing.JFrame {
     private javax.swing.JButton btn_eliminar;
     private javax.swing.JButton btn_guardar;
     private javax.swing.JButton btn_modificar;
+    private javax.swing.JLabel label_status;
     private javax.swing.JLabel lbl_apellido;
     private javax.swing.JLabel lbl_codigo_cliente;
     private javax.swing.JLabel lbl_correo;
@@ -225,7 +298,6 @@ public class cliente extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_texto;
     private javax.swing.JTextField txt_apellido;
     private javax.swing.JTextField txt_buscar;
-    private javax.swing.JTextField txt_cod_empleado;
     private javax.swing.JTextField txt_correo;
     private javax.swing.JTextField txt_direccion;
     private javax.swing.JTextField txt_nit;

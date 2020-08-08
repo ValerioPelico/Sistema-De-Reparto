@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package sistemaderepartos;
+import com.sun.xml.internal.bind.v2.model.core.ID;
+import java.sql.*;
+import javax.swing.JOptionPane;
 
 //import java.awt.Graphics;
 import java.awt.Graphics;
@@ -20,6 +23,33 @@ import javax.swing.JPanel;
  * @author dairy
  */
 public class login extends javax.swing.JFrame {
+    public static final String URL="jdbc:mysql://localhost/bd_ins"; // variables globales para 
+    public static final String USER="root";
+    public static final String PASSWORD="";
+    
+    PreparedStatement ps;
+    ResultSet rs;
+    
+    public static Connection getConnection(){
+        Connection con=null;
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            con=(Connection)DriverManager.getConnection(URL,USER,PASSWORD);
+        }catch(Exception e){
+            System.err.println(e);
+        }
+        return con;
+    }
+    
+    /*public void limpiar(){
+        txt_Nombre.setText(null);
+        txt_Contraseña.setText(null);
+    }*/
+   
+    /*public RegistroAlumnos() {
+        initComponents();        
+        this.setLocationRelativeTo(null);
+    }*/
 
 
     FondoPanel fondoso = new FondoPanel();
@@ -61,8 +91,6 @@ public class login extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        jpn_login.setBackground(java.awt.SystemColor.inactiveCaption);
-
         lbl_contraseña.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         lbl_contraseña.setText("Contraseña:");
 
@@ -71,6 +99,11 @@ public class login extends javax.swing.JFrame {
         btn_ingresar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_ingresarMouseClicked(evt);
+            }
+        });
+        btn_ingresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_ingresarActionPerformed(evt);
             }
         });
 
@@ -162,6 +195,10 @@ public class login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,"Usuario / Contraseña incorrecta");
         }
     }//GEN-LAST:event_btn_ingresarMouseClicked
+
+    private void btn_ingresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ingresarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_ingresarActionPerformed
 
     /**
      * @param args the command line arguments
