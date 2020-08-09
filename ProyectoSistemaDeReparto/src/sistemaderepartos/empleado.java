@@ -5,6 +5,15 @@
  */
 package sistemaderepartos;
 
+import sistemaderepartos.menu;
+import com.placeholder.PlaceHolder;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author dairy
@@ -14,8 +23,40 @@ public class empleado extends javax.swing.JFrame {
     /**
      * Creates new form empleado
      */
+    //Instancias y variables---------
+    Conexion cn = new Conexion();
+    Connection con = cn.getConnection();
+    PreparedStatement ps;
+    ResultSet rs;
+
+    PlaceHolder holder;
+
     public empleado() {
         initComponents();
+        holder = new PlaceHolder(txt_buscar, "Codigo a buscar");
+        holder = new PlaceHolder(txt_nombre, "nombre");
+        holder = new PlaceHolder(txt_apellido, "apellido ");
+        holder = new PlaceHolder(txt_dpi, "dpi");
+        holder = new PlaceHolder(txt_edad, "edad");
+        holder = new PlaceHolder(txt_puesto, "Codigo Puesto");
+        holder = new PlaceHolder(txt_vehiculo, "Codigo vehiculo");
+    }
+
+    public static final String URL = "jdbc:mysql://localhost:3306/mydb?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    public static final String USERNAME = "root";
+    public static final String PASSWORD = "";
+
+    public static Connection getConection() {
+        Connection con = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            con = (Connection) DriverManager.getConnection(URL, USERNAME, PASSWORD);
+
+            //JOptionPane.showMessageDialog(null, "Conexión establecida....");
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+        return con;
     }
 
     /**
@@ -35,22 +76,19 @@ public class empleado extends javax.swing.JFrame {
         lbl_apellido = new javax.swing.JLabel();
         lbl_correo = new javax.swing.JLabel();
         lbl_nacimiento = new javax.swing.JLabel();
-        lbl_dpi = new javax.swing.JLabel();
         lbl_telefono = new javax.swing.JLabel();
-        lbl_puesto = new javax.swing.JLabel();
-        txt_cod_empleado = new javax.swing.JTextField();
-        txt_apellido = new javax.swing.JTextField();
         txt_nombre = new javax.swing.JTextField();
-        txt_telefono = new javax.swing.JTextField();
-        txt_correo = new javax.swing.JTextField();
         txt_dpi = new javax.swing.JTextField();
-        txt_nacimiento = new javax.swing.JTextField();
+        txt_apellido = new javax.swing.JTextField();
         txt_puesto = new javax.swing.JTextField();
+        txt_edad = new javax.swing.JTextField();
+        txt_vehiculo = new javax.swing.JTextField();
         btn_guardar = new javax.swing.JButton();
         btn_modificar = new javax.swing.JButton();
         btn_eliminar = new javax.swing.JButton();
         txt_buscar = new javax.swing.JTextField();
         btn_buscar = new javax.swing.JButton();
+        btn_regresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -58,36 +96,62 @@ public class empleado extends javax.swing.JFrame {
         lbl_texto.setText("EMPLEADO");
 
         lbl_nombre.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lbl_nombre.setText("Nombre:");
+        lbl_nombre.setText("APELLIDO");
 
         lbl_codigo_emp.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lbl_codigo_emp.setText("Codigo Empleado:");
+        lbl_codigo_emp.setText("NOMBRE");
 
         lbl_apellido.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lbl_apellido.setText("Apellido:");
+        lbl_apellido.setText("DPI");
 
         lbl_correo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lbl_correo.setText("Correo:");
+        lbl_correo.setText("EDAD");
 
         lbl_nacimiento.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lbl_nacimiento.setText("Fecha de Nacimiento:");
-
-        lbl_dpi.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lbl_dpi.setText("DPI:");
+        lbl_nacimiento.setText("CODIGO VEHICULO");
 
         lbl_telefono.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lbl_telefono.setText("Teléfono:");
+        lbl_telefono.setText("CODIGO PUESTO");
 
-        lbl_puesto.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lbl_puesto.setText("Puesto:");
-
+        btn_guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionGuardar.png"))); // NOI18N
         btn_guardar.setText("Guardar");
+        btn_guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_guardarActionPerformed(evt);
+            }
+        });
 
+        btn_modificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionModificar.png"))); // NOI18N
         btn_modificar.setText("Modificar");
+        btn_modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_modificarActionPerformed(evt);
+            }
+        });
 
+        btn_eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionEliminar.png"))); // NOI18N
         btn_eliminar.setText("Eliminar");
+        btn_eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_eliminarActionPerformed(evt);
+            }
+        });
 
+        btn_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionBuscar.png"))); // NOI18N
         btn_buscar.setText("Buscar");
+        btn_buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_buscarActionPerformed(evt);
+            }
+        });
+
+        btn_regresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionRegresar.png"))); // NOI18N
+        btn_regresar.setText("Regresar");
+        btn_regresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_regresarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -96,48 +160,49 @@ public class empleado extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(230, 230, 230)
+                                .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(149, 149, 149)
+                                .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(65, 65, 65)
+                                .addComponent(btn_buscar)))
+                        .addGap(0, 159, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(58, 58, 58)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl_apellido)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(158, 158, 158)
+                                .addComponent(btn_modificar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btn_guardar)
+                                .addGap(224, 224, 224)
+                                .addComponent(btn_eliminar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btn_regresar))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbl_apellido)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(lbl_codigo_emp, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(lbl_nombre)
                                             .addComponent(lbl_correo)
                                             .addComponent(lbl_telefono)
-                                            .addComponent(lbl_nacimiento)
-                                            .addComponent(lbl_dpi)
-                                            .addComponent(lbl_puesto))
-                                        .addGap(96, 96, 96))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(14, 14, 14)
-                                        .addComponent(btn_guardar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txt_puesto, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_dpi, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_telefono, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_cod_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_correo, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_nacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(78, 78, 78)
-                                        .addComponent(btn_eliminar))))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(230, 230, 230)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_modificar)
-                            .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(149, 149, 149)
-                        .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(154, 154, 154)
-                        .addComponent(btn_buscar)))
-                .addContainerGap(92, Short.MAX_VALUE))
+                                            .addComponent(lbl_nacimiento))
+                                        .addGap(96, 96, 96)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txt_puesto, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txt_dpi, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txt_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txt_edad, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txt_vehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,54 +213,205 @@ public class empleado extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_buscar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_codigo_emp)
+                    .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_nombre)
+                    .addComponent(txt_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_apellido)
+                    .addComponent(txt_dpi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_correo)
+                    .addComponent(txt_edad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_telefono)
+                    .addComponent(txt_puesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_nacimiento)
+                    .addComponent(txt_vehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbl_codigo_emp)
-                            .addComponent(txt_cod_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbl_nombre)
-                            .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(35, 35, 35)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbl_apellido)
-                            .addComponent(txt_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(22, 22, 22)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbl_correo)
-                            .addComponent(txt_correo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbl_telefono)
-                            .addComponent(txt_telefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbl_nacimiento)
-                            .addComponent(txt_nacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(9, 9, 9)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbl_dpi)
-                            .addComponent(txt_dpi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(lbl_puesto))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txt_puesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(84, 84, 84))
+                        .addGap(13, 13, 13)
+                        .addComponent(btn_regresar))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btn_guardar)
                             .addComponent(btn_modificar)
                             .addComponent(btn_eliminar))
-                        .addGap(23, 23, 23))))
+                        .addGap(13, 13, 13)))
+                .addGap(80, 80, 80))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresarActionPerformed
+        menu volver = new menu();
+        volver.setVisible(true);
+        dispose();
+        volver.setLocationRelativeTo(null);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_regresarActionPerformed
+
+    private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
+        // TODO add your handling code here:
+        if ((txt_nombre.getText().matches("[A-Z][a-zA-Z]*\\D{3}")) && (txt_apellido.getText().matches("[A-Z][a-zA-Z]*\\D{3}"))
+                && (txt_dpi.getText().matches("[0-9]*")) && (txt_edad.getText().matches("[0-9]*")) && (txt_puesto.getText().matches("[0-9]*"))
+                && (txt_vehiculo.getText().matches("[0-9]*"))) {
+            try {
+                ps = (PreparedStatement) con.prepareStatement("DELETE FROM tbl_empleado WHERE id_empleado = ?");//Evitar sql injection.
+                ps.setInt(1, Integer.parseInt(txt_buscar.getText()));
+
+                int res = ps.executeUpdate();
+
+                if (res > 0) {
+                    JOptionPane.showMessageDialog(null, "Eliminado correctamente.", "ÉXITO", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "ERROR", "ERROR AL ELIMINAR", JOptionPane.ERROR_MESSAGE);
+                }
+                //con.close();
+
+                txt_nombre.setText("");
+                txt_apellido.setText("");
+                txt_dpi.setText("");
+                txt_edad.setText("");
+                txt_puesto.setText("");
+                txt_vehiculo.setText("");
+                txt_buscar.setText("");
+
+            } catch (Exception e) {
+                System.err.println("ERROR EN LA BASE DE DATOS.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos los datos.", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btn_eliminarActionPerformed
+
+    private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
+        // TODO add your handling code here:
+        if ((txt_nombre.getText().matches("[A-Z][a-zA-Z]*\\D{3}")) && (txt_apellido.getText().matches("[A-Z][a-zA-Z]*\\D{3}"))
+                && (txt_dpi.getText().matches("[0-9]*")) && (txt_edad.getText().matches("[0-9]*")) && (txt_puesto.getText().matches("[0-9]*"))
+                && (txt_vehiculo.getText().matches("[0-9]*"))) {
+            try {
+                ps = (PreparedStatement) con.prepareStatement("UPDATE tbl_empleado SET  nombre_empleado = ?,"
+                        + " apellido_empleado = ?, dpi_empleado = ?, edad_empleado = ?, tbl_puesto_id_puesto = ?, tbl_puesto_id_puesto = ?"
+                        + " WHERE id_empleado = ?");//Evitar sql injection.  
+
+                ps.setString(1, txt_nombre.getText());
+                ps.setString(2, txt_apellido.getText());
+                ps.setString(3, txt_dpi.getText());
+                ps.setString(4, txt_edad.getText());
+                ps.setString(5, txt_puesto.getText());
+                ps.setString(6, txt_vehiculo.getText());
+                ps.setString(7, txt_buscar.getText());
+
+                int res = ps.executeUpdate();
+
+                if (res > 0) {
+                    JOptionPane.showMessageDialog(null, "Modificado correctamente.", "ÉXITO", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "ERROR", "ERROR AL GUARDAR", JOptionPane.ERROR_MESSAGE);
+                }
+                //con.close();
+
+                txt_nombre.setText("");
+                txt_apellido.setText("");
+                txt_dpi.setText("");
+                txt_edad.setText("");
+                txt_puesto.setText("");
+                txt_vehiculo.setText("");
+                txt_buscar.setText("");
+
+            } catch (Exception e) {
+                System.err.println(e);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos los datos.", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btn_modificarActionPerformed
+
+    private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
+        // TODO add your handling code here:
+        if ((txt_nombre.getText().matches("[A-Z][a-zA-Z]*\\D{3}")) && (txt_apellido.getText().matches("[A-Z][a-zA-Z]*\\D{3}"))
+                && (txt_dpi.getText().matches("[0-9]*")) && (txt_edad.getText().matches("[0-9]*")) && (txt_puesto.getText().matches("[0-9]*"))
+                && (txt_vehiculo.getText().matches("[0-9]*"))) {
+
+            try {
+
+                ps = con.prepareStatement("INSERT INTO tbl_empleado (nombre_empleado, apellido_empleado, dpi_empleado, edad_empleado,"
+                        + " tbl_puesto_id_puesto, tbl_vehiculo_id_vehiculo) VALUES(?,?,?,?,?,?)");
+
+                String nombre = txt_nombre.getText();
+                String apellido = txt_apellido.getText();
+                String dpi = txt_dpi.getText();
+                String edad = txt_edad.getText();
+                String puesto = txt_puesto.getText();
+                String vehiculo = txt_vehiculo.getText();
+
+                ps.setString(1, nombre);
+                ps.setString(2, apellido);
+                ps.setString(3, dpi);
+                ps.setString(4, edad);
+                ps.setString(5, puesto);
+                ps.setString(6, vehiculo);
+
+                txt_nombre.setText("");
+                txt_apellido.setText("");
+                txt_dpi.setText("");
+                txt_edad.setText("");
+                txt_puesto.setText("");
+                txt_vehiculo.setText("");
+                ps.executeUpdate();
+
+                //con.close();
+            } catch (SQLException ex) {
+
+                JOptionPane.showMessageDialog(null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos los datos.", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btn_guardarActionPerformed
+
+    private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
+        // TODO add your handling code here:
+        if (txt_buscar.getText().matches("[0-9]*")) {
+
+            try {
+                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM  tbl_empleado WHERE id_empleado = ? ");//Evitar sql injection.
+                ps.setInt(1, Integer.parseInt(txt_buscar.getText()));
+
+                rs = ps.executeQuery();
+
+                if (rs.next()) {
+                    txt_nombre.setText(rs.getString("nombre_empleado"));
+                    txt_apellido.setText(rs.getString("apellido_empleado"));
+                    txt_dpi.setText(rs.getString("dpi_empleado"));
+                    txt_edad.setText(rs.getString("edad_empleado"));
+                    txt_puesto.setText(rs.getString("tbl_puesto_id_puesto"));
+                    txt_vehiculo.setText(rs.getString("tbl_vehiculo_id_vehiculo"));
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "ERROR", "Error no se desplegaron los datos.", JOptionPane.ERROR_MESSAGE);
+
+                }
+                //con.close();
+            } catch (Exception e) {
+                System.err.println(e);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "ERROR", "Error en el codigo", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btn_buscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -237,25 +453,22 @@ public class empleado extends javax.swing.JFrame {
     private javax.swing.JButton btn_eliminar;
     private javax.swing.JButton btn_guardar;
     private javax.swing.JButton btn_modificar;
+    private javax.swing.JButton btn_regresar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JLabel lbl_apellido;
     private javax.swing.JLabel lbl_codigo_emp;
     private javax.swing.JLabel lbl_correo;
-    private javax.swing.JLabel lbl_dpi;
     private javax.swing.JLabel lbl_nacimiento;
     private javax.swing.JLabel lbl_nombre;
-    private javax.swing.JLabel lbl_puesto;
     private javax.swing.JLabel lbl_telefono;
     private javax.swing.JLabel lbl_texto;
     private javax.swing.JTextField txt_apellido;
     private javax.swing.JTextField txt_buscar;
-    private javax.swing.JTextField txt_cod_empleado;
-    private javax.swing.JTextField txt_correo;
     private javax.swing.JTextField txt_dpi;
-    private javax.swing.JTextField txt_nacimiento;
+    private javax.swing.JTextField txt_edad;
     private javax.swing.JTextField txt_nombre;
     private javax.swing.JTextField txt_puesto;
-    private javax.swing.JTextField txt_telefono;
+    private javax.swing.JTextField txt_vehiculo;
     // End of variables declaration//GEN-END:variables
 }

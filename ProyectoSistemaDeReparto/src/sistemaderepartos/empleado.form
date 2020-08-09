@@ -31,12 +31,39 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="230" max="-2" attributes="0"/>
+                              <Component id="lbl_texto" min="-2" pref="129" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="149" max="-2" attributes="0"/>
+                              <Component id="txt_buscar" min="-2" pref="157" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
+                              <Component id="btn_buscar" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="0" pref="159" max="32767" attributes="0"/>
+                  </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lbl_apellido" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="158" max="-2" attributes="0"/>
+                              <Component id="btn_modificar" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="149" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="btn_guardar" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="224" max="-2" attributes="0"/>
+                              <Component id="btn_eliminar" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="btn_regresar" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lbl_apellido" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="lbl_codigo_emp" alignment="0" min="-2" pref="142" max="-2" attributes="0"/>
@@ -44,49 +71,24 @@
                                           <Component id="lbl_correo" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="lbl_telefono" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="lbl_nacimiento" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lbl_dpi" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lbl_puesto" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                                      <Component id="btn_guardar" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txt_puesto" min="-2" pref="214" max="-2" attributes="0"/>
-                                  <Component id="txt_dpi" min="-2" pref="214" max="-2" attributes="0"/>
-                                  <Component id="txt_telefono" min="-2" pref="214" max="-2" attributes="0"/>
-                                  <Component id="txt_apellido" min="-2" pref="214" max="-2" attributes="0"/>
-                                  <Component id="txt_cod_empleado" min="-2" pref="214" max="-2" attributes="0"/>
-                                  <Component id="txt_nombre" min="-2" pref="214" max="-2" attributes="0"/>
-                                  <Component id="txt_correo" min="-2" pref="214" max="-2" attributes="0"/>
-                                  <Component id="txt_nacimiento" min="-2" pref="214" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
-                                      <Component id="btn_eliminar" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="txt_puesto" min="-2" pref="214" max="-2" attributes="0"/>
+                                          <Component id="txt_dpi" min="-2" pref="214" max="-2" attributes="0"/>
+                                          <Component id="txt_nombre" min="-2" pref="214" max="-2" attributes="0"/>
+                                          <Component id="txt_apellido" min="-2" pref="214" max="-2" attributes="0"/>
+                                          <Component id="txt_edad" min="-2" pref="214" max="-2" attributes="0"/>
+                                          <Component id="txt_vehiculo" min="-2" pref="214" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                               </Group>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="230" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="btn_modificar" min="-2" max="-2" attributes="0"/>
-                          <Component id="lbl_texto" min="-2" pref="90" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="149" max="-2" attributes="0"/>
-                      <Component id="txt_buscar" min="-2" pref="68" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="154" max="-2" attributes="0"/>
-                      <Component id="btn_buscar" min="-2" max="-2" attributes="0"/>
-                  </Group>
               </Group>
-              <EmptySpace pref="92" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -100,64 +102,49 @@
                   <Component id="txt_buscar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btn_buscar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="30" max="32767" attributes="0"/>
+              <EmptySpace pref="22" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lbl_codigo_emp" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txt_nombre" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lbl_nombre" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txt_apellido" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lbl_apellido" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txt_dpi" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lbl_correo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txt_edad" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lbl_telefono" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txt_puesto" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lbl_nacimiento" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txt_vehiculo" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lbl_codigo_emp" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txt_cod_empleado" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lbl_nombre" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txt_nombre" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lbl_apellido" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txt_apellido" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lbl_correo" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txt_correo" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lbl_telefono" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txt_telefono" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lbl_nacimiento" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txt_nacimiento" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lbl_dpi" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txt_dpi" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                              <Component id="lbl_puesto" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="txt_puesto" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="btn_regresar" alignment="1" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btn_guardar" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btn_modificar" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btn_eliminar" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -176,7 +163,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Nombre:"/>
+        <Property name="text" type="java.lang.String" value="APELLIDO"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lbl_codigo_emp">
@@ -184,7 +171,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Codigo Empleado:"/>
+        <Property name="text" type="java.lang.String" value="NOMBRE"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lbl_apellido">
@@ -192,7 +179,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Apellido:"/>
+        <Property name="text" type="java.lang.String" value="DPI"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lbl_correo">
@@ -200,7 +187,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Correo:"/>
+        <Property name="text" type="java.lang.String" value="EDAD"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lbl_nacimiento">
@@ -208,15 +195,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Fecha de Nacimiento:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lbl_dpi">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="14" style="1"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="DPI:"/>
+        <Property name="text" type="java.lang.String" value="CODIGO VEHICULO"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lbl_telefono">
@@ -224,54 +203,77 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Tel&#xe9;fono:"/>
+        <Property name="text" type="java.lang.String" value="CODIGO PUESTO"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="lbl_puesto">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="14" style="1"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Puesto:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txt_cod_empleado">
-    </Component>
-    <Component class="javax.swing.JTextField" name="txt_apellido">
     </Component>
     <Component class="javax.swing.JTextField" name="txt_nombre">
     </Component>
-    <Component class="javax.swing.JTextField" name="txt_telefono">
-    </Component>
-    <Component class="javax.swing.JTextField" name="txt_correo">
-    </Component>
     <Component class="javax.swing.JTextField" name="txt_dpi">
     </Component>
-    <Component class="javax.swing.JTextField" name="txt_nacimiento">
+    <Component class="javax.swing.JTextField" name="txt_apellido">
     </Component>
     <Component class="javax.swing.JTextField" name="txt_puesto">
     </Component>
+    <Component class="javax.swing.JTextField" name="txt_edad">
+    </Component>
+    <Component class="javax.swing.JTextField" name="txt_vehiculo">
+    </Component>
     <Component class="javax.swing.JButton" name="btn_guardar">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/imagenes/OpcionGuardar.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Guardar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_guardarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btn_modificar">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/imagenes/OpcionModificar.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Modificar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_modificarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btn_eliminar">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/imagenes/OpcionEliminar.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Eliminar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_eliminarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txt_buscar">
     </Component>
     <Component class="javax.swing.JButton" name="btn_buscar">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/imagenes/OpcionBuscar.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Buscar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_buscarActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btn_regresar">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/imagenes/OpcionRegresar.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Regresar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_regresarActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

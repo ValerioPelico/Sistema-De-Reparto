@@ -5,6 +5,15 @@
  */
 package sistemaderepartos;
 
+import sistemaderepartos.menu;
+import com.placeholder.PlaceHolder;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author dairy
@@ -14,8 +23,37 @@ public class vehiculo extends javax.swing.JFrame {
     /**
      * Creates new form vehiculo
      */
+    //Instancias y variables---------
+    Conexion cn = new Conexion();
+    Connection con = cn.getConnection();
+    PreparedStatement ps;
+    ResultSet rs;
+
+    PlaceHolder holder;
+
     public vehiculo() {
         initComponents();
+
+        holder = new PlaceHolder(txt_buscar, "Ingrese codigo a buscar");
+        holder = new PlaceHolder(txt_placa, "Placa del vehiculo");
+        holder = new PlaceHolder(txt_marca, "Marca Vehiculo");
+    }
+
+    public static final String URL = "jdbc:mysql://localhost:3306/mydb?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    public static final String USERNAME = "root";
+    public static final String PASSWORD = "";
+
+    public static Connection getConection() {
+        Connection con = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            con = (Connection) DriverManager.getConnection(URL, USERNAME, PASSWORD);
+
+            //JOptionPane.showMessageDialog(null, "Conexión establecida....");
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+        return con;
     }
 
     /**
@@ -29,43 +67,68 @@ public class vehiculo extends javax.swing.JFrame {
 
         btn_buscar = new javax.swing.JButton();
         lbl_codigo_vehiculo = new javax.swing.JLabel();
-        txt_empleado = new javax.swing.JTextField();
-        txt_descripcion = new javax.swing.JTextField();
-        lbl_empleado = new javax.swing.JLabel();
+        txt_marca = new javax.swing.JTextField();
         btn_guardar = new javax.swing.JButton();
-        txt_cod_vehiculo = new javax.swing.JTextField();
+        txt_placa = new javax.swing.JTextField();
         btn_modificar = new javax.swing.JButton();
         btn_eliminar = new javax.swing.JButton();
         lbl_texto = new javax.swing.JLabel();
         txt_buscar = new javax.swing.JTextField();
         lbl_descripcion = new javax.swing.JLabel();
-        txt_marca = new javax.swing.JTextField();
-        lbl_marca = new javax.swing.JLabel();
+        btn_regresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(51, 204, 255));
+        setUndecorated(true);
 
+        btn_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionBuscar.png"))); // NOI18N
         btn_buscar.setText("Buscar");
+        btn_buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_buscarActionPerformed(evt);
+            }
+        });
 
         lbl_codigo_vehiculo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lbl_codigo_vehiculo.setText("Codigo Vehiculo:");
+        lbl_codigo_vehiculo.setText("PLACA VEHICULO");
 
-        lbl_empleado.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lbl_empleado.setText("Codigo Empleado:");
-
+        btn_guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionGuardar.png"))); // NOI18N
         btn_guardar.setText("Guardar");
+        btn_guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_guardarActionPerformed(evt);
+            }
+        });
 
+        btn_modificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionModificar.png"))); // NOI18N
         btn_modificar.setText("Modificar");
+        btn_modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_modificarActionPerformed(evt);
+            }
+        });
 
+        btn_eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionEliminar.png"))); // NOI18N
         btn_eliminar.setText("Eliminar");
+        btn_eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_eliminarActionPerformed(evt);
+            }
+        });
 
         lbl_texto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lbl_texto.setText("VEHICULO");
 
         lbl_descripcion.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lbl_descripcion.setText("Tipo:");
+        lbl_descripcion.setText("MARCA");
 
-        lbl_marca.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lbl_marca.setText("Marca:");
+        btn_regresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionRegresar.png"))); // NOI18N
+        btn_regresar.setText("Regresar");
+        btn_regresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_regresarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -77,36 +140,36 @@ public class vehiculo extends javax.swing.JFrame {
                         .addGap(78, 78, 78)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(91, 91, 91)
-                                .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(154, 154, 154)
+                                .addGap(68, 68, 68)
+                                .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(77, 77, 77)
                                 .addComponent(btn_buscar))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lbl_codigo_vehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbl_descripcion)
-                                    .addComponent(lbl_marca)
-                                    .addComponent(lbl_empleado))
+                                    .addComponent(lbl_descripcion))
                                 .addGap(105, 105, 105)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txt_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_marca, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_cod_vehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(txt_placa, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_marca, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addGap(513, 513, 513)
+                                    .addComponent(btn_regresar))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(btn_guardar)
+                                            .addGap(232, 232, 232)
+                                            .addComponent(btn_eliminar))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(158, 158, 158)
+                                            .addComponent(btn_modificar)))
+                                    .addGap(0, 0, Short.MAX_VALUE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(245, 245, 245)
-                        .addComponent(lbl_texto))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(94, 94, 94)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btn_guardar)
-                                .addGap(232, 232, 232)
-                                .addComponent(btn_eliminar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(158, 158, 158)
-                                .addComponent(btn_modificar)))))
-                .addContainerGap(57, Short.MAX_VALUE))
+                        .addComponent(lbl_texto)))
+                .addGap(26, 26, 26))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,29 +183,153 @@ public class vehiculo extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_codigo_vehiculo)
-                    .addComponent(txt_cod_vehiculo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_placa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_descripcion)
-                    .addComponent(txt_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_marca, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txt_marca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
+                .addGap(58, 58, 58)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_guardar)
                     .addComponent(btn_modificar)
                     .addComponent(btn_eliminar))
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addGap(45, 45, 45)
+                .addComponent(btn_regresar)
+                .addContainerGap(89, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresarActionPerformed
+        menu volver = new menu();
+        volver.setVisible(true);
+        dispose();
+        volver.setLocationRelativeTo(null);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_regresarActionPerformed
+
+    private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
+        // TODO add your handling code here:
+        if ((txt_marca.getText().matches("[A-Z][a-zA-Z]*\\D{3}"))) {
+
+            try {
+                ps = (PreparedStatement) con.prepareStatement("DELETE FROM tbl_vehiculo WHERE id_vehiculo = ?");//Evitar sql injection.
+                ps.setInt(1, Integer.parseInt(txt_buscar.getText()));
+
+                int res = ps.executeUpdate();
+
+                if (res > 0) {
+                    JOptionPane.showMessageDialog(null, "Eliminado correctamente.", "ÉXITO", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "ERROR", "ERROR AL ELIMINAR", JOptionPane.ERROR_MESSAGE);
+                }
+                //con.close();
+
+                txt_placa.setText("");
+                txt_marca.setText("");
+                txt_buscar.setText("");
+
+            } catch (Exception e) {
+                System.err.println("ERROR EN LA BASE DE DATOS.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos los datos.", JOptionPane.ERROR_MESSAGE);
+
+        }
+
+    }//GEN-LAST:event_btn_eliminarActionPerformed
+
+    private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
+        // TODO add your handling code here:
+        if ((txt_marca.getText().matches("[A-Z][a-zA-Z]*\\D{3}"))) {
+
+            try {
+                ps = (PreparedStatement) con.prepareStatement("UPDATE tbl_vehiculo SET  placa_vehiculo = ?,"
+                        + " marca_vehiculo = ? WHERE id_vehiculo = ?");//Evitar sql injection.  
+
+                ps.setString(1, txt_placa.getText());
+                ps.setString(2, txt_marca.getText());
+                ps.setString(3, txt_buscar.getText());
+
+                int res = ps.executeUpdate();
+
+                if (res > 0) {
+                    JOptionPane.showMessageDialog(null, "Modificado correctamente.", "ÉXITO", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "ERROR", "ERROR AL GUARDAR", JOptionPane.ERROR_MESSAGE);
+                }
+                //con.close();
+
+                txt_placa.setText("");
+                txt_marca.setText("");
+                txt_buscar.setText("");
+
+            } catch (Exception e) {
+                System.err.println(e);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos los datos.", JOptionPane.ERROR_MESSAGE);
+
+        }
+    }//GEN-LAST:event_btn_modificarActionPerformed
+
+    private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
+        // TODO add your handling code here:
+        if ((txt_marca.getText().matches("[A-Z][a-zA-Z]*\\D{3}"))) {
+
+            try {
+
+                ps = con.prepareStatement("INSERT INTO tbl_vehiculo (placa_vehiculo, marca_vehiculo) VALUES(?,?)");
+
+                String placa = txt_placa.getText();
+                String marca = txt_marca.getText();
+
+                ps.setString(1, placa);
+                ps.setString(2, marca);
+
+                txt_placa.setText("");
+                txt_marca.setText("");
+                ps.executeUpdate();
+
+                //con.close();
+            } catch (SQLException ex) {
+
+                JOptionPane.showMessageDialog(null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos los datos.", JOptionPane.ERROR_MESSAGE);
+
+        }
+    }//GEN-LAST:event_btn_guardarActionPerformed
+
+    private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
+        // TODO add your handling code here:
+        if (txt_buscar.getText().matches("[0-9]*")) {
+            try {
+                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM tbl_vehiculo WHERE id_vehiculo = ? ");//Evitar sql injection.
+                ps.setInt(1, Integer.parseInt(txt_buscar.getText()));
+
+                rs = ps.executeQuery();
+
+                if (rs.next()) {
+                    txt_placa.setText(rs.getString("placa_vehiculo"));
+                    txt_marca.setText(rs.getString("marca_vehiculo"));
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "ERROR", "Error no se desplegaron los datos.", JOptionPane.ERROR_MESSAGE);
+
+                }
+                //con.close();
+            } catch (Exception e) {
+                System.err.println(e);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "ERROR", "Error en el codigo", JOptionPane.ERROR_MESSAGE);
+
+        }
+    }//GEN-LAST:event_btn_buscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -158,16 +345,21 @@ public class vehiculo extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(vehiculo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(vehiculo.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(vehiculo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(vehiculo.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(vehiculo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(vehiculo.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(vehiculo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(vehiculo.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -184,15 +376,12 @@ public class vehiculo extends javax.swing.JFrame {
     private javax.swing.JButton btn_eliminar;
     private javax.swing.JButton btn_guardar;
     private javax.swing.JButton btn_modificar;
+    private javax.swing.JButton btn_regresar;
     private javax.swing.JLabel lbl_codigo_vehiculo;
     private javax.swing.JLabel lbl_descripcion;
-    private javax.swing.JLabel lbl_empleado;
-    private javax.swing.JLabel lbl_marca;
     private javax.swing.JLabel lbl_texto;
     private javax.swing.JTextField txt_buscar;
-    private javax.swing.JTextField txt_cod_vehiculo;
-    private javax.swing.JTextField txt_descripcion;
-    private javax.swing.JTextField txt_empleado;
     private javax.swing.JTextField txt_marca;
+    private javax.swing.JTextField txt_placa;
     // End of variables declaration//GEN-END:variables
 }

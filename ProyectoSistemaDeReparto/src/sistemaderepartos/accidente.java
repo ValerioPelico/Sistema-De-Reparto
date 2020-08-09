@@ -5,6 +5,15 @@
  */
 package sistemaderepartos;
 
+import sistemaderepartos.menu;
+import com.placeholder.PlaceHolder;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author dairy
@@ -14,8 +23,20 @@ public class accidente extends javax.swing.JFrame {
     /**
      * Creates new form accidente
      */
+    //Instancias y variables---------
+    Conexion cn = new Conexion();
+    Connection con = cn.getConnection();
+    PreparedStatement ps;
+    ResultSet rs;
+
+    PlaceHolder holder;
+
     public accidente() {
         initComponents();
+        holder = new PlaceHolder(txt_buscar, "Codigo a buscar");
+        holder = new PlaceHolder(txt_descripcion, "Descripcion Accidente");
+        holder = new PlaceHolder(txt_fecha, "Fecha accidente");
+        holder = new PlaceHolder(txt_empleado, "Codigo empleado");
     }
 
     /**
@@ -33,12 +54,13 @@ public class accidente extends javax.swing.JFrame {
         btn_buscar = new javax.swing.JButton();
         lbl_codigo_accidente = new javax.swing.JLabel();
         txt_empleado = new javax.swing.JTextField();
-        txt_descripcion = new javax.swing.JTextField();
+        txt_fecha = new javax.swing.JTextField();
         lbl_empleado = new javax.swing.JLabel();
         btn_guardar = new javax.swing.JButton();
-        txt_cod_accidente = new javax.swing.JTextField();
+        txt_descripcion = new javax.swing.JTextField();
         btn_modificar = new javax.swing.JButton();
         btn_eliminar = new javax.swing.JButton();
+        btn_regresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -46,21 +68,59 @@ public class accidente extends javax.swing.JFrame {
         lbl_texto.setText("ACCIDENTE");
 
         lbl_descripcion.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lbl_descripcion.setText("Descripcion:");
+        lbl_descripcion.setText("FECHA");
 
+        btn_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionBuscar.png"))); // NOI18N
         btn_buscar.setText("Buscar");
+        btn_buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_buscarActionPerformed(evt);
+            }
+        });
 
         lbl_codigo_accidente.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lbl_codigo_accidente.setText("Codigo Accidente:");
+        lbl_codigo_accidente.setText("DESCRIPCIÓN");
 
         lbl_empleado.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lbl_empleado.setText("Empleado:");
+        lbl_empleado.setText("Código Empleado:");
 
+        btn_guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionGuardar.png"))); // NOI18N
         btn_guardar.setText("Guardar");
+        btn_guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_guardarActionPerformed(evt);
+            }
+        });
 
+        txt_descripcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_descripcionActionPerformed(evt);
+            }
+        });
+
+        btn_modificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionModificar.png"))); // NOI18N
         btn_modificar.setText("Modificar");
+        btn_modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_modificarActionPerformed(evt);
+            }
+        });
 
+        btn_eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionEliminar.png"))); // NOI18N
         btn_eliminar.setText("Eliminar");
+        btn_eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_eliminarActionPerformed(evt);
+            }
+        });
+
+        btn_regresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionRegresar.png"))); // NOI18N
+        btn_regresar.setText("Regresar");
+        btn_regresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_regresarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -68,38 +128,42 @@ public class accidente extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(78, 78, 78)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbl_codigo_accidente, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbl_descripcion)
-                                    .addComponent(lbl_empleado))
-                                .addGap(105, 105, 105)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txt_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_cod_accidente, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(91, 91, 91)
-                                .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(154, 154, 154)
-                                .addComponent(btn_buscar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(23, 23, 23)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btn_guardar)
-                                        .addGap(232, 232, 232)
-                                        .addComponent(btn_eliminar))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(158, 158, 158)
-                                        .addComponent(btn_modificar))))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(245, 245, 245)
-                        .addComponent(lbl_texto)))
-                .addContainerGap(85, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(78, 78, 78)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(91, 91, 91)
+                                    .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(49, 49, 49)
+                                    .addComponent(btn_buscar))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(23, 23, 23)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(btn_guardar)
+                                            .addGap(232, 232, 232)
+                                            .addComponent(btn_eliminar))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(158, 158, 158)
+                                            .addComponent(btn_modificar))))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lbl_codigo_accidente, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lbl_descripcion)
+                                        .addComponent(lbl_empleado))
+                                    .addGap(105, 105, 105)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txt_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txt_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txt_descripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)))))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(245, 245, 245)
+                            .addComponent(lbl_texto)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btn_regresar)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,11 +177,11 @@ public class accidente extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_codigo_accidente)
-                    .addComponent(txt_cod_accidente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_descripcion)
-                    .addComponent(txt_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -127,11 +191,149 @@ public class accidente extends javax.swing.JFrame {
                     .addComponent(btn_guardar)
                     .addComponent(btn_modificar)
                     .addComponent(btn_eliminar))
-                .addContainerGap(109, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addComponent(btn_regresar)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresarActionPerformed
+        menu volver = new menu();
+        volver.setVisible(true);
+        dispose();
+        volver.setLocationRelativeTo(null);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_regresarActionPerformed
+
+    private void txt_descripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_descripcionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_descripcionActionPerformed
+
+    private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
+        // TODO add your handling code here:
+        if ((txt_descripcion.getText().matches("[A-Z][a-zA-Z]*\\D{3}")) && (txt_fecha.getText().matches("[0-9]*")) && (txt_empleado.getText().matches("[0-9]*"))) {
+
+            try {
+
+                ps = con.prepareStatement("INSERT INTO tbl_accidente (descripcion_accidente, fecha_accidente, tbl_empleado_id_empleado) VALUES(?,?,?)");
+
+                String nombre = txt_descripcion.getText();
+                String puesto = txt_fecha.getText();
+                String departamento = txt_empleado.getText();
+
+                ps.setString(1, nombre);
+                ps.setString(2, puesto);
+                ps.setString(3, departamento);
+
+                txt_descripcion.setText("");
+                txt_fecha.setText("");
+                txt_empleado.setText("");
+                ps.executeUpdate();
+
+                //con.close();
+            } catch (SQLException ex) {
+
+                JOptionPane.showMessageDialog(null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos los datos.", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btn_guardarActionPerformed
+
+    private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
+        // TODO add your handling code here:
+        if ((txt_descripcion.getText().matches("[A-Z][a-zA-Z]*\\D{3}")) && (txt_fecha.getText().matches("[0-9]*")) && (txt_empleado.getText().matches("[0-9]*"))) {
+
+            try {
+                ps = (PreparedStatement) con.prepareStatement("DELETE FROM tbl_accidente WHERE id_accidente = ?");//Evitar sql injection.
+                ps.setInt(1, Integer.parseInt(txt_buscar.getText()));
+
+                int res = ps.executeUpdate();
+
+                if (res > 0) {
+                    JOptionPane.showMessageDialog(null, "Eliminado correctamente.", "ÉXITO", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "ERROR", "ERROR AL ELIMINAR", JOptionPane.ERROR_MESSAGE);
+                }
+                //con.close();
+
+                txt_fecha.setText("");
+                txt_descripcion.setText("");
+                txt_empleado.setText("");
+                txt_buscar.setText("");
+
+            } catch (Exception e) {
+                System.err.println("ERROR EN LA BASE DE DATOS.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos los datos.", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btn_eliminarActionPerformed
+
+    private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
+        // TODO add your handling code here:
+        if ((txt_descripcion.getText().matches("[A-Z][a-zA-Z]*\\D{3}")) && (txt_fecha.getText().matches("[0-9]*")) && (txt_empleado.getText().matches("[0-9]*"))) {
+
+            try {
+                ps = (PreparedStatement) con.prepareStatement("UPDATE tbl_accidente SET  descripcion_accidente = ?,"
+                        + " fecha_accidente = ?, tbl_empleado_id_empleado = ? WHERE id_accidente = ?");//Evitar sql injection.  
+
+                ps.setString(1, txt_descripcion.getText());
+                ps.setString(2, txt_fecha.getText());
+                ps.setString(3, txt_empleado.getText());
+                ps.setString(4, txt_buscar.getText());
+
+                int res = ps.executeUpdate();
+
+                if (res > 0) {
+                    JOptionPane.showMessageDialog(null, "Modificado correctamente.", "ÉXITO", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "ERROR", "ERROR AL GUARDAR", JOptionPane.ERROR_MESSAGE);
+                }
+                //con.close();
+
+                txt_fecha.setText("");
+                txt_descripcion.setText("");
+                txt_empleado.setText("");
+                txt_buscar.setText("");
+
+            } catch (Exception e) {
+                System.err.println(e);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos los datos.", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btn_modificarActionPerformed
+
+    private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
+        // TODO add your handling code here:
+
+        if (txt_buscar.getText().matches("[0-9]*")) {
+            try {
+                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM  tbl_accidente WHERE id_accidente = ? ");//Evitar sql injection.
+                ps.setInt(1, Integer.parseInt(txt_buscar.getText()));
+
+                rs = ps.executeQuery();
+
+                if (rs.next()) {
+                    txt_descripcion.setText(rs.getString("descripcion_accidente"));
+                    txt_fecha.setText(rs.getString("fecha_accidente"));
+                    txt_empleado.setText(rs.getString("tbl_empleado_id_empleado"));
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "ERROR", "Error no se desplegaron los datos.", JOptionPane.ERROR_MESSAGE);
+
+                }
+                //con.close();
+            } catch (Exception e) {
+                System.err.println(e);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "ERROR", "Error en el codigo", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btn_buscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -173,13 +375,14 @@ public class accidente extends javax.swing.JFrame {
     private javax.swing.JButton btn_eliminar;
     private javax.swing.JButton btn_guardar;
     private javax.swing.JButton btn_modificar;
+    private javax.swing.JButton btn_regresar;
     private javax.swing.JLabel lbl_codigo_accidente;
     private javax.swing.JLabel lbl_descripcion;
     private javax.swing.JLabel lbl_empleado;
     private javax.swing.JLabel lbl_texto;
     private javax.swing.JTextField txt_buscar;
-    private javax.swing.JTextField txt_cod_accidente;
     private javax.swing.JTextField txt_descripcion;
     private javax.swing.JTextField txt_empleado;
+    private javax.swing.JTextField txt_fecha;
     // End of variables declaration//GEN-END:variables
 }
