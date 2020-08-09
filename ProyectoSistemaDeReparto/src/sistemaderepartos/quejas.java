@@ -5,7 +5,14 @@
  */
 package sistemaderepartos;
 
+import sistemaderepartos.menu;
 import com.placeholder.PlaceHolder;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,19 +23,40 @@ public class quejas extends javax.swing.JFrame {
     /**
      * Creates new form quejas
      */
+    //Instancias y variables---------
+    Conexion cn = new Conexion();
+    Connection con = cn.getConnection();
+    PreparedStatement ps;
+    ResultSet rs;
+
     PlaceHolder holder;
+
     public quejas() {
         initComponents();
-        
-        holder = new PlaceHolder(txt_buscar,"Codigo a buscar");
-        holder = new PlaceHolder(txt_titulo,"Titulo queja");
-        holder = new PlaceHolder(txt_descripcion,"Descripcion queja");
-        holder = new PlaceHolder(txt_cliente,"Codigo cliente");
-        holder = new PlaceHolder(txt_comprobante,"Codigo comprobante");
-        holder = new PlaceHolder(txt_empleado,"Codigo empleado");
-        holder = new PlaceHolder(txt_puesto,"Codigo Puesto");
-        holder = new PlaceHolder(txt_comp_cliente,"Codigo Comprobante Cliente");
-        holder = new PlaceHolder(txt_paquete,"Codigo Paquete");
+
+        holder = new PlaceHolder(txt_buscar, "Codigo a buscar");
+        holder = new PlaceHolder(txt_descripcion, "Codigo de queja");
+        holder = new PlaceHolder(txt_fecha, "Fecha");
+        holder = new PlaceHolder(txt_cliente, "Codigo cliente");
+        holder = new PlaceHolder(txt_comprobante, "Codigo Comprobante");
+        holder = new PlaceHolder(txt_estado, "Codigo estado de queja");
+    }
+
+    public static final String URL = "jdbc:mysql://localhost:3306/mydb?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    public static final String USERNAME = "root";
+    public static final String PASSWORD = "";
+
+    public static Connection getConection() {
+        Connection con = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            con = (Connection) DriverManager.getConnection(URL, USERNAME, PASSWORD);
+
+            //JOptionPane.showMessageDialog(null, "Conexión establecida....");
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+        return con;
     }
 
     /**
@@ -48,82 +76,73 @@ public class quejas extends javax.swing.JFrame {
         lbl_texto = new javax.swing.JLabel();
         txt_buscar = new javax.swing.JTextField();
         btn_guardar = new javax.swing.JButton();
-        txt_empleado = new javax.swing.JTextField();
-        txt_titulo = new javax.swing.JTextField();
-        txt_cliente = new javax.swing.JTextField();
+        txt_estado = new javax.swing.JTextField();
         txt_descripcion = new javax.swing.JTextField();
+        txt_cliente = new javax.swing.JTextField();
+        txt_fecha = new javax.swing.JTextField();
         btn_buscar = new javax.swing.JButton();
         lbl_comprobante = new javax.swing.JLabel();
         lbl_codigo_queja = new javax.swing.JLabel();
         lbl_vechiculo = new javax.swing.JLabel();
-        lbl_tipo_queja = new javax.swing.JLabel();
-        cbx_estado = new javax.swing.JComboBox<>();
         btn_regresar = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        txt_comp_cliente = new javax.swing.JTextField();
-        txt_paquete = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        txt_puesto = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
 
         lbl_cliente.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lbl_cliente.setText("COMPROBANTE");
+        lbl_cliente.setText("CODIGO COMPROBANTE");
 
         btn_modificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionModificar.png"))); // NOI18N
         btn_modificar.setText("Modificar");
+        btn_modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_modificarActionPerformed(evt);
+            }
+        });
 
         btn_eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionEliminar.png"))); // NOI18N
         btn_eliminar.setText("Eliminar");
+        btn_eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_eliminarActionPerformed(evt);
+            }
+        });
 
         lbl_descripcion.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lbl_descripcion.setText("DESCRIPCIÓN");
+        lbl_descripcion.setText("FECHA");
 
         lbl_texto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lbl_texto.setText("QUEJAS");
 
         btn_guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionGuardar.png"))); // NOI18N
         btn_guardar.setText("Guardar");
+        btn_guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_guardarActionPerformed(evt);
+            }
+        });
 
         btn_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionBuscar.png"))); // NOI18N
         btn_buscar.setText("Buscar");
+        btn_buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_buscarActionPerformed(evt);
+            }
+        });
 
         lbl_comprobante.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lbl_comprobante.setText("EMPLEADO");
+        lbl_comprobante.setText("CODIGO QUEJA");
 
         lbl_codigo_queja.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lbl_codigo_queja.setText("TITULO");
+        lbl_codigo_queja.setText("DESCRIPCION");
 
         lbl_vechiculo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lbl_vechiculo.setText("CLIENTE");
-
-        lbl_tipo_queja.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lbl_tipo_queja.setText("ESTADO");
-
-        cbx_estado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pendiente", "Revisada" }));
+        lbl_vechiculo.setText("CODIGO CLIENTE");
 
         btn_regresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionRegresar.png"))); // NOI18N
         btn_regresar.setText("Regresar");
         btn_regresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_regresarActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel2.setText("COMPROBANTE CLIENTE");
-
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel1.setText("PAQUETE");
-
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel3.setText("PUESTO");
-
-        txt_puesto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_puestoActionPerformed(evt);
             }
         });
 
@@ -134,98 +153,67 @@ public class quejas extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(149, 149, 149)
+                        .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(82, 82, 82)
+                        .addComponent(btn_buscar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(262, 262, 262)
+                        .addComponent(lbl_texto))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(84, 84, 84)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl_codigo_queja, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_cliente)
-                            .addComponent(lbl_comprobante)
-                            .addComponent(lbl_descripcion)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(409, 409, 409)
+                                .addComponent(btn_regresar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(31, 31, 31)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel1)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(layout.createSequentialGroup()
-                                                    .addComponent(btn_guardar)
-                                                    .addGap(223, 223, 223)
-                                                    .addComponent(btn_eliminar))
-                                                .addGroup(layout.createSequentialGroup()
-                                                    .addGap(158, 158, 158)
-                                                    .addComponent(btn_modificar)))
-                                            .addGap(69, 69, 69))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel3)
-                                            .addGap(197, 197, 197)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(txt_comp_cliente)
-                                                .addComponent(txt_paquete)
-                                                .addComponent(txt_puesto)))))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(5, 5, 5)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(193, 193, 193)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addGroup(layout.createSequentialGroup()
-                                                        .addGap(58, 58, 58)
-                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                            .addComponent(txt_titulo, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
-                                                            .addComponent(txt_comprobante)
-                                                            .addComponent(txt_empleado)))
-                                                    .addComponent(txt_descripcion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                            .addComponent(txt_cliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGap(375, 375, 375)
-                                        .addComponent(btn_regresar))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(lbl_tipo_queja)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(cbx_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lbl_vechiculo)
-                        .addGap(410, 410, 410))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(btn_guardar)
+                                        .addGap(223, 223, 223)
+                                        .addComponent(btn_eliminar))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(158, 158, 158)
+                                        .addComponent(btn_modificar))))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(149, 149, 149)
-                                .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(82, 82, 82)
-                                .addComponent(btn_buscar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(262, 262, 262)
-                                .addComponent(lbl_texto)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(185, 185, 185))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbl_descripcion)
+                                    .addComponent(lbl_vechiculo)
+                                    .addComponent(lbl_cliente)
+                                    .addComponent(lbl_comprobante)
+                                    .addComponent(lbl_codigo_queja, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(55, 55, 55)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txt_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txt_fecha)
+                                        .addComponent(txt_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txt_comprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txt_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_buscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_codigo_queja)
-                    .addComponent(txt_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_descripcion))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_vechiculo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbx_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_tipo_queja))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbl_descripcion)
+                    .addComponent(txt_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbl_vechiculo)
+                    .addComponent(txt_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_cliente)
@@ -233,41 +221,172 @@ public class quejas extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_comprobante)
-                    .addComponent(txt_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(13, 13, 13)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txt_puesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txt_comp_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txt_paquete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
+                    .addComponent(txt_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(51, 51, 51)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_guardar)
                     .addComponent(btn_modificar)
                     .addComponent(btn_eliminar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(47, 47, 47)
                 .addComponent(btn_regresar)
-                .addContainerGap())
+                .addGap(90, 90, 90))
         );
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresarActionPerformed
-        // TODO add your handling code here:
+        menu volver = new menu();
+        volver.setVisible(true);
         dispose();
+        volver.setLocationRelativeTo(null);
+        // TODO add your handling code here:
     }//GEN-LAST:event_btn_regresarActionPerformed
 
-    private void txt_puestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_puestoActionPerformed
+    private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_puestoActionPerformed
+        if ((txt_descripcion.getText().matches("[A-Z][a-zA-Z]*\\D{3}")) && (txt_cliente.getText().matches("[0-9]*"))
+                && (txt_comprobante.getText().matches("[0-9]*")) && (txt_estado.getText().matches("[0-9]*"))) {
+            try {
+                ps = (PreparedStatement) con.prepareStatement("DELETE FROM tbl_queja WHERE id_queja = ?");//Evitar sql injection.
+                ps.setInt(1, Integer.parseInt(txt_buscar.getText()));
+
+                int res = ps.executeUpdate();
+
+                if (res > 0) {
+                    JOptionPane.showMessageDialog(null, "Eliminado correctamente.", "ÉXITO", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "ERROR", "ERROR AL ELIMINAR", JOptionPane.ERROR_MESSAGE);
+                }
+                //con.close();
+
+                txt_descripcion.setText("");
+                txt_fecha.setText("");
+                txt_cliente.setText("");
+                txt_comprobante.setText("");
+                txt_estado.setText("");
+                txt_buscar.setText("");
+
+            } catch (Exception e) {
+                System.err.println("ERROR EN LA BASE DE DATOS.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos los datos.", JOptionPane.ERROR_MESSAGE);
+
+        }
+    }//GEN-LAST:event_btn_eliminarActionPerformed
+
+    private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
+        // TODO add your handling code here:
+        if ((txt_descripcion.getText().matches("[A-Z][a-zA-Z]*\\D{3}")) && (txt_cliente.getText().matches("[0-9]*"))
+                && (txt_comprobante.getText().matches("[0-9]*")) && (txt_estado.getText().matches("[0-9]*"))) {
+            try {
+                ps = (PreparedStatement) con.prepareStatement("UPDATE tbl_queja SET  descripcion_queja = ?,"
+                        + " fecha_queja = ?, tbl_cliente_id_cliente = ?, tbl_comprobante_id_comprobante = ?,"
+                        + " tbl_estado_queja_id_estado_queja = ? WHERE id_accidente = ?");//Evitar sql injection.  
+
+                ps.setString(1, txt_descripcion.getText());
+                ps.setString(2, txt_fecha.getText());
+                ps.setString(3, txt_cliente.getText());
+                ps.setString(4, txt_comprobante.getText());
+                ps.setString(5, txt_estado.getText());
+                ps.setString(6, txt_buscar.getText());
+
+                int res = ps.executeUpdate();
+
+                if (res > 0) {
+                    JOptionPane.showMessageDialog(null, "Modificado correctamente.", "ÉXITO", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "ERROR", "ERROR AL GUARDAR", JOptionPane.ERROR_MESSAGE);
+                }
+                //con.close();
+
+                txt_descripcion.setText("");
+                txt_fecha.setText("");
+                txt_cliente.setText("");
+                txt_comprobante.setText("");
+                txt_estado.setText("");
+                txt_buscar.setText("");
+
+            } catch (Exception e) {
+                System.err.println(e);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos los datos.", JOptionPane.ERROR_MESSAGE);
+
+        }
+    }//GEN-LAST:event_btn_modificarActionPerformed
+
+    private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
+        // TODO add your handling code here:
+        if ((txt_descripcion.getText().matches("[A-Z][a-zA-Z]*\\D{3}")) && (txt_cliente.getText().matches("[0-9]*"))
+                && (txt_comprobante.getText().matches("[0-9]*")) && (txt_estado.getText().matches("[0-9]*"))) {
+
+            try {
+
+                ps = con.prepareStatement("INSERT INTO tbl_queja (descripcion_queja, fecha_queja, tbl_cliente_id_cliente,"
+                        + " tbl_comprobante_id_comprobante, tbl_estado_queja_id_estado_queja) VALUES(?,?,?,?,?)");
+
+                String descripcion = txt_descripcion.getText();
+                String fecha = txt_fecha.getText();
+                String cliente = txt_cliente.getText();
+                String comprobante = txt_comprobante.getText();
+                String estado = txt_estado.getText();
+
+                ps.setString(1, descripcion);
+                ps.setString(2, fecha);
+                ps.setString(3, cliente);
+                ps.setString(4, comprobante);
+                ps.setString(5, estado);
+
+                txt_descripcion.setText("");
+                txt_fecha.setText("");
+                txt_cliente.setText("");
+                txt_comprobante.setText("");
+                txt_estado.setText("");
+                ps.executeUpdate();
+
+                //con.close();
+            } catch (SQLException ex) {
+
+                JOptionPane.showMessageDialog(null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos los datos.", JOptionPane.ERROR_MESSAGE);
+
+        }
+    }//GEN-LAST:event_btn_guardarActionPerformed
+
+    private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
+        // TODO add your handling code here:
+        if (txt_buscar.getText().matches("[0-9]*")) {
+
+            try {
+                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM  tbl_queja WHERE id_queja = ? ");//Evitar sql injection.
+                ps.setInt(1, Integer.parseInt(txt_buscar.getText()));
+
+                rs = ps.executeQuery();
+
+                if (rs.next()) {
+                    txt_descripcion.setText(rs.getString("descripcion_queja"));
+                    txt_fecha.setText(rs.getString("fecha_queja"));
+                    txt_cliente.setText(rs.getString("tbl_cliente_id_cliente"));
+                    txt_comprobante.setText(rs.getString("tbl_comprobante_id_comprobante"));
+                    txt_estado.setText(rs.getString("tbl_estado_queja_id_estado_queja"));
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "ERROR", "Error no se desplegaron los datos.", JOptionPane.ERROR_MESSAGE);
+
+                }
+                //con.close();
+            } catch (Exception e) {
+                System.err.println(e);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "ERROR", "Error en el codigo", JOptionPane.ERROR_MESSAGE);
+
+        }
+    }//GEN-LAST:event_btn_buscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -310,25 +429,17 @@ public class quejas extends javax.swing.JFrame {
     private javax.swing.JButton btn_guardar;
     private javax.swing.JButton btn_modificar;
     private javax.swing.JButton btn_regresar;
-    private javax.swing.JComboBox<String> cbx_estado;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel lbl_cliente;
     private javax.swing.JLabel lbl_codigo_queja;
     private javax.swing.JLabel lbl_comprobante;
     private javax.swing.JLabel lbl_descripcion;
     private javax.swing.JLabel lbl_texto;
-    private javax.swing.JLabel lbl_tipo_queja;
     private javax.swing.JLabel lbl_vechiculo;
     private javax.swing.JTextField txt_buscar;
     private javax.swing.JTextField txt_cliente;
-    private javax.swing.JTextField txt_comp_cliente;
     private javax.swing.JTextField txt_comprobante;
     private javax.swing.JTextField txt_descripcion;
-    private javax.swing.JTextField txt_empleado;
-    private javax.swing.JTextField txt_paquete;
-    private javax.swing.JTextField txt_puesto;
-    private javax.swing.JTextField txt_titulo;
+    private javax.swing.JTextField txt_estado;
+    private javax.swing.JTextField txt_fecha;
     // End of variables declaration//GEN-END:variables
 }

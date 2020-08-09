@@ -5,7 +5,14 @@
  */
 package sistemaderepartos;
 
+import sistemaderepartos.menu;
 import com.placeholder.PlaceHolder;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,16 +23,38 @@ public class comprobante extends javax.swing.JFrame {
     /**
      * Creates new form comprobante
      */
+    //Instancias y variables---------
+    Conexion cn = new Conexion();
+    Connection con = cn.getConnection();
+    PreparedStatement ps;
+    ResultSet rs;
+
     PlaceHolder holder;
+
     public comprobante() {
         initComponents();
-        holder = new PlaceHolder(txt_buscar,"Codigo a buscar");
-        holder = new PlaceHolder(txt_cod_comprobante,"Codigo de Comprobante");
-        holder = new PlaceHolder(txt_cliente,"Codigo cliente");
-        holder = new PlaceHolder(txt_piloto,"Codigo piloto");
-        holder = new PlaceHolder(txt_repartidor,"Codigo repartidor");
-        holder = new PlaceHolder(txt_paquete,"Codigo paquete");
-        holder = new PlaceHolder(txt_orden,"Codigo orden");
+        holder = new PlaceHolder(txt_buscar, "Codigo orden");
+        holder = new PlaceHolder(txt_orden, "Codigo entrega");
+        holder = new PlaceHolder(txt_entrega, "Codigo empleado");
+        holder = new PlaceHolder(txt_empleado, "Codigo cliente");
+        holder = new PlaceHolder(txt_cliente, "Codigo zona");
+    }
+
+    public static final String URL = "jdbc:mysql://localhost:3306/mydb?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    public static final String USERNAME = "root";
+    public static final String PASSWORD = "";
+
+    public static Connection getConection() {
+        Connection con = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            con = (Connection) DriverManager.getConnection(URL, USERNAME, PASSWORD);
+
+            //JOptionPane.showMessageDialog(null, "Conexión establecida....");
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+        return con;
     }
 
     /**
@@ -37,13 +66,12 @@ public class comprobante extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txt_repartidor = new javax.swing.JTextField();
+        txt_cliente = new javax.swing.JTextField();
         lbl_cliente = new javax.swing.JLabel();
-        txt_piloto = new javax.swing.JTextField();
+        txt_empleado = new javax.swing.JTextField();
         btn_modificar = new javax.swing.JButton();
         btn_buscar = new javax.swing.JButton();
-        txt_cliente = new javax.swing.JTextField();
-        lbl_orden = new javax.swing.JLabel();
+        txt_entrega = new javax.swing.JTextField();
         btn_eliminar = new javax.swing.JButton();
         lbl_codigo_comprobante = new javax.swing.JLabel();
         lbl_piloto = new javax.swing.JLabel();
@@ -52,48 +80,69 @@ public class comprobante extends javax.swing.JFrame {
         lbl_paquete = new javax.swing.JLabel();
         txt_buscar = new javax.swing.JTextField();
         btn_guardar = new javax.swing.JButton();
-        txt_paquete = new javax.swing.JTextField();
-        txt_cod_comprobante = new javax.swing.JTextField();
+        txt_zona = new javax.swing.JTextField();
         txt_orden = new javax.swing.JTextField();
         btn_regresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lbl_cliente.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lbl_cliente.setText("Cliente:");
+        lbl_cliente.setText("CODIGO ENTREGA");
 
         btn_modificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionModificar.png"))); // NOI18N
         btn_modificar.setText("Modificar");
+        btn_modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_modificarActionPerformed(evt);
+            }
+        });
 
         btn_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionBuscar.png"))); // NOI18N
         btn_buscar.setText("Buscar");
-
-        lbl_orden.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lbl_orden.setText("Orden:");
+        btn_buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_buscarActionPerformed(evt);
+            }
+        });
 
         btn_eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionEliminar.png"))); // NOI18N
         btn_eliminar.setText("Eliminar");
+        btn_eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_eliminarActionPerformed(evt);
+            }
+        });
 
         lbl_codigo_comprobante.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lbl_codigo_comprobante.setText("Codigo Comprobante:");
+        lbl_codigo_comprobante.setText("CODIGO ORDEN");
 
         lbl_piloto.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lbl_piloto.setText("Piloto:");
+        lbl_piloto.setText("CODIGO EMPLEADO");
 
         lbl_repartidor.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lbl_repartidor.setText("Repartidor:");
+        lbl_repartidor.setText("CODIGO CLIENTE");
 
         lbl_texto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lbl_texto.setText("COMPROBANTE");
 
         lbl_paquete.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lbl_paquete.setText("Paquete:");
+        lbl_paquete.setText("CODIGO ZONA");
 
         btn_guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionGuardar.png"))); // NOI18N
         btn_guardar.setText("Guardar");
+        btn_guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_guardarActionPerformed(evt);
+            }
+        });
 
         btn_regresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionRegresar.png"))); // NOI18N
         btn_regresar.setText("Regresar");
+        btn_regresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_regresarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -102,46 +151,40 @@ public class comprobante extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(147, 147, 147)
+                        .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38)
+                        .addComponent(btn_buscar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(84, 84, 84)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(147, 147, 147)
-                                .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(38, 38, 38)
-                                .addComponent(btn_buscar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(84, 84, 84)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lbl_piloto)
                                     .addComponent(lbl_repartidor)
                                     .addComponent(lbl_cliente)
-                                    .addComponent(lbl_orden)
                                     .addComponent(lbl_codigo_comprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lbl_paquete))
                                 .addGap(70, 70, 70)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txt_piloto)
-                                    .addComponent(txt_cod_comprobante)
-                                    .addComponent(txt_repartidor, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_empleado)
+                                    .addComponent(txt_orden)
                                     .addComponent(txt_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_paquete, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_orden, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txt_entrega, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_zona, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(462, 462, 462)
+                                .addComponent(btn_regresar))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(115, 115, 115)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btn_guardar)
-                                        .addGap(223, 223, 223)
-                                        .addComponent(btn_eliminar))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(158, 158, 158)
-                                        .addComponent(btn_modificar))))
+                                .addComponent(btn_guardar)
+                                .addGap(223, 223, 223)
+                                .addComponent(btn_eliminar))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(235, 235, 235)
-                                .addComponent(lbl_texto)))
-                        .addGap(0, 136, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btn_regresar)))
+                                .addGap(158, 158, 158)
+                                .addComponent(btn_modificar))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(235, 235, 235)
+                        .addComponent(lbl_texto)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -154,19 +197,19 @@ public class comprobante extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbl_codigo_comprobante)
-                            .addComponent(txt_cod_comprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txt_orden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbl_cliente)
-                            .addComponent(txt_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txt_entrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(16, 16, 16)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbl_piloto)
-                            .addComponent(txt_piloto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txt_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbl_repartidor)
-                            .addComponent(txt_repartidor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txt_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(22, 22, 22))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
@@ -176,23 +219,169 @@ public class comprobante extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbl_paquete)
-                    .addComponent(txt_paquete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_orden)
-                    .addComponent(txt_orden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(51, 51, 51)
+                    .addComponent(txt_zona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_guardar)
                     .addComponent(btn_modificar)
                     .addComponent(btn_eliminar))
                 .addGap(90, 90, 90)
                 .addComponent(btn_regresar)
-                .addContainerGap())
+                .addGap(64, 64, 64))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresarActionPerformed
+        menu volver = new menu();
+        volver.setVisible(true);
+        dispose();
+        volver.setLocationRelativeTo(null);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_regresarActionPerformed
+
+    private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
+        // TODO add your handling code here:
+        if ((txt_orden.getText().matches("[0-9]*")) && (txt_entrega.getText().matches("[0-9]*")) && (txt_empleado.getText().matches("[0-9]*"))
+                && (txt_cliente.getText().matches("[0-9]*")) && (txt_zona.getText().matches("[0-9]*"))) {
+            try {
+                ps = (PreparedStatement) con.prepareStatement("DELETE FROM tbl_comprobante WHERE id_comprobante = ?");//Evitar sql injection.
+                ps.setInt(1, Integer.parseInt(txt_buscar.getText()));
+
+                int res = ps.executeUpdate();
+
+                if (res > 0) {
+                    JOptionPane.showMessageDialog(null, "Eliminado correctamente.", "ÉXITO", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "ERROR", "ERROR AL ELIMINAR", JOptionPane.ERROR_MESSAGE);
+                }
+                //con.close();
+
+                txt_orden.setText("");
+                txt_entrega.setText("");
+                txt_empleado.setText("");
+                txt_cliente.setText("");
+                txt_zona.setText("");
+                txt_buscar.setText("");
+
+            } catch (Exception e) {
+                System.err.println("ERROR EN LA BASE DE DATOS.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos los datos.", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btn_eliminarActionPerformed
+
+    private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
+        // TODO add your handling code here:
+        if ((txt_orden.getText().matches("[0-9]*")) && (txt_entrega.getText().matches("[0-9]*")) && (txt_empleado.getText().matches("[0-9]*"))
+                && (txt_cliente.getText().matches("[0-9]*")) && (txt_zona.getText().matches("[0-9]*"))) {
+            try {
+                ps = (PreparedStatement) con.prepareStatement("UPDATE tbl_comprobante SET  tbl_orden_id_orden = ?,"
+                        + " tbl_orden_id_orden = ?, tbl_empleado_id_empleado = ?, tbl_cliente_id_cliente = ?,"
+                        + "tbl_zona_destinada_id_zona = ? WHERE id_comprobante = ?");//Evitar sql injection.  
+
+                ps.setString(1, txt_orden.getText());
+                ps.setString(2, txt_entrega.getText());
+                ps.setString(3, txt_empleado.getText());
+                ps.setString(4, txt_cliente.getText());
+                ps.setString(5, txt_zona.getText());
+                ps.setString(6, txt_buscar.getText());
+
+                int res = ps.executeUpdate();
+
+                if (res > 0) {
+                    JOptionPane.showMessageDialog(null, "Modificado correctamente.", "ÉXITO", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "ERROR", "ERROR AL GUARDAR", JOptionPane.ERROR_MESSAGE);
+                }
+                //con.close();
+
+                txt_orden.setText("");
+                txt_entrega.setText("");
+                txt_empleado.setText("");
+                txt_cliente.setText("");
+                txt_zona.setText("");
+                txt_buscar.setText("");
+
+            } catch (Exception e) {
+                System.err.println(e);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos los datos.", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btn_modificarActionPerformed
+
+    private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
+        // TODO add your handling code here:
+        if ((txt_orden.getText().matches("[0-9]*")) && (txt_entrega.getText().matches("[0-9]*")) && (txt_empleado.getText().matches("[0-9]*"))
+                && (txt_cliente.getText().matches("[0-9]*")) && (txt_zona.getText().matches("[0-9]*"))) {
+
+            try {
+
+                ps = con.prepareStatement("INSERT INTO tbl_comprobante (tbl_orden_id_orden, tbl_entrega_id_entrega, tbl_empleado_id_empleado,"
+                        + " tbl_cliente_id_cliente,tbl_zona_destinada_id_zona)"
+                        + " VALUES(?,?,?)");
+
+                String entrega = txt_entrega.getText();
+                String orden = txt_orden.getText();
+                String empleado = txt_empleado.getText();
+                String cliente = txt_cliente.getText();
+                String zona = txt_zona.getText();
+
+                ps.setString(1, entrega);
+                ps.setString(2, orden);
+                ps.setString(3, empleado);
+                ps.setString(4, cliente);
+                ps.setString(5, zona);
+
+                txt_entrega.setText("");
+                txt_orden.setText("");
+                txt_empleado.setText("");
+                txt_cliente.setText("");
+                txt_zona.setText("");
+                ps.executeUpdate();
+
+                //con.close();
+            } catch (SQLException ex) {
+
+                JOptionPane.showMessageDialog(null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos los datos.", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btn_guardarActionPerformed
+
+    private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
+        // TODO add your handling code here:
+        if (txt_buscar.getText().matches("[0-9]*")) {
+
+            try {
+                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM  tbl_comprobante WHERE id_comprobante = ? ");//Evitar sql injection.
+                ps.setInt(1, Integer.parseInt(txt_buscar.getText()));
+
+                rs = ps.executeQuery();
+
+                if (rs.next()) {
+                    txt_orden.setText(rs.getString("tbl_orden_id_orden"));
+                    txt_entrega.setText(rs.getString("tbl_entrega_id_entrega"));
+                    txt_empleado.setText(rs.getString("tbl_empleado_id_empleado"));
+                    txt_cliente.setText(rs.getString("tbl_cliente_id_cliente"));
+                    txt_zona.setText(rs.getString("tbl_zona_destinada_id_zona"));
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "ERROR", "Error no se desplegaron los datos.", JOptionPane.ERROR_MESSAGE);
+
+                }
+                //con.close();
+            } catch (Exception e) {
+                System.err.println(e);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "ERROR", "Error en el codigo", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btn_buscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -237,17 +426,15 @@ public class comprobante extends javax.swing.JFrame {
     private javax.swing.JButton btn_regresar;
     private javax.swing.JLabel lbl_cliente;
     private javax.swing.JLabel lbl_codigo_comprobante;
-    private javax.swing.JLabel lbl_orden;
     private javax.swing.JLabel lbl_paquete;
     private javax.swing.JLabel lbl_piloto;
     private javax.swing.JLabel lbl_repartidor;
     private javax.swing.JLabel lbl_texto;
     private javax.swing.JTextField txt_buscar;
     private javax.swing.JTextField txt_cliente;
-    private javax.swing.JTextField txt_cod_comprobante;
+    private javax.swing.JTextField txt_empleado;
+    private javax.swing.JTextField txt_entrega;
     private javax.swing.JTextField txt_orden;
-    private javax.swing.JTextField txt_paquete;
-    private javax.swing.JTextField txt_piloto;
-    private javax.swing.JTextField txt_repartidor;
+    private javax.swing.JTextField txt_zona;
     // End of variables declaration//GEN-END:variables
 }

@@ -3,10 +3,6 @@
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
-    <Property name="undecorated" type="boolean" value="true"/>
-    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[562, 470]"/>
-    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -34,17 +30,28 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lbl_codigo_zona" alignment="0" min="-2" pref="142" max="-2" attributes="0"/>
-                                  <Component id="lbl_departamento" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lbl_empleado" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lbl_direccion" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txt_descripcion" min="-2" pref="214" max="-2" attributes="0"/>
-                                  <Component id="txt_direccion" alignment="0" min="-2" pref="214" max="-2" attributes="0"/>
-                                  <Component id="txt_nombre" alignment="0" min="-2" pref="214" max="-2" attributes="0"/>
-                                  <Component id="txt_dep" alignment="0" min="-2" pref="214" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="btn_guardar" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="223" max="-2" attributes="0"/>
+                                      <Component id="btn_eliminar" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="158" max="-2" attributes="0"/>
+                                      <Component id="btn_modificar" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="lbl_codigo_zona" alignment="0" min="-2" pref="142" max="-2" attributes="0"/>
+                                          <Component id="lbl_empleado" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lbl_direccion" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="txt_municipio" pref="214" max="32767" attributes="0"/>
+                                          <Component id="txt_empleado" alignment="0" pref="214" max="32767" attributes="0"/>
+                                          <Component id="txt_zona" alignment="0" pref="214" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -58,7 +65,7 @@
                               <Component id="lbl_texto" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="0" pref="42" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -66,21 +73,6 @@
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="btn_guardar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="223" max="-2" attributes="0"/>
-                      <Component id="btn_eliminar" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="158" max="-2" attributes="0"/>
-                      <Component id="btn_modificar" min="-2" max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-              <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -97,32 +89,27 @@
               <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lbl_codigo_zona" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txt_nombre" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txt_zona" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lbl_direccion" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txt_descripcion" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lbl_empleado" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txt_direccion" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txt_municipio" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lbl_departamento" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txt_dep" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lbl_empleado" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txt_empleado" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btn_guardar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btn_modificar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btn_eliminar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
               <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="116" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="182" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -135,16 +122,14 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Guardar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_guardarActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="txt_nombre">
-    </Component>
-    <Component class="javax.swing.JLabel" name="lbl_departamento">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="14" style="1"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="DEPARTAMENTO"/>
-      </Properties>
+    <Component class="javax.swing.JTextField" name="txt_zona">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txt_zonaKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btn_modificar">
       <Properties>
@@ -153,8 +138,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Modificar"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txt_dep">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_modificarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btn_eliminar">
       <Properties>
@@ -163,13 +149,16 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Eliminar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_eliminarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lbl_direccion">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="DESCRIPCI&#xd3;N"/>
+        <Property name="text" type="java.lang.String" value="CODIGO MUNICIPIO"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lbl_texto">
@@ -182,9 +171,15 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txt_buscar">
     </Component>
-    <Component class="javax.swing.JTextField" name="txt_direccion">
+    <Component class="javax.swing.JTextField" name="txt_empleado">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txt_empleadoKeyTyped"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="txt_descripcion">
+    <Component class="javax.swing.JTextField" name="txt_municipio">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txt_municipioKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btn_buscar">
       <Properties>
@@ -193,13 +188,16 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Buscar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_buscarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lbl_codigo_zona">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="NOMBRE"/>
+        <Property name="text" type="java.lang.String" value="NOMBRE ZONA"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lbl_empleado">
@@ -207,7 +205,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="DIRECCI&#xd3;N:"/>
+        <Property name="text" type="java.lang.String" value="CODIGO EMPLEADO"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">

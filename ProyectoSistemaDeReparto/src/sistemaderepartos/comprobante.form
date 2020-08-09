@@ -25,58 +25,50 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="147" max="-2" attributes="0"/>
+                      <Component id="txt_buscar" min="-2" pref="186" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                      <Component id="btn_buscar" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="147" max="-2" attributes="0"/>
-                              <Component id="txt_buscar" min="-2" pref="186" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                              <Component id="btn_buscar" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="lbl_piloto" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="lbl_repartidor" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="lbl_cliente" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lbl_orden" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="lbl_codigo_comprobante" min="-2" pref="168" max="-2" attributes="0"/>
                                   <Component id="lbl_paquete" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="txt_piloto" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txt_cod_comprobante" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txt_repartidor" alignment="0" min="-2" pref="214" max="-2" attributes="0"/>
+                                  <Component id="txt_empleado" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txt_orden" alignment="0" max="32767" attributes="0"/>
                                   <Component id="txt_cliente" alignment="0" min="-2" pref="214" max="-2" attributes="0"/>
-                                  <Component id="txt_paquete" alignment="0" min="-2" pref="214" max="-2" attributes="0"/>
-                                  <Component id="txt_orden" min="-2" pref="214" max="-2" attributes="0"/>
+                                  <Component id="txt_entrega" alignment="0" min="-2" pref="214" max="-2" attributes="0"/>
+                                  <Component id="txt_zona" alignment="0" min="-2" pref="214" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="115" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="btn_guardar" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="223" max="-2" attributes="0"/>
-                                      <Component id="btn_eliminar" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="158" max="-2" attributes="0"/>
-                                      <Component id="btn_modificar" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="-2" pref="462" max="-2" attributes="0"/>
+                              <Component id="btn_regresar" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="235" max="-2" attributes="0"/>
-                              <Component id="lbl_texto" min="-2" max="-2" attributes="0"/>
+                              <Component id="btn_guardar" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="223" max="-2" attributes="0"/>
+                              <Component id="btn_eliminar" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="158" max="-2" attributes="0"/>
+                              <Component id="btn_modificar" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="0" pref="136" max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="btn_regresar" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="235" max="-2" attributes="0"/>
+                      <Component id="lbl_texto" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -93,22 +85,22 @@
                       <EmptySpace pref="66" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lbl_codigo_comprobante" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txt_cod_comprobante" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txt_orden" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lbl_cliente" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txt_cliente" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txt_entrega" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="lbl_piloto" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="txt_piloto" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="txt_empleado" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="lbl_repartidor" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="txt_repartidor" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="txt_cliente" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                   </Group>
@@ -123,14 +115,9 @@
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="lbl_paquete" min="-2" max="-2" attributes="0"/>
-                  <Component id="txt_paquete" min="-2" max="-2" attributes="0"/>
+                  <Component id="txt_zona" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lbl_orden" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txt_orden" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btn_guardar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btn_modificar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -138,23 +125,23 @@
               </Group>
               <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
               <Component id="btn_regresar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JTextField" name="txt_repartidor">
+    <Component class="javax.swing.JTextField" name="txt_cliente">
     </Component>
     <Component class="javax.swing.JLabel" name="lbl_cliente">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Cliente:"/>
+        <Property name="text" type="java.lang.String" value="CODIGO ENTREGA"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txt_piloto">
+    <Component class="javax.swing.JTextField" name="txt_empleado">
     </Component>
     <Component class="javax.swing.JButton" name="btn_modificar">
       <Properties>
@@ -163,6 +150,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Modificar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_modificarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btn_buscar">
       <Properties>
@@ -171,16 +161,11 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Buscar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_buscarActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="txt_cliente">
-    </Component>
-    <Component class="javax.swing.JLabel" name="lbl_orden">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="14" style="1"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Orden:"/>
-      </Properties>
+    <Component class="javax.swing.JTextField" name="txt_entrega">
     </Component>
     <Component class="javax.swing.JButton" name="btn_eliminar">
       <Properties>
@@ -189,13 +174,16 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Eliminar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_eliminarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lbl_codigo_comprobante">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Codigo Comprobante:"/>
+        <Property name="text" type="java.lang.String" value="CODIGO ORDEN"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lbl_piloto">
@@ -203,7 +191,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Piloto:"/>
+        <Property name="text" type="java.lang.String" value="CODIGO EMPLEADO"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lbl_repartidor">
@@ -211,7 +199,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Repartidor:"/>
+        <Property name="text" type="java.lang.String" value="CODIGO CLIENTE"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lbl_texto">
@@ -227,7 +215,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Paquete:"/>
+        <Property name="text" type="java.lang.String" value="CODIGO ZONA"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txt_buscar">
@@ -239,10 +227,11 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Guardar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_guardarActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="txt_paquete">
-    </Component>
-    <Component class="javax.swing.JTextField" name="txt_cod_comprobante">
+    <Component class="javax.swing.JTextField" name="txt_zona">
     </Component>
     <Component class="javax.swing.JTextField" name="txt_orden">
     </Component>
@@ -253,6 +242,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Regresar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_regresarActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

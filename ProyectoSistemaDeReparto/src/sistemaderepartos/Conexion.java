@@ -19,7 +19,7 @@ public class Conexion {
     private static final String driver = "com.mysql.cj.jdbc.Driver";
     private static final String user = "root";
     private static final String pass = "1234";
-    private static final String url = "jdbc:mysql://localhost:3306/controlempleados ?useUnicode=true&"
+    private static final String url = "jdbc:mysql://localhost:3306/mydb ?useUnicode=true&"
             + "useJDBCCompliantTimezoneShift=true&useLegacy"
             + "DatetimeCode=false&serverTimezone=UTC";
 
