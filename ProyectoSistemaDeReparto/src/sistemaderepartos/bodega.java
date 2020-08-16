@@ -7,6 +7,7 @@ package sistemaderepartos;
 
 import sistemaderepartos.menu;
 import com.placeholder.PlaceHolder;
+import java.awt.Dimension;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -27,35 +28,23 @@ public class bodega extends javax.swing.JFrame {
     Conexion cn = new Conexion();
     Connection con = cn.getConnection();
     PreparedStatement ps;
+    ResultSet rs;
+    ClsBitacora global = new ClsBitacora();
 
     PlaceHolder holder;
-
-    public bodega() {
-        initComponents();
+    
+    public void placeholder(){
+        
         holder = new PlaceHolder(txt_buscar, "Codigo a buscar");
         holder = new PlaceHolder(txt_nombre, "Nombre bodega");
-        holder = new PlaceHolder(txt_empleado, "Codigo empleado");
+        holder = new PlaceHolder(txt_direccion, "Direccion bodega");
     }
-
-    public static final String URL = "jdbc:mysql://localhost:3306/mydb?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-    public static final String USERNAME = "root";
-    public static final String PASSWORD = "";
-
-    ResultSet rs;
-
-    public static Connection getConection() {
-        Connection con = null;
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            con = (Connection) DriverManager.getConnection(URL, USERNAME, PASSWORD);
-
-            //JOptionPane.showMessageDialog(null, "Conexión establecida....");
-        } catch (Exception e) {
-            System.err.println(e);
-        }
-        return con;
+    
+    public bodega() {
+        initComponents();
+        this.setSize(new Dimension(550, 350));
+                placeholder();
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -65,22 +54,53 @@ public class bodega extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jpn_a = new javax.swing.JPanel();
+        lbl_texto = new javax.swing.JLabel();
+        jpn_b = new javax.swing.JPanel();
         lbl_nombre = new javax.swing.JLabel();
         btn_buscar = new javax.swing.JButton();
         txt_nombre = new javax.swing.JTextField();
-        txt_empleado = new javax.swing.JTextField();
+        txt_direccion = new javax.swing.JTextField();
         lbl_empleado = new javax.swing.JLabel();
+        txt_buscar = new javax.swing.JTextField();
+        jpn_c = new javax.swing.JPanel();
         btn_guardar = new javax.swing.JButton();
         btn_modificar = new javax.swing.JButton();
         btn_eliminar = new javax.swing.JButton();
-        lbl_texto = new javax.swing.JLabel();
-        txt_buscar = new javax.swing.JTextField();
         btn_regresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(624, 422));
+        setResizable(false);
+
+        jpn_a.setBackground(new java.awt.Color(29, 53, 87));
+
+        lbl_texto.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lbl_texto.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_texto.setText("BODEGA");
+
+        javax.swing.GroupLayout jpn_aLayout = new javax.swing.GroupLayout(jpn_a);
+        jpn_a.setLayout(jpn_aLayout);
+        jpn_aLayout.setHorizontalGroup(
+            jpn_aLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpn_aLayout.createSequentialGroup()
+                .addGap(200, 200, 200)
+                .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jpn_aLayout.setVerticalGroup(
+            jpn_aLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpn_aLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
+
+        jpn_b.setBackground(new java.awt.Color(241, 250, 238));
 
         lbl_nombre.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lbl_nombre.setText("Nombre:");
+        lbl_nombre.setText("NOMBRE");
 
         btn_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionBuscar.png"))); // NOI18N
         btn_buscar.setText("Buscar");
@@ -90,8 +110,63 @@ public class bodega extends javax.swing.JFrame {
             }
         });
 
+        txt_direccion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_direccionKeyTyped(evt);
+            }
+        });
+
         lbl_empleado.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lbl_empleado.setText("Empleado:");
+        lbl_empleado.setText("DIRECCION");
+
+        txt_buscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_buscarKeyTyped(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jpn_bLayout = new javax.swing.GroupLayout(jpn_b);
+        jpn_b.setLayout(jpn_bLayout);
+        jpn_bLayout.setHorizontalGroup(
+            jpn_bLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpn_bLayout.createSequentialGroup()
+                .addGroup(jpn_bLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jpn_bLayout.createSequentialGroup()
+                        .addContainerGap(66, Short.MAX_VALUE)
+                        .addGroup(jpn_bLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_empleado)
+                            .addComponent(lbl_nombre))
+                        .addGap(110, 110, 110)
+                        .addGroup(jpn_bLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_nombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_direccion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jpn_bLayout.createSequentialGroup()
+                        .addGap(82, 82, 82)
+                        .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41)
+                        .addComponent(btn_buscar)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(28, 28, 28))
+        );
+        jpn_bLayout.setVerticalGroup(
+            jpn_bLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpn_bLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(jpn_bLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_buscar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addGroup(jpn_bLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_nombre)
+                    .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addGroup(jpn_bLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_empleado)
+                    .addComponent(txt_direccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38))
+        );
+
+        jpn_c.setBackground(new java.awt.Color(168, 218, 220));
 
         btn_guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionGuardar.png"))); // NOI18N
         btn_guardar.setText("Guardar");
@@ -117,9 +192,6 @@ public class bodega extends javax.swing.JFrame {
             }
         });
 
-        lbl_texto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lbl_texto.setText("BODEGA");
-
         btn_regresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionRegresar.png"))); // NOI18N
         btn_regresar.setText("Regresar");
         btn_regresar.addActionListener(new java.awt.event.ActionListener() {
@@ -128,84 +200,58 @@ public class bodega extends javax.swing.JFrame {
             }
         });
 
+        javax.swing.GroupLayout jpn_cLayout = new javax.swing.GroupLayout(jpn_c);
+        jpn_c.setLayout(jpn_cLayout);
+        jpn_cLayout.setHorizontalGroup(
+            jpn_cLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpn_cLayout.createSequentialGroup()
+                .addGap(61, 61, 61)
+                .addGroup(jpn_cLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpn_cLayout.createSequentialGroup()
+                        .addComponent(btn_guardar)
+                        .addGap(222, 222, 222)
+                        .addComponent(btn_eliminar))
+                    .addGroup(jpn_cLayout.createSequentialGroup()
+                        .addGap(158, 158, 158)
+                        .addGroup(jpn_cLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btn_regresar)
+                            .addComponent(btn_modificar))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jpn_cLayout.setVerticalGroup(
+            jpn_cLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpn_cLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpn_cLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_guardar)
+                    .addComponent(btn_modificar)
+                    .addComponent(btn_eliminar))
+                .addGap(18, 18, 18)
+                .addComponent(btn_regresar)
+                .addContainerGap(21, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(230, 230, 230)
-                                .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(76, 76, 76))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(149, 149, 149)
-                                .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(61, 61, 61)))
-                        .addComponent(btn_buscar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lbl_empleado)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(14, 14, 14)
-                                                .addComponent(btn_guardar)))
-                                        .addGap(144, 144, 144)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txt_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(78, 78, 78)
-                                                .addComponent(btn_eliminar))))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(172, 172, 172)
-                                        .addComponent(btn_modificar)
-                                        .addGap(144, 144, 144)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btn_regresar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lbl_nombre)
-                                .addGap(185, 185, 185)
-                                .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap())
+            .addComponent(jpn_b, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jpn_c, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jpn_a, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_buscar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_nombre)
-                    .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbl_empleado)
-                            .addComponent(txt_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(88, 88, 88)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btn_guardar)
-                            .addComponent(btn_modificar)
-                            .addComponent(btn_eliminar))
-                        .addGap(13, 13, 13))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btn_regresar)))
-                .addGap(142, 142, 142))
+                .addComponent(jpn_a, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jpn_b, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jpn_c, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresarActionPerformed
@@ -220,14 +266,14 @@ public class bodega extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (txt_buscar.getText().matches("[0-9]*")) {
             try {
-                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM  tbl_bodega WHERE id_bodega = ? ");//Evitar sql injection.
+                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM  tbl_bodega WHERE Pk_iId_Bodega = ? ");//Evitar sql injection.
                 ps.setInt(1, Integer.parseInt(txt_buscar.getText()));
 
                 rs = ps.executeQuery();
 
                 if (rs.next()) {
-                    txt_nombre.setText(rs.getString("nombre_ bodega"));
-                    txt_empleado.setText(rs.getString("tbl_empleado_id_empleado"));
+                    txt_nombre.setText(rs.getString("cNombre_Bodefa"));
+                    txt_direccion.setText(rs.getString("cDireccion_Bodega"));
 
                 } else {
                     JOptionPane.showMessageDialog(null, "ERROR", "Error no se desplegaron los datos.", JOptionPane.ERROR_MESSAGE);
@@ -244,10 +290,10 @@ public class bodega extends javax.swing.JFrame {
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
         // TODO add your handling code here:
-        if ((txt_nombre.getText().matches("[A-Z][a-zA-Z]*\\D{3}")) && (txt_empleado.getText().matches("[A-Z][a-zA-Z]*\\D{3}"))) {
+        if (txt_buscar.getText().matches("[0-9]*")) {
 
             try {
-                ps = (PreparedStatement) con.prepareStatement("DELETE FROM tbl_bodega WHERE id_bodega = ?");//Evitar sql injection.
+                ps = (PreparedStatement) con.prepareStatement("DELETE FROM tbl_bodega WHERE Pk_iId_Bodega = ?");//Evitar sql injection.
                 ps.setInt(1, Integer.parseInt(txt_buscar.getText()));
 
                 int res = ps.executeUpdate();
@@ -260,33 +306,42 @@ public class bodega extends javax.swing.JFrame {
                 //con.close();
 
                 txt_nombre.setText("");
-                txt_empleado.setText("");
+                txt_direccion.setText("");
                 txt_buscar.setText("");
+                placeholder();
+                
+                global.GrabaBitacora(ClsBitacora.SystemUser, "Elimino en bodega");
 
             } catch (Exception e) {
                 System.err.println("ERROR EN LA BASE DE DATOS.");
             }
         } else {
-            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos los datos.", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos.", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btn_eliminarActionPerformed
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here:
-        if ((txt_nombre.getText().matches("[A-Z][a-zA-Z]*\\D{3}")) && (txt_empleado.getText().matches("[A-Z][a-zA-Z]*\\D{3}"))) {
+        if ((txt_nombre.getText().matches("[A-Z][a-zA-Z]*")) && (txt_direccion.getText().matches("[A-Z][a-zA-Z]*"))) {
         try {
 
-            ps = con.prepareStatement("INSERT INTO tbl_bodega (nombre_bodega, tbl_empleado_id_empleado) VALUES(?,?)");
+            ps = con.prepareStatement("INSERT INTO tbl_bodega (cNombre_Bodefa, cDireccion_Bodega) VALUES(?,?)");
 
             String nombre = txt_nombre.getText();
-            String puesto = txt_empleado.getText();
+            String puesto = txt_direccion.getText();
 
             ps.setString(1, nombre);
             ps.setString(2, puesto);
 
             txt_nombre.setText("");
-            txt_empleado.setText("");
+            txt_direccion.setText("");
             ps.executeUpdate();
+            placeholder();
+            
+            
+            JOptionPane.showMessageDialog(null, "Registro Exitoso");
+            
+                global.GrabaBitacora(ClsBitacora.SystemUser, "inserto en bodega");
 
             //con.close();
         } catch (SQLException ex) {
@@ -297,19 +352,19 @@ public class bodega extends javax.swing.JFrame {
 
     
         else {
-            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos los datos.", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos.", JOptionPane.ERROR_MESSAGE);
     }
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
         // TODO add your handling code here:
-        if ((txt_nombre.getText().matches("[A-Z][a-zA-Z]*\\D{3}")) && (txt_empleado.getText().matches("[A-Z][a-zA-Z]*\\D{3}"))) {
+        if ((txt_nombre.getText().matches("[A-Z][a-zA-Z]*")) && (txt_direccion.getText().matches("[A-Z][a-zA-Z]*"))) {
         try {
-            ps = (PreparedStatement) con.prepareStatement("UPDATE tbl_bodega SET  nombre_bodega = ?,"
-                    + " tbl_empleado_id_empleado = ? WHERE id_bodega = ?");//Evitar sql injection.  
+            ps = (PreparedStatement) con.prepareStatement("UPDATE tbl_bodega SET  cNombre_Bodefa = ?,"
+                    + " cDireccion_Bodega = ? WHERE Pk_iId_Bodega = ?");//Evitar sql injection.  
 
             ps.setString(1, txt_nombre.getText());
-            ps.setString(2, txt_empleado.getText());
+            ps.setString(2, txt_direccion.getText());
             ps.setString(3, txt_buscar.getText());
 
             int res = ps.executeUpdate();
@@ -322,16 +377,35 @@ public class bodega extends javax.swing.JFrame {
             //con.close();
 
             txt_nombre.setText("");
-            txt_empleado.setText("");
+            txt_direccion.setText("");
             txt_buscar.setText("");
+            placeholder();
+            
+                global.GrabaBitacora(ClsBitacora.SystemUser, "Modifico en bodega");
 
         } catch (Exception e) {
             System.err.println(e);
         }
         } else {
-            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos los datos.", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos.", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btn_modificarActionPerformed
+
+    private void txt_buscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_buscarKeyTyped
+        // TODO add your handling code here:
+        char validar = evt.getKeyChar();
+        if (Character.isLetter(validar)) {
+            getToolkit().beep();
+            evt.consume();
+
+            JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
+        }
+    }//GEN-LAST:event_txt_buscarKeyTyped
+
+    private void txt_direccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_direccionKeyTyped
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_txt_direccionKeyTyped
 
     /**
      * @param args the command line arguments
@@ -389,11 +463,14 @@ catch (javax.swing.UnsupportedLookAndFeelException ex) {
     private javax.swing.JButton btn_guardar;
     private javax.swing.JButton btn_modificar;
     private javax.swing.JButton btn_regresar;
+    private javax.swing.JPanel jpn_a;
+    private javax.swing.JPanel jpn_b;
+    private javax.swing.JPanel jpn_c;
     private javax.swing.JLabel lbl_empleado;
     private javax.swing.JLabel lbl_nombre;
     private javax.swing.JLabel lbl_texto;
     private javax.swing.JTextField txt_buscar;
-    private javax.swing.JTextField txt_empleado;
+    private javax.swing.JTextField txt_direccion;
     private javax.swing.JTextField txt_nombre;
     // End of variables declaration//GEN-END:variables
 }

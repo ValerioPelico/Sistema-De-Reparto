@@ -7,6 +7,7 @@ package sistemaderepartos;
 
 import sistemaderepartos.menu;
 import com.placeholder.PlaceHolder;
+import java.awt.Dimension;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -27,36 +28,24 @@ public class cliente extends javax.swing.JFrame {
     Conexion cn = new Conexion();
     Connection con = cn.getConnection();
     PreparedStatement ps;
+    ResultSet rs;
+    ClsBitacora global = new ClsBitacora();
 
     PlaceHolder holder;
-
-    public cliente() {
-        initComponents();
+    
+    public void placeholder(){
+        
         holder = new PlaceHolder(txt_buscar, "Codigo a buscar");
         holder = new PlaceHolder(txt_nombre, "Nombre cliente");
         holder = new PlaceHolder(txt_apellido, "Apellido");
         holder = new PlaceHolder(txt_nit, "Nit");
     }
 
-    public static final String URL = "jdbc:mysql://localhost:3306/mydb?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-    public static final String USERNAME = "root";
-    public static final String PASSWORD = "";
-
-    ResultSet rs;
-
-    public static Connection getConection() {
-        Connection con = null;
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            con = (Connection) DriverManager.getConnection(URL, USERNAME, PASSWORD);
-
-            //JOptionPane.showMessageDialog(null, "Conexión establecida....");
-        } catch (Exception e) {
-            System.err.println(e);
-        }
-        return con;
+    public cliente() {
+        initComponents();
+        this.setSize(new Dimension(660, 395));
+                placeholder();
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -66,24 +55,61 @@ public class cliente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        lbl_texto = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
         lbl_nombre = new javax.swing.JLabel();
+        txt_buscar = new javax.swing.JTextField();
         txt_apellido = new javax.swing.JTextField();
         btn_buscar = new javax.swing.JButton();
         txt_nombre = new javax.swing.JTextField();
         lbl_apellido = new javax.swing.JLabel();
         txt_nit = new javax.swing.JTextField();
         lbl_nit = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        btn_eliminar = new javax.swing.JButton();
         btn_guardar = new javax.swing.JButton();
         btn_modificar = new javax.swing.JButton();
-        btn_eliminar = new javax.swing.JButton();
-        lbl_texto = new javax.swing.JLabel();
-        txt_buscar = new javax.swing.JTextField();
         btn_regresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(624, 422));
+        setResizable(false);
+
+        jPanel1.setBackground(new java.awt.Color(29, 53, 87));
+
+        lbl_texto.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lbl_texto.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_texto.setText("CLIENTE");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(230, 230, 230)
+                .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel2.setBackground(new java.awt.Color(241, 250, 238));
 
         lbl_nombre.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbl_nombre.setText("Nombre:");
+
+        txt_buscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_buscarKeyTyped(evt);
+            }
+        });
 
         btn_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionBuscar.png"))); // NOI18N
         btn_buscar.setText("Buscar");
@@ -96,8 +122,70 @@ public class cliente extends javax.swing.JFrame {
         lbl_apellido.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbl_apellido.setText("Apellido:");
 
+        txt_nit.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_nitKeyTyped(evt);
+            }
+        });
+
         lbl_nit.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbl_nit.setText("NIT:");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_nombre)
+                            .addComponent(lbl_apellido)
+                            .addComponent(lbl_nit))
+                        .addGap(175, 175, 175)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_nit, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(57, 57, 57)
+                        .addComponent(btn_buscar)))
+                .addGap(43, 43, 43))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_buscar))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_nombre)
+                    .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_apellido)
+                    .addComponent(txt_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_nit)
+                    .addComponent(txt_nit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(34, Short.MAX_VALUE))
+        );
+
+        jPanel3.setBackground(new java.awt.Color(168, 218, 220));
+
+        btn_eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionEliminar.png"))); // NOI18N
+        btn_eliminar.setText("Eliminar");
+        btn_eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_eliminarActionPerformed(evt);
+            }
+        });
 
         btn_guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionGuardar.png"))); // NOI18N
         btn_guardar.setText("Guardar");
@@ -115,17 +203,6 @@ public class cliente extends javax.swing.JFrame {
             }
         });
 
-        btn_eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionEliminar.png"))); // NOI18N
-        btn_eliminar.setText("Eliminar");
-        btn_eliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_eliminarActionPerformed(evt);
-            }
-        });
-
-        lbl_texto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lbl_texto.setText("CLIENTE");
-
         btn_regresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionRegresar.png"))); // NOI18N
         btn_regresar.setText("Regresar");
         btn_regresar.addActionListener(new java.awt.event.ActionListener() {
@@ -134,80 +211,56 @@ public class cliente extends javax.swing.JFrame {
             }
         });
 
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(67, 67, 67)
+                .addComponent(btn_guardar)
+                .addGap(67, 67, 67)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_regresar)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(btn_modificar)
+                        .addGap(90, 90, 90)
+                        .addComponent(btn_eliminar)))
+                .addContainerGap(71, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_guardar)
+                    .addComponent(btn_modificar)
+                    .addComponent(btn_eliminar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btn_regresar)
+                .addContainerGap(28, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(405, 405, 405)
-                                .addComponent(btn_regresar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(29, 29, 29)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btn_guardar)
-                                        .addGap(223, 223, 223)
-                                        .addComponent(btn_eliminar))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(158, 158, 158)
-                                        .addComponent(btn_modificar))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbl_nombre)
-                                    .addComponent(lbl_apellido)
-                                    .addComponent(lbl_nit))
-                                .addGap(175, 175, 175)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txt_nit, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(230, 230, 230)
-                        .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(149, 149, 149)
-                        .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(69, 69, 69)
-                        .addComponent(btn_buscar)))
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_buscar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_nombre)
-                    .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_apellido)
-                    .addComponent(txt_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_nit)
-                    .addComponent(txt_nit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_guardar)
-                    .addComponent(btn_modificar)
-                    .addComponent(btn_eliminar))
-                .addGap(57, 57, 57)
-                .addComponent(btn_regresar)
-                .addGap(139, 139, 139))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresarActionPerformed
@@ -223,15 +276,15 @@ public class cliente extends javax.swing.JFrame {
         if (txt_buscar.getText().matches("[0-9]*")) {
 
             try {
-                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM  tbl_cliente WHERE id_cliente = ? ");//Evitar sql injection.
+                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM  tbl_clientes WHERE Pk_iId_Clientes = ? ");//Evitar sql injection.
                 ps.setInt(1, Integer.parseInt(txt_buscar.getText()));
 
                 rs = ps.executeQuery();
 
                 if (rs.next()) {
-                    txt_nombre.setText(rs.getString("nombre_cliente"));
-                    txt_apellido.setText(rs.getString("apellido_cliente"));
-                    txt_nit.setText(rs.getString("nit_cliente"));
+                    txt_nombre.setText(rs.getString("cNombre_Cliente"));
+                    txt_apellido.setText(rs.getString("cApellido_Cliente"));
+                    txt_nit.setText(rs.getString("cNit_Cliente"));
 
                 } else {
                     JOptionPane.showMessageDialog(null, "ERROR", "Error no se desplegaron los datos.", JOptionPane.ERROR_MESSAGE);
@@ -248,11 +301,10 @@ public class cliente extends javax.swing.JFrame {
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
         // TODO add your handling code here:
-        if ((txt_nombre.getText().matches("[A-Z][a-zA-Z]*\\D{3}")) && (txt_apellido.getText().matches("[A-Z][a-zA-Z]*\\D{3}"))
-                && (txt_nit.getText().matches("[0-9]*"))) {
+        if (txt_buscar.getText().matches("[0-9]*")) {
 
             try {
-                ps = (PreparedStatement) con.prepareStatement("DELETE FROM tbl_cliente WHERE id_cliente = ?");//Evitar sql injection.
+                ps = (PreparedStatement) con.prepareStatement("DELETE FROM tbl_clientes WHERE Pk_iId_Clientes = ?");//Evitar sql injection.
                 ps.setInt(1, Integer.parseInt(txt_buscar.getText()));
 
                 int res = ps.executeUpdate();
@@ -268,23 +320,26 @@ public class cliente extends javax.swing.JFrame {
                 txt_apellido.setText("");
                 txt_nit.setText("");
                 txt_buscar.setText("");
+                placeholder();
+                
+                global.GrabaBitacora(ClsBitacora.SystemUser, "Elimino en cliente");
 
             } catch (Exception e) {
                 System.err.println("ERROR EN LA BASE DE DATOS.");
             }
         } else {
-            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos los datos.", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos.", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btn_eliminarActionPerformed
 
     private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
         // TODO add your handling code here:
 
-        if ((txt_nombre.getText().matches("[A-Z][a-zA-Z]*\\D{3}")) && (txt_apellido.getText().matches("[A-Z][a-zA-Z]*\\D{3}"))
+        if ((txt_nombre.getText().matches("[A-Z][a-zA-Z]*")) && (txt_apellido.getText().matches("[A-Z][a-zA-Z]*"))
                 && (txt_nit.getText().matches("[0-9]*"))) {
             try {
-                ps = (PreparedStatement) con.prepareStatement("UPDATE tbl_cliente SET  nombre_cliente = ?,"
-                        + " nombre_cliente = ?, nit_cliente = ? WHERE id_cliente = ?");//Evitar sql injection.  
+                ps = (PreparedStatement) con.prepareStatement("UPDATE tbl_clientes SET  cNombre_Cliente = ?,"
+                        + " cApellido_Cliente = ?, cNit_Cliente = ? WHERE Pk_iId_Clientes = ?");//Evitar sql injection.  
 
                 ps.setString(1, txt_nombre.getText());
                 ps.setString(2, txt_apellido.getText());
@@ -304,23 +359,26 @@ public class cliente extends javax.swing.JFrame {
                 txt_apellido.setText("");
                 txt_nit.setText("");
                 txt_buscar.setText("");
+                placeholder();
+                
+                global.GrabaBitacora(ClsBitacora.SystemUser, "Modifico en cliente");
 
             } catch (Exception e) {
                 System.err.println(e);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos los datos.", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos.", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btn_modificarActionPerformed
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here:
 
-        if ((txt_nombre.getText().matches("[A-Z][a-zA-Z]*\\D{3}")) && (txt_apellido.getText().matches("[A-Z][a-zA-Z]*\\D{3}"))
+        if ((txt_nombre.getText().matches("[A-Z][a-zA-Z]*")) && (txt_apellido.getText().matches("[A-Z][a-zA-Z]*"))
                 && (txt_nit.getText().matches("[0-9]*"))) {
             try {
 
-                ps = con.prepareStatement("INSERT INTO tbl_client (nombre_cliente, apellido_cliente, nit_cliente) VALUES(?,?,?)");
+                ps = con.prepareStatement("INSERT INTO tbl_clientes (cNombre_Cliente, cApellido_Cliente, cNit_Cliente) VALUES(?,?,?)");
 
                 String nombre = txt_nombre.getText();
                 String apellido = txt_apellido.getText();
@@ -334,6 +392,12 @@ public class cliente extends javax.swing.JFrame {
                 txt_apellido.setText("");
                 txt_nit.setText("");
                 ps.executeUpdate();
+                placeholder();
+                
+                
+                JOptionPane.showMessageDialog(null, "Registro Exitoso");
+                
+                global.GrabaBitacora(ClsBitacora.SystemUser, "Inserto en cliente");
 
                 //con.close();
             } catch (SQLException ex) {
@@ -341,9 +405,31 @@ public class cliente extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, ex);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos los datos.", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos.", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btn_guardarActionPerformed
+
+    private void txt_buscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_buscarKeyTyped
+        // TODO add your handling code here:
+        char validar = evt.getKeyChar();
+        if (Character.isLetter(validar)) {
+            getToolkit().beep();
+            evt.consume();
+
+            JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
+        }
+    }//GEN-LAST:event_txt_buscarKeyTyped
+
+    private void txt_nitKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_nitKeyTyped
+        // TODO add your handling code here:
+        char validar = evt.getKeyChar();
+        if (Character.isLetter(validar)) {
+            getToolkit().beep();
+            evt.consume();
+
+            JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
+        }
+    }//GEN-LAST:event_txt_nitKeyTyped
 
     /**
      * @param args the command line arguments
@@ -386,6 +472,9 @@ public class cliente extends javax.swing.JFrame {
     private javax.swing.JButton btn_guardar;
     private javax.swing.JButton btn_modificar;
     private javax.swing.JButton btn_regresar;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lbl_apellido;
     private javax.swing.JLabel lbl_nit;
     private javax.swing.JLabel lbl_nombre;

@@ -19,7 +19,7 @@ public class Conexion {
     private static final String driver = "com.mysql.cj.jdbc.Driver";
     private static final String user = "root";
     private static final String pass = "1234";
-    private static final String url = "jdbc:mysql://localhost:3306/mydb ?useUnicode=true&"
+    private static final String url = "jdbc:mysql://localhost:3306/sistema_de_reparto ?useUnicode=true&"
             + "useJDBCCompliantTimezoneShift=true&useLegacy"
             + "DatetimeCode=false&serverTimezone=UTC";
 
@@ -33,7 +33,7 @@ public class Conexion {
             con = (Connection) DriverManager.getConnection(url, user, pass);
             // Si la conexion fue exitosa mostramos un mensaje de conexion exitosa
             if (con != null) {
-                JOptionPane.showMessageDialog(null, "Conexion establecida");
+                //JOptionPane.showMessageDialog(null, "Conexion establecida");
             }
         } // Si la conexion NO fue exitosa mostramos un mensaje de error
         catch (ClassNotFoundException | SQLException e) {

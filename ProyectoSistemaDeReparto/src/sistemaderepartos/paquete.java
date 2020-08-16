@@ -7,6 +7,7 @@ package sistemaderepartos;
 
 import sistemaderepartos.menu;
 import com.placeholder.PlaceHolder;
+import java.awt.Dimension;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -28,31 +29,19 @@ public class paquete extends javax.swing.JFrame {
     Connection con = cn.getConnection();
     PreparedStatement ps;
     ResultSet rs;
+    
+    ClsBitacora global = new ClsBitacora();
 
     PlaceHolder holder;
 
     public paquete() {
         initComponents();
+        this.setSize(new Dimension(550, 325));
         holder = new PlaceHolder(txt_buscar, "Codigo a buscar");
         holder = new PlaceHolder(txt_nombre, "Nombre de paquete");
+        holder = new PlaceHolder(txt_detalle, "Detalle de paquete");
     }
 
-    public static final String URL = "jdbc:mysql://localhost:3306/mydb?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-    public static final String USERNAME = "root";
-    public static final String PASSWORD = "";
-
-    public static Connection getConection() {
-        Connection con = null;
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            con = (Connection) DriverManager.getConnection(URL, USERNAME, PASSWORD);
-
-            //JOptionPane.showMessageDialog(null, "Conexión establecida....");
-        } catch (Exception e) {
-            System.err.println(e);
-        }
-        return con;
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -63,20 +52,56 @@ public class paquete extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         lbl_texto = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
         txt_buscar = new javax.swing.JTextField();
         btn_buscar = new javax.swing.JButton();
         lbl_codigo_paquete = new javax.swing.JLabel();
-        btn_guardar = new javax.swing.JButton();
         txt_nombre = new javax.swing.JTextField();
+        lbl_detalle = new javax.swing.JLabel();
+        txt_detalle = new javax.swing.JTextField();
+        jPanel3 = new javax.swing.JPanel();
+        btn_regresar = new javax.swing.JButton();
+        btn_guardar = new javax.swing.JButton();
         btn_modificar = new javax.swing.JButton();
         btn_eliminar = new javax.swing.JButton();
-        btn_regresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(624, 422));
+        setResizable(false);
 
-        lbl_texto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jPanel1.setBackground(new java.awt.Color(29, 53, 87));
+
+        lbl_texto.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lbl_texto.setForeground(new java.awt.Color(255, 255, 255));
         lbl_texto.setText("PAQUETE");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(222, 222, 222)
+                .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(20, Short.MAX_VALUE)
+                .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jPanel2.setBackground(new java.awt.Color(241, 250, 238));
+
+        txt_buscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_buscarKeyTyped(evt);
+            }
+        });
 
         btn_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionBuscar.png"))); // NOI18N
         btn_buscar.setText("Buscar");
@@ -88,6 +113,58 @@ public class paquete extends javax.swing.JFrame {
 
         lbl_codigo_paquete.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbl_codigo_paquete.setText("NOMBRE");
+
+        lbl_detalle.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lbl_detalle.setText("DETALLE PAQUETE");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(140, 140, 140)
+                .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(64, 64, 64)
+                .addComponent(btn_buscar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(48, 48, 48)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lbl_codigo_paquete, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                    .addComponent(lbl_detalle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txt_nombre, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+                    .addComponent(txt_detalle))
+                .addGap(36, 36, 36))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_buscar))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_codigo_paquete)
+                    .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_detalle)
+                    .addComponent(txt_detalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        jPanel3.setBackground(new java.awt.Color(168, 218, 220));
+
+        btn_regresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionRegresar.png"))); // NOI18N
+        btn_regresar.setText("Regresar");
+        btn_regresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_regresarActionPerformed(evt);
+            }
+        });
 
         btn_guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionGuardar.png"))); // NOI18N
         btn_guardar.setText("Guardar");
@@ -113,75 +190,58 @@ public class paquete extends javax.swing.JFrame {
             }
         });
 
-        btn_regresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionRegresar.png"))); // NOI18N
-        btn_regresar.setText("Regresar");
-        btn_regresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_regresarActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(btn_guardar)
+                        .addGap(232, 232, 232)
+                        .addComponent(btn_eliminar))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(158, 158, 158)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn_regresar)
+                            .addComponent(btn_modificar))))
+                .addContainerGap(77, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_guardar)
+                    .addComponent(btn_modificar)
+                    .addComponent(btn_eliminar))
+                .addGap(18, 18, 18)
+                .addComponent(btn_regresar)
+                .addContainerGap(28, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(58, 58, 58)
-                                .addComponent(lbl_codigo_paquete, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(105, 105, 105)
-                                .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(230, 230, 230)
-                                .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(149, 149, 149)
-                                .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(62, 62, 62)
-                                .addComponent(btn_buscar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(81, 81, 81)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btn_guardar)
-                                        .addGap(232, 232, 232)
-                                        .addComponent(btn_eliminar))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(158, 158, 158)
-                                        .addComponent(btn_modificar)))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btn_regresar)))
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_buscar))
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_codigo_paquete)
-                    .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_guardar)
-                    .addComponent(btn_modificar)
-                    .addComponent(btn_eliminar))
-                .addGap(12, 12, 12)
-                .addComponent(btn_regresar)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(4, 4, 4)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresarActionPerformed
@@ -194,10 +254,10 @@ public class paquete extends javax.swing.JFrame {
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
         // TODO add your handling code here:
-        if ((txt_nombre.getText().matches("[A-Z][a-zA-Z]*\\D{3}"))) {
+        if (txt_buscar.getText().matches("[0-9]*")) {
 
             try {
-                ps = (PreparedStatement) con.prepareStatement("DELETE FROM tbl_paquete WHERE id_paquete = ?");//Evitar sql injection.
+                ps = (PreparedStatement) con.prepareStatement("DELETE FROM tbl_paquetes WHERE Pk_iId_Paquete = ?");//Evitar sql injection.
                 ps.setInt(1, Integer.parseInt(txt_buscar.getText()));
 
                 int res = ps.executeUpdate();
@@ -210,26 +270,31 @@ public class paquete extends javax.swing.JFrame {
                 //con.close();
 
                 txt_nombre.setText("");
+                txt_detalle.setText("");
                 txt_buscar.setText("");
+                
+                
+                global.GrabaBitacora(ClsBitacora.SystemUser, "Elimino en paquete");
 
             } catch (Exception e) {
                 System.err.println("ERROR EN LA BASE DE DATOS.");
             }
         } else {
-            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos los datos.", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos.", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btn_eliminarActionPerformed
 
     private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
         // TODO add your handling code here:
-        if ((txt_nombre.getText().matches("[A-Z][a-zA-Z]*\\D{3}"))) {
+        if ((txt_nombre.getText().matches("[a-zA-Z-\\t\\n\\x0b\\r\\f]+")) && (txt_detalle.getText().matches("[a-zA-Z-\\t\\n\\x0b\\r\\f]+"))) {
 
             try {
-                ps = (PreparedStatement) con.prepareStatement("UPDATE tbl_paquete SET  nombre_paquete = ?,"
-                        + " WHERE id_paquete = ?");//Evitar sql injection.  
+                ps = (PreparedStatement) con.prepareStatement("UPDATE tbl_paquetes SET  cNombre_Paquete = ?, cDetalle_Paquete = ?"
+                        + " WHERE Pk_iId_Paquete = ?");//Evitar sql injection.  
 
                 ps.setString(1, txt_nombre.getText());
-                ps.setString(2, txt_buscar.getText());
+                ps.setString(2, txt_detalle.getText());
+                ps.setString(3, txt_buscar.getText());
 
                 int res = ps.executeUpdate();
 
@@ -241,30 +306,42 @@ public class paquete extends javax.swing.JFrame {
                 //con.close();
 
                 txt_nombre.setText("");
+                txt_detalle.setText("");
                 txt_buscar.setText("");
+                
+                global.GrabaBitacora(ClsBitacora.SystemUser, "Modifico en paquete");
 
             } catch (Exception e) {
                 System.err.println(e);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos los datos.", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos.", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btn_modificarActionPerformed
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here:
-        if ((txt_nombre.getText().matches("[A-Z][a-zA-Z]*\\D{3}"))) {
+        if ((txt_nombre.getText().matches("[A-Z][a-zA-Z]*")) && (txt_detalle.getText().matches("[A-Z][a-zA-Z]*[0-9]*"))) {
 
             try {
 
-                ps = con.prepareStatement("INSERT INTO tbl_paquete (nombre_paquete) VALUES(?)");
+                ps = con.prepareStatement("INSERT INTO tbl_paquetes (cNombre_Paquete, cDetalle_Paquete) VALUES(?,?)");
 
                 String nombre = txt_nombre.getText();
+                String detalle = txt_detalle.getText();
 
                 ps.setString(1, nombre);
+                ps.setString(2, detalle);
 
                 txt_nombre.setText("");
+                txt_detalle.setText("");
+                txt_buscar.setText("");
                 ps.executeUpdate();
+                
+                
+                JOptionPane.showMessageDialog(null, "Registro Exitoso");
+                
+                global.GrabaBitacora(ClsBitacora.SystemUser, "Agrego en paquete");
 
                 //con.close();
             } catch (SQLException ex) {
@@ -272,7 +349,7 @@ public class paquete extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, ex);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos los datos.", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos.", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btn_guardarActionPerformed
 
@@ -281,13 +358,14 @@ public class paquete extends javax.swing.JFrame {
         if (txt_buscar.getText().matches("[0-9]*")) {
 
             try {
-                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM  tbl_paquete WHERE id_paquete = ? ");//Evitar sql injection.
+                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM  tbl_paquetes WHERE Pk_iId_Paquete = ? ");//Evitar sql injection.
                 ps.setInt(1, Integer.parseInt(txt_buscar.getText()));
 
                 rs = ps.executeQuery();
 
                 if (rs.next()) {
-                    txt_nombre.setText(rs.getString("nombre_paquete"));
+                    txt_nombre.setText(rs.getString("cNombre_Paquete"));
+                    txt_detalle.setText(rs.getString("cDetalle_Paquete"));
 
                 } else {
                     JOptionPane.showMessageDialog(null, "ERROR", "Error no se desplegaron los datos.", JOptionPane.ERROR_MESSAGE);
@@ -301,6 +379,17 @@ public class paquete extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "ERROR", "Error en el codigo", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btn_buscarActionPerformed
+
+    private void txt_buscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_buscarKeyTyped
+        // TODO add your handling code here:
+        char validar = evt.getKeyChar();
+        if (Character.isLetter(validar)) {
+            getToolkit().beep();
+            evt.consume();
+
+            JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
+        }
+    }//GEN-LAST:event_txt_buscarKeyTyped
 
     /**
      * @param args the command line arguments
@@ -343,9 +432,14 @@ public class paquete extends javax.swing.JFrame {
     private javax.swing.JButton btn_guardar;
     private javax.swing.JButton btn_modificar;
     private javax.swing.JButton btn_regresar;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lbl_codigo_paquete;
+    private javax.swing.JLabel lbl_detalle;
     private javax.swing.JLabel lbl_texto;
     private javax.swing.JTextField txt_buscar;
+    private javax.swing.JTextField txt_detalle;
     private javax.swing.JTextField txt_nombre;
     // End of variables declaration//GEN-END:variables
 }

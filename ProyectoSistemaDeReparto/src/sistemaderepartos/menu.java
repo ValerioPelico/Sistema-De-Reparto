@@ -5,6 +5,7 @@
  */
 package sistemaderepartos;
 
+import java.awt.Dimension;
 import sistemaderepartos.accidente;
 import sistemaderepartos.bodega;
 import sistemaderepartos.cliente;
@@ -16,6 +17,10 @@ import sistemaderepartos.paquete;
 import sistemaderepartos.quejas;
 import sistemaderepartos.vehiculo;
 import sistemaderepartos.zonasdestinadas;
+import sistemaderepartos.consultas;
+import sistemaderepartos.login;
+import sistemaderepartos.usuarios;
+import sistemaderepartos.mantenimientoVehiculo;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -47,6 +52,7 @@ public class menu extends javax.swing.JFrame {
         
         this.setContentPane(fondoso);
         initComponents();
+        this.setSize(new Dimension(660, 750));
         ImageIcon imagen = new ImageIcon("src/imagenes/cliente.png");
         Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(img_cliente.getWidth(), img_cliente.getHeight(), Image.SCALE_DEFAULT));
         img_cliente.setIcon(icono);
@@ -72,9 +78,9 @@ public class menu extends javax.swing.JFrame {
         img_paquete.setIcon(icono4);
         this.repaint();
         
-        ImageIcon imagen5 = new ImageIcon("src/imagenes/reporte.png");
-        Icon icono5 = new ImageIcon(imagen5.getImage().getScaledInstance(img_reporte.getWidth(), img_reporte.getHeight(), Image.SCALE_DEFAULT));
-        img_reporte.setIcon(icono5);
+        ImageIcon imagen5 = new ImageIcon("src/imagenes/mantenimiento.png");
+        Icon icono5 = new ImageIcon(imagen5.getImage().getScaledInstance(img_mantenimiento.getWidth(), img_mantenimiento.getHeight(), Image.SCALE_DEFAULT));
+        img_mantenimiento.setIcon(icono5);
         this.repaint();
         
         ImageIcon imagen6 = new ImageIcon("src/imagenes/acc.png");
@@ -127,6 +133,16 @@ public class menu extends javax.swing.JFrame {
         img_zonas.setIcon(icono15);
         this.repaint();
         
+        ImageIcon imagen16 = new ImageIcon("src/imagenes/usuario.png");
+        Icon icono16 = new ImageIcon(imagen16.getImage().getScaledInstance(img_usuario.getWidth(), img_usuario.getHeight(), Image.SCALE_DEFAULT));
+        img_usuario.setIcon(icono16);
+        this.repaint();
+        
+        ImageIcon imagen17 = new ImageIcon("src/imagenes/cerrar.png");
+        Icon icono17 = new ImageIcon(imagen17.getImage().getScaledInstance(img_cerrar.getWidth(), img_cerrar.getHeight(), Image.SCALE_DEFAULT));
+        img_cerrar.setIcon(icono17);
+        this.repaint();
+        
     }
 
     /**
@@ -143,7 +159,7 @@ public class menu extends javax.swing.JFrame {
         lbl_menu = new javax.swing.JLabel();
         img_empleados = new javax.swing.JButton();
         img_accidente = new javax.swing.JButton();
-        img_reporte = new javax.swing.JButton();
+        img_mantenimiento = new javax.swing.JButton();
         img_consulta = new javax.swing.JButton();
         lbl_vehiculo = new javax.swing.JLabel();
         lbl_consultas = new javax.swing.JLabel();
@@ -165,9 +181,16 @@ public class menu extends javax.swing.JFrame {
         lbl_quejas = new javax.swing.JLabel();
         img_zonas = new javax.swing.JButton();
         lbl_zonas = new javax.swing.JLabel();
+        img_cerrar = new javax.swing.JButton();
+        lbl_orden1 = new javax.swing.JLabel();
+        img_usuario = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(java.awt.Color.red);
+        setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(667, 820));
 
         img_cliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cliente.png"))); // NOI18N
         img_cliente.addActionListener(new java.awt.event.ActionListener() {
@@ -201,10 +224,10 @@ public class menu extends javax.swing.JFrame {
             }
         });
 
-        img_reporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/reporte.png"))); // NOI18N
-        img_reporte.addActionListener(new java.awt.event.ActionListener() {
+        img_mantenimiento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mantenimiento.png"))); // NOI18N
+        img_mantenimiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                img_reporteActionPerformed(evt);
+                img_mantenimientoActionPerformed(evt);
             }
         });
 
@@ -225,7 +248,7 @@ public class menu extends javax.swing.JFrame {
         lbl_cliente.setText("CLIENTE");
 
         lbl_reportes.setForeground(new java.awt.Color(255, 255, 255));
-        lbl_reportes.setText("REPORTES");
+        lbl_reportes.setText("MANTENIMIENTO VEHICULO");
 
         lbl_empleados.setForeground(new java.awt.Color(255, 255, 255));
         lbl_empleados.setText("EMPLEADOS");
@@ -303,93 +326,139 @@ public class menu extends javax.swing.JFrame {
         lbl_zonas.setForeground(new java.awt.Color(255, 255, 255));
         lbl_zonas.setText("ZONAS DESTINADAS");
 
+        img_cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cerrar.png"))); // NOI18N
+        img_cerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                img_cerrarActionPerformed(evt);
+            }
+        });
+
+        lbl_orden1.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_orden1.setText("USUARIOS");
+
+        img_usuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/usuario.png"))); // NOI18N
+        img_usuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                img_usuarioActionPerformed(evt);
+            }
+        });
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/grabar(1).png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("BITACORA");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(img_camion, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(57, 57, 57)
-                                .addComponent(img_consulta, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbl_empleados)
-                                    .addComponent(img_comprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(62, 62, 62)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lbl_paquete)
-                                        .addGap(138, 138, 138)
-                                        .addComponent(lbl_accidente))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(img_paquete, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lbl_entrega)
-                                            .addComponent(img_entrega, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(49, 49, 49)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(img_quejas, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lbl_quejas)
-                                            .addComponent(img_accidente, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                        .addGap(34, 34, 34))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(img_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(40, 40, 40)
-                                        .addComponent(lbl_cliente))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addContainerGap()
-                                        .addComponent(img_empleados, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(94, 94, 94)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lbl_vehiculo)
-                                        .addGap(115, 115, 115)
-                                        .addComponent(lbl_consultas))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(63, 63, 63)
-                                        .addComponent(lbl_menu, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbl_reportes)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(img_bodega, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(24, 24, 24)
-                            .addComponent(lbl_bodega))
-                        .addComponent(img_reporte, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(img_zonas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lbl_zonas, javax.swing.GroupLayout.Alignment.TRAILING)))
-                .addGap(36, 36, 36))
+                .addGap(32, 32, 32)
+                .addComponent(lbl_comprobante)
+                .addGap(88, 88, 88)
+                .addComponent(lbl_entrega)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lbl_quejas)
+                .addGap(109, 109, 109)
+                .addComponent(lbl_zonas)
+                .addGap(60, 60, 60))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lbl_comprobante)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(img_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(184, 184, 184)
+                                .addComponent(lbl_paquete)
+                                .addGap(126, 126, 126)
+                                .addComponent(lbl_accidente))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(24, 24, 24)
+                                        .addComponent(lbl_empleados))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(img_empleados, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(img_paquete, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(158, 158, 158)
+                                            .addComponent(img_camion, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(img_comprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(39, 39, 39)
+                                        .addComponent(img_entrega, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(img_accidente, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(img_consulta, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(img_quejas, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(34, 34, 34))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(img_orden, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(38, 38, 38)
+                        .addComponent(lbl_cliente)
+                        .addGap(114, 114, 114)
+                        .addComponent(lbl_vehiculo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbl_consultas)
+                        .addGap(66, 66, 66)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lbl_reportes)
+                            .addComponent(img_mantenimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(img_zonas, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(img_bodega, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(47, 47, 47))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lbl_bodega)
+                        .addGap(98, 98, 98))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(277, 277, 277)
+                .addComponent(lbl_menu, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(267, 267, 267))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addComponent(jLabel1)))
+                .addGap(53, 53, 53)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(img_orden, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(lbl_orden)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(48, 48, 48)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(95, 95, 95)
+                        .addComponent(lbl_orden1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(71, 71, 71)
+                        .addComponent(img_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(img_cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(22, 22, 22))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(41, 41, 41)
                 .addComponent(lbl_menu, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_consultas)
                     .addComponent(lbl_vehiculo)
@@ -397,49 +466,58 @@ public class menu extends javax.swing.JFrame {
                     .addComponent(lbl_reportes))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(img_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(img_consulta, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(img_camion, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(67, 67, 67)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbl_empleados)
-                            .addComponent(lbl_paquete)
-                            .addComponent(lbl_accidente)
-                            .addComponent(lbl_bodega)))
-                    .addComponent(img_reporte, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(img_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(img_consulta, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(img_camion, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(img_mantenimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(49, 49, 49)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_empleados)
+                    .addComponent(lbl_paquete)
+                    .addComponent(lbl_accidente)
+                    .addComponent(lbl_bodega))
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(img_paquete, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(img_empleados, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(img_accidente, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(img_bodega, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
+                .addGap(48, 48, 48)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lbl_comprobante)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(img_comprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lbl_quejas)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(img_quejas, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(lbl_comprobante)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(img_comprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(img_quejas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(53, 53, 53)
-                        .addComponent(lbl_orden)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(img_orden, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(115, 115, 115))
+                            .addComponent(lbl_entrega, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lbl_zonas, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(img_entrega, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(img_zonas, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(lbl_entrega)
-                                    .addComponent(lbl_quejas)
-                                    .addComponent(lbl_zonas))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(img_entrega, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(img_zonas, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(284, 284, 284))))
+                        .addGap(51, 51, 51)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbl_orden)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(img_orden, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbl_orden1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(img_cerrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(img_usuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
 
         pack();
@@ -517,20 +595,20 @@ public class menu extends javax.swing.JFrame {
     }//GEN-LAST:event_img_zonasActionPerformed
 
     private void img_consultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_consultaActionPerformed
-        cliente volver = new cliente();
+        consultas volver = new consultas();
             volver.setVisible(true);
             dispose();
              volver.setLocationRelativeTo(null);
         // TODO add your handling code here:
     }//GEN-LAST:event_img_consultaActionPerformed
 
-    private void img_reporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_reporteActionPerformed
-           cliente volver = new cliente();
+    private void img_mantenimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_mantenimientoActionPerformed
+           mantenimientoVehiculo volver = new mantenimientoVehiculo();
             volver.setVisible(true);
             dispose();
              volver.setLocationRelativeTo(null);
         // TODO add your handling code here:
-    }//GEN-LAST:event_img_reporteActionPerformed
+    }//GEN-LAST:event_img_mantenimientoActionPerformed
 
     private void img_empleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_empleadosActionPerformed
         empleado volver = new empleado();
@@ -547,6 +625,31 @@ public class menu extends javax.swing.JFrame {
              volver.setLocationRelativeTo(null);
         // TODO add your handling code here:
     }//GEN-LAST:event_img_paqueteActionPerformed
+
+    private void img_cerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_cerrarActionPerformed
+        login volver = new login();
+        volver.setVisible(true);
+        dispose();
+        volver.setLocationRelativeTo(null);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_img_cerrarActionPerformed
+
+    private void img_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_usuarioActionPerformed
+        usuarios volver = new usuarios();
+        volver.setVisible(true);
+        dispose();
+        volver.setLocationRelativeTo(null);
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+    }//GEN-LAST:event_img_usuarioActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        bitacora volver = new bitacora();
+        volver.setVisible(true);
+        dispose();
+        volver.setLocationRelativeTo(null);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -578,7 +681,9 @@ public class menu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new menu().setVisible(true);
+                //new menu().setVisible(true);
+                login log = new login();
+                log.setVisible(true);
             }
         });
     }
@@ -587,16 +692,20 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JButton img_accidente;
     private javax.swing.JButton img_bodega;
     private javax.swing.JButton img_camion;
+    private javax.swing.JButton img_cerrar;
     private javax.swing.JButton img_cliente;
     private javax.swing.JButton img_comprobante;
     private javax.swing.JButton img_consulta;
     private javax.swing.JButton img_empleados;
     private javax.swing.JButton img_entrega;
+    private javax.swing.JButton img_mantenimiento;
     private javax.swing.JButton img_orden;
     private javax.swing.JButton img_paquete;
     private javax.swing.JButton img_quejas;
-    private javax.swing.JButton img_reporte;
+    private javax.swing.JButton img_usuario;
     private javax.swing.JButton img_zonas;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lbl_accidente;
     private javax.swing.JLabel lbl_bodega;
     private javax.swing.JLabel lbl_cliente;
@@ -606,6 +715,7 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_entrega;
     private javax.swing.JLabel lbl_menu;
     private javax.swing.JLabel lbl_orden;
+    private javax.swing.JLabel lbl_orden1;
     private javax.swing.JLabel lbl_paquete;
     private javax.swing.JLabel lbl_quejas;
     private javax.swing.JLabel lbl_reportes;
