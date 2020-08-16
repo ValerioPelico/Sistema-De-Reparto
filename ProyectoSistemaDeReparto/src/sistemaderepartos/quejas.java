@@ -7,11 +7,16 @@ package sistemaderepartos;
 
 import sistemaderepartos.menu;
 import com.placeholder.PlaceHolder;
+import java.awt.Dimension;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -28,35 +33,31 @@ public class quejas extends javax.swing.JFrame {
     Connection con = cn.getConnection();
     PreparedStatement ps;
     ResultSet rs;
+    
+    ClsBitacora global = new ClsBitacora();
 
     PlaceHolder holder;
-
+    
+    public void placeholder(){
+        
+        holder = new PlaceHolder(txt_buscar, "Codigo a buscar");
+        holder = new PlaceHolder(txt_titulo, "Titulo de queja");
+        holder = new PlaceHolder(txt_descripcion, "Descripcion");
+        holder = new PlaceHolder(txt_fecha, "Fecha");
+        holder = new PlaceHolder(txt_estado, "Estado Queja");
+        holder = new PlaceHolder(txt_comprobante, "Codigo Comprobante");
+    }
+    
     public quejas() {
         initComponents();
-
-        holder = new PlaceHolder(txt_buscar, "Codigo a buscar");
-        holder = new PlaceHolder(txt_descripcion, "Codigo de queja");
+        this.setSize(new Dimension(660, 500));
+        placeholder();
+        /*holder = new PlaceHolder(txt_buscar, "Codigo a buscar");
+        holder = new PlaceHolder(txt_titulo, "Titulo de queja");
+        holder = new PlaceHolder(txt_descripcion, "Descripcion");
         holder = new PlaceHolder(txt_fecha, "Fecha");
-        holder = new PlaceHolder(txt_cliente, "Codigo cliente");
-        holder = new PlaceHolder(txt_comprobante, "Codigo Comprobante");
-        holder = new PlaceHolder(txt_estado, "Codigo estado de queja");
-    }
-
-    public static final String URL = "jdbc:mysql://localhost:3306/mydb?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-    public static final String USERNAME = "root";
-    public static final String PASSWORD = "";
-
-    public static Connection getConection() {
-        Connection con = null;
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            con = (Connection) DriverManager.getConnection(URL, USERNAME, PASSWORD);
-
-            //JOptionPane.showMessageDialog(null, "Conexión establecida....");
-        } catch (Exception e) {
-            System.err.println(e);
-        }
-        return con;
+        holder = new PlaceHolder(txt_estado, "Estado Queja");
+        holder = new PlaceHolder(txt_comprobante, "Codigo Comprobante");*/
     }
 
     /**
@@ -68,28 +69,165 @@ public class quejas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lbl_cliente = new javax.swing.JLabel();
-        btn_modificar = new javax.swing.JButton();
-        txt_comprobante = new javax.swing.JTextField();
-        btn_eliminar = new javax.swing.JButton();
-        lbl_descripcion = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         lbl_texto = new javax.swing.JLabel();
-        txt_buscar = new javax.swing.JTextField();
-        btn_guardar = new javax.swing.JButton();
-        txt_estado = new javax.swing.JTextField();
-        txt_descripcion = new javax.swing.JTextField();
-        txt_cliente = new javax.swing.JTextField();
+        jPanel2 = new javax.swing.JPanel();
+        txt_comprobante = new javax.swing.JTextField();
+        txt_titulo = new javax.swing.JTextField();
         txt_fecha = new javax.swing.JTextField();
+        lbl_estado = new javax.swing.JLabel();
+        txt_descripcion = new javax.swing.JTextField();
         btn_buscar = new javax.swing.JButton();
+        txt_estado = new javax.swing.JTextField();
         lbl_comprobante = new javax.swing.JLabel();
-        lbl_codigo_queja = new javax.swing.JLabel();
-        lbl_vechiculo = new javax.swing.JLabel();
+        lbl_titulo = new javax.swing.JLabel();
+        lbl_descripcion = new javax.swing.JLabel();
+        lbl_fecha = new javax.swing.JLabel();
+        txt_buscar = new javax.swing.JTextField();
+        jPanel3 = new javax.swing.JPanel();
+        btn_modificar = new javax.swing.JButton();
+        btn_eliminar = new javax.swing.JButton();
         btn_regresar = new javax.swing.JButton();
+        btn_guardar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(667, 620));
+        setResizable(false);
 
-        lbl_cliente.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lbl_cliente.setText("CODIGO COMPROBANTE");
+        jPanel1.setBackground(new java.awt.Color(29, 53, 87));
+
+        lbl_texto.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lbl_texto.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_texto.setText("QUEJAS");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(248, 248, 248)
+                .addComponent(lbl_texto)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+
+        jPanel2.setBackground(new java.awt.Color(241, 250, 238));
+
+        txt_comprobante.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_comprobanteKeyTyped(evt);
+            }
+        });
+
+        txt_fecha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_fechaKeyTyped(evt);
+            }
+        });
+
+        lbl_estado.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lbl_estado.setText("ESTADO QUEJA");
+
+        btn_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionBuscar.png"))); // NOI18N
+        btn_buscar.setText("Buscar");
+        btn_buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_buscarActionPerformed(evt);
+            }
+        });
+
+        txt_estado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_estadoKeyTyped(evt);
+            }
+        });
+
+        lbl_comprobante.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lbl_comprobante.setText("COMPROBANTE");
+
+        lbl_titulo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lbl_titulo.setText("TITULO");
+
+        lbl_descripcion.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lbl_descripcion.setText("DESCRIPCION");
+
+        lbl_fecha.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lbl_fecha.setText("FECHA");
+
+        txt_buscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_buscarKeyTyped(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(69, 69, 69)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(67, 67, 67)
+                        .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(82, 82, 82)
+                        .addComponent(btn_buscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_descripcion)
+                            .addComponent(lbl_fecha)
+                            .addComponent(lbl_estado)
+                            .addComponent(lbl_comprobante)
+                            .addComponent(lbl_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(55, 55, 55)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txt_descripcion)
+                                .addComponent(txt_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txt_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txt_comprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_buscar))
+                .addGap(36, 36, 36)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_titulo)
+                    .addComponent(txt_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbl_descripcion)
+                    .addComponent(txt_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbl_fecha)
+                    .addComponent(txt_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_estado)
+                    .addComponent(txt_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_comprobante)
+                    .addComponent(txt_comprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel3.setBackground(new java.awt.Color(168, 218, 220));
 
         btn_modificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionModificar.png"))); // NOI18N
         btn_modificar.setText("Modificar");
@@ -107,11 +245,13 @@ public class quejas extends javax.swing.JFrame {
             }
         });
 
-        lbl_descripcion.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lbl_descripcion.setText("FECHA");
-
-        lbl_texto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lbl_texto.setText("QUEJAS");
+        btn_regresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionRegresar.png"))); // NOI18N
+        btn_regresar.setText("Regresar");
+        btn_regresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_regresarActionPerformed(evt);
+            }
+        });
 
         btn_guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionGuardar.png"))); // NOI18N
         btn_guardar.setText("Guardar");
@@ -121,118 +261,55 @@ public class quejas extends javax.swing.JFrame {
             }
         });
 
-        btn_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionBuscar.png"))); // NOI18N
-        btn_buscar.setText("Buscar");
-        btn_buscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_buscarActionPerformed(evt);
-            }
-        });
-
-        lbl_comprobante.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lbl_comprobante.setText("CODIGO QUEJA");
-
-        lbl_codigo_queja.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lbl_codigo_queja.setText("DESCRIPCION");
-
-        lbl_vechiculo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lbl_vechiculo.setText("CODIGO CLIENTE");
-
-        btn_regresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionRegresar.png"))); // NOI18N
-        btn_regresar.setText("Regresar");
-        btn_regresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_regresarActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(79, 79, 79)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(btn_guardar)
+                        .addGap(83, 83, 83)
+                        .addComponent(btn_modificar))
+                    .addComponent(btn_regresar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                .addComponent(btn_eliminar)
+                .addGap(94, 94, 94))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(21, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_guardar)
+                    .addComponent(btn_modificar)
+                    .addComponent(btn_eliminar))
+                .addGap(18, 18, 18)
+                .addComponent(btn_regresar)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(149, 149, 149)
-                        .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(82, 82, 82)
-                        .addComponent(btn_buscar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(262, 262, 262)
-                        .addComponent(lbl_texto))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(84, 84, 84)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(409, 409, 409)
-                                .addComponent(btn_regresar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(31, 31, 31)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btn_guardar)
-                                        .addGap(223, 223, 223)
-                                        .addComponent(btn_eliminar))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(158, 158, 158)
-                                        .addComponent(btn_modificar))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbl_descripcion)
-                                    .addComponent(lbl_vechiculo)
-                                    .addComponent(lbl_cliente)
-                                    .addComponent(lbl_comprobante)
-                                    .addComponent(lbl_codigo_queja, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(55, 55, 55)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txt_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(txt_fecha)
-                                        .addComponent(txt_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txt_comprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txt_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_buscar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_codigo_queja)
-                    .addComponent(txt_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbl_descripcion)
-                    .addComponent(txt_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbl_vechiculo)
-                    .addComponent(txt_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_cliente)
-                    .addComponent(txt_comprobante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_comprobante)
-                    .addComponent(txt_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(51, 51, 51)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_guardar)
-                    .addComponent(btn_modificar)
-                    .addComponent(btn_eliminar))
-                .addGap(47, 47, 47)
-                .addComponent(btn_regresar)
-                .addGap(90, 90, 90))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresarActionPerformed
@@ -245,10 +322,9 @@ public class quejas extends javax.swing.JFrame {
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
         // TODO add your handling code here:
-        if ((txt_descripcion.getText().matches("[A-Z][a-zA-Z]*\\D{3}")) && (txt_cliente.getText().matches("[0-9]*"))
-                && (txt_comprobante.getText().matches("[0-9]*")) && (txt_estado.getText().matches("[0-9]*"))) {
+        if (txt_buscar.getText().matches("[0-9]*")) {
             try {
-                ps = (PreparedStatement) con.prepareStatement("DELETE FROM tbl_queja WHERE id_queja = ?");//Evitar sql injection.
+                ps = (PreparedStatement) con.prepareStatement("DELETE FROM tbl_quejas WHERE Pk_iId_Quejas = ?");//Evitar sql injection.
                 ps.setInt(1, Integer.parseInt(txt_buscar.getText()));
 
                 int res = ps.executeUpdate();
@@ -260,36 +336,51 @@ public class quejas extends javax.swing.JFrame {
                 }
                 //con.close();
 
+                txt_titulo.setText("");
                 txt_descripcion.setText("");
                 txt_fecha.setText("");
-                txt_cliente.setText("");
-                txt_comprobante.setText("");
                 txt_estado.setText("");
+                txt_comprobante.setText("");
                 txt_buscar.setText("");
+                placeholder();
+                
+                global.GrabaBitacora(ClsBitacora.SystemUser, "elimino en quejas");
 
             } catch (Exception e) {
                 System.err.println("ERROR EN LA BASE DE DATOS.");
             }
         } else {
-            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos los datos.", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos.", JOptionPane.ERROR_MESSAGE);
 
         }
     }//GEN-LAST:event_btn_eliminarActionPerformed
 
     private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
         // TODO add your handling code here:
-        if ((txt_descripcion.getText().matches("[A-Z][a-zA-Z]*\\D{3}")) && (txt_cliente.getText().matches("[0-9]*"))
-                && (txt_comprobante.getText().matches("[0-9]*")) && (txt_estado.getText().matches("[0-9]*"))) {
+        if ((txt_titulo.getText().matches("[a-zA-Z0-9]+")) && (txt_estado.getText().matches("[0-9]+")) 
+                && (txt_comprobante.getText().matches("[0-9]+")) && (txt_descripcion.getText().matches("[a-zA-Z0-9]+"))) {
+            
+            String fc = txt_fecha.getText();
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-mm-dd");
+            java.util.Date fecha1 = null; // crea objetos tipo util.Date y sql.Date
+            java.sql.Date fecha2 = null;
             try {
-                ps = (PreparedStatement) con.prepareStatement("UPDATE tbl_queja SET  descripcion_queja = ?,"
-                        + " fecha_queja = ?, tbl_cliente_id_cliente = ?, tbl_comprobante_id_comprobante = ?,"
-                        + " tbl_estado_queja_id_estado_queja = ? WHERE id_accidente = ?");//Evitar sql injection.  
+                fecha1 = formato.parse(txt_fecha.getText()); // convierte el string en util.Date
+            } catch (ParseException ex) {
+                Logger.getLogger(mantenimientoVehiculo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            fecha2 = new java.sql.Date(fecha1.getTime()); // convierte el util.Date en sql.Date
+            
+            try {
+                ps = (PreparedStatement) con.prepareStatement("UPDATE tbl_quejas SET  cTitulo_Queja = ?,"
+                        + " cDescripcion_Queja = ?, d_Fecha_Queja = ?, Fk_iId_Estado_Queja = ?,"
+                        + " Fk_iId_Comprobante = ? WHERE Pk_iId_Quejas = ?");//Evitar sql injection.  
 
-                ps.setString(1, txt_descripcion.getText());
-                ps.setString(2, txt_fecha.getText());
-                ps.setString(3, txt_cliente.getText());
-                ps.setString(4, txt_comprobante.getText());
-                ps.setString(5, txt_estado.getText());
+                ps.setString(1, txt_titulo.getText());
+                ps.setString(2, txt_descripcion.getText());
+                ps.setDate(3, fecha2);
+                ps.setString(4, txt_estado.getText());
+                ps.setString(5, txt_comprobante.getText());
                 ps.setString(6, txt_buscar.getText());
 
                 int res = ps.executeUpdate();
@@ -301,50 +392,70 @@ public class quejas extends javax.swing.JFrame {
                 }
                 //con.close();
 
+                txt_titulo.setText("");
                 txt_descripcion.setText("");
                 txt_fecha.setText("");
-                txt_cliente.setText("");
-                txt_comprobante.setText("");
                 txt_estado.setText("");
+                txt_comprobante.setText("");
                 txt_buscar.setText("");
+                placeholder();
+                
+                global.GrabaBitacora(ClsBitacora.SystemUser, "Modifico en quejas");
 
             } catch (Exception e) {
                 System.err.println(e);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos los datos.", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos.", JOptionPane.ERROR_MESSAGE);
 
         }
     }//GEN-LAST:event_btn_modificarActionPerformed
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here:
-        if ((txt_descripcion.getText().matches("[A-Z][a-zA-Z]*\\D{3}")) && (txt_cliente.getText().matches("[0-9]*"))
-                && (txt_comprobante.getText().matches("[0-9]*")) && (txt_estado.getText().matches("[0-9]*"))) {
-
+        if ((txt_titulo.getText().matches("[a-zA-Z0-9]+")) && (txt_estado.getText().matches("[0-9]+")) 
+                && (txt_comprobante.getText().matches("[0-9]+")) && (txt_descripcion.getText().matches("[a-zA-Z0-9]+"))) {
+            
+            String fc = txt_fecha.getText();
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-mm-dd");
+            java.util.Date fecha1 = null; // crea objetos tipo util.Date y sql.Date
+            java.sql.Date fecha2 = null;
+            try {
+                fecha1 = formato.parse(txt_fecha.getText()); // convierte el string en util.Date
+            } catch (ParseException ex) {
+                Logger.getLogger(mantenimientoVehiculo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            fecha2 = new java.sql.Date(fecha1.getTime()); // convierte el util.Date en sql.Date
+            
             try {
 
-                ps = con.prepareStatement("INSERT INTO tbl_queja (descripcion_queja, fecha_queja, tbl_cliente_id_cliente,"
-                        + " tbl_comprobante_id_comprobante, tbl_estado_queja_id_estado_queja) VALUES(?,?,?,?,?)");
+                ps = con.prepareStatement("INSERT INTO tbl_quejas (cTitulo_Queja, cDescripcion_Queja, d_Fecha_Queja,"
+                        + " Fk_iId_Estado_Queja, Fk_iId_Comprobante) VALUES(?,?,?,?,?)");
 
-                String descripcion = txt_descripcion.getText();
-                String fecha = txt_fecha.getText();
-                String cliente = txt_cliente.getText();
-                String comprobante = txt_comprobante.getText();
-                String estado = txt_estado.getText();
+                String descripcion = txt_titulo.getText();
+                //String fecha = txt_descripcion.getText();
+                String cliente = txt_fecha.getText();
+                String comprobante = txt_estado.getText();
+                String estado = txt_comprobante.getText();
 
                 ps.setString(1, descripcion);
-                ps.setString(2, fecha);
+                ps.setDate(2, fecha2);
                 ps.setString(3, cliente);
                 ps.setString(4, comprobante);
                 ps.setString(5, estado);
 
+                txt_titulo.setText("");
                 txt_descripcion.setText("");
                 txt_fecha.setText("");
-                txt_cliente.setText("");
-                txt_comprobante.setText("");
                 txt_estado.setText("");
+                txt_comprobante.setText("");
                 ps.executeUpdate();
+                placeholder();
+                
+                
+                JOptionPane.showMessageDialog(null, "Registro Exitoso");
+                
+                global.GrabaBitacora(ClsBitacora.SystemUser, "Agrego en quejas");
 
                 //con.close();
             } catch (SQLException ex) {
@@ -352,7 +463,7 @@ public class quejas extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, ex);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos los datos.", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos.", JOptionPane.ERROR_MESSAGE);
 
         }
     }//GEN-LAST:event_btn_guardarActionPerformed
@@ -362,17 +473,17 @@ public class quejas extends javax.swing.JFrame {
         if (txt_buscar.getText().matches("[0-9]*")) {
 
             try {
-                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM  tbl_queja WHERE id_queja = ? ");//Evitar sql injection.
+                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM  tbl_quejas WHERE Pk_iId_Quejas = ? ");//Evitar sql injection.
                 ps.setInt(1, Integer.parseInt(txt_buscar.getText()));
 
                 rs = ps.executeQuery();
 
                 if (rs.next()) {
-                    txt_descripcion.setText(rs.getString("descripcion_queja"));
-                    txt_fecha.setText(rs.getString("fecha_queja"));
-                    txt_cliente.setText(rs.getString("tbl_cliente_id_cliente"));
-                    txt_comprobante.setText(rs.getString("tbl_comprobante_id_comprobante"));
-                    txt_estado.setText(rs.getString("tbl_estado_queja_id_estado_queja"));
+                    txt_titulo.setText(rs.getString("cTitulo_Queja"));
+                    txt_descripcion.setText(rs.getString("cDescripcion_Queja"));
+                    txt_fecha.setText(rs.getString("d_Fecha_Queja"));
+                    txt_estado.setText(rs.getString("Fk_iId_Estado_Queja"));
+                    txt_comprobante.setText(rs.getString("Fk_iId_Comprobante"));
 
                 } else {
                     JOptionPane.showMessageDialog(null, "ERROR", "Error no se desplegaron los datos.", JOptionPane.ERROR_MESSAGE);
@@ -387,6 +498,50 @@ public class quejas extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_btn_buscarActionPerformed
+
+    private void txt_buscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_buscarKeyTyped
+        // TODO add your handling code here:
+        char validar = evt.getKeyChar();
+        if (Character.isLetter(validar)) {
+            getToolkit().beep();
+            evt.consume();
+
+            JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
+        }
+    }//GEN-LAST:event_txt_buscarKeyTyped
+
+    private void txt_fechaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_fechaKeyTyped
+        // TODO add your handling code here:
+        char validar = evt.getKeyChar();
+        if (Character.isLetter(validar)) {
+            getToolkit().beep();
+            evt.consume();
+
+            JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
+        }
+    }//GEN-LAST:event_txt_fechaKeyTyped
+
+    private void txt_estadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_estadoKeyTyped
+        // TODO add your handling code here:
+        char validar = evt.getKeyChar();
+        if (Character.isLetter(validar)) {
+            getToolkit().beep();
+            evt.consume();
+
+            JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
+        }
+    }//GEN-LAST:event_txt_estadoKeyTyped
+
+    private void txt_comprobanteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_comprobanteKeyTyped
+        // TODO add your handling code here:
+        char validar = evt.getKeyChar();
+        if (Character.isLetter(validar)) {
+            getToolkit().beep();
+            evt.consume();
+
+            JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
+        }
+    }//GEN-LAST:event_txt_comprobanteKeyTyped
 
     /**
      * @param args the command line arguments
@@ -429,17 +584,20 @@ public class quejas extends javax.swing.JFrame {
     private javax.swing.JButton btn_guardar;
     private javax.swing.JButton btn_modificar;
     private javax.swing.JButton btn_regresar;
-    private javax.swing.JLabel lbl_cliente;
-    private javax.swing.JLabel lbl_codigo_queja;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lbl_comprobante;
     private javax.swing.JLabel lbl_descripcion;
+    private javax.swing.JLabel lbl_estado;
+    private javax.swing.JLabel lbl_fecha;
     private javax.swing.JLabel lbl_texto;
-    private javax.swing.JLabel lbl_vechiculo;
+    private javax.swing.JLabel lbl_titulo;
     private javax.swing.JTextField txt_buscar;
-    private javax.swing.JTextField txt_cliente;
     private javax.swing.JTextField txt_comprobante;
     private javax.swing.JTextField txt_descripcion;
     private javax.swing.JTextField txt_estado;
     private javax.swing.JTextField txt_fecha;
+    private javax.swing.JTextField txt_titulo;
     // End of variables declaration//GEN-END:variables
 }

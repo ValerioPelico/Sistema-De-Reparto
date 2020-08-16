@@ -8,6 +8,7 @@ package sistemaderepartos;
 import sistemaderepartos.menu;
 import com.placeholder.PlaceHolder;
 import static com.sun.tools.doclint.Entity.amp;
+import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -30,32 +31,25 @@ public class zonasdestinadas extends javax.swing.JFrame {
     Connection con = cn.getConnection();
     PreparedStatement ps;
     ResultSet rs;
+    
+    ClsBitacora global = new ClsBitacora();
 
     PlaceHolder holder;
-
+    
+    public void placeholder(){
+        
+        holder = new PlaceHolder(txt_buscar, "Ingrese codigo a buscar");
+        holder = new PlaceHolder(txt_zona, "Numero zona");
+        holder = new PlaceHolder(txt_calles, "Calle");
+        holder = new PlaceHolder(txt_descripcion, "Descripcion");
+        holder = new PlaceHolder(txt_municipio, "ID Municipio");
+        holder = new PlaceHolder(txt_empleado, "ID empleado");
+    }
+    
     public zonasdestinadas() {
         initComponents();
-        holder = new PlaceHolder(txt_buscar, "Ingrese codigo a buscar");
-        holder = new PlaceHolder(txt_zona, "codigo zona");
-        holder = new PlaceHolder(txt_municipio, "Direccion");
-        holder = new PlaceHolder(txt_empleado, "Codigo empleado");
-    }
-
-    public static final String URL = "jdbc:mysql://localhost:3306/mydb?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-    public static final String USERNAME = "root";
-    public static final String PASSWORD = "";
-
-    public static Connection getConection() {
-        Connection con = null;
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            con = (Connection) DriverManager.getConnection(URL, USERNAME, PASSWORD);
-
-            //JOptionPane.showMessageDialog(null, "Conexión establecida....");
-        } catch (Exception e) {
-            System.err.println(e);
-        }
-        return con;
+        this.setSize(new Dimension(575, 450));
+                placeholder();
     }
 
     /**
@@ -67,21 +61,179 @@ public class zonasdestinadas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btn_guardar = new javax.swing.JButton();
-        txt_zona = new javax.swing.JTextField();
-        btn_modificar = new javax.swing.JButton();
-        btn_eliminar = new javax.swing.JButton();
-        lbl_direccion = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         lbl_texto = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
         txt_buscar = new javax.swing.JTextField();
-        txt_empleado = new javax.swing.JTextField();
-        txt_municipio = new javax.swing.JTextField();
+        txt_descripcion = new javax.swing.JTextField();
+        txt_calles = new javax.swing.JTextField();
         btn_buscar = new javax.swing.JButton();
         lbl_codigo_zona = new javax.swing.JLabel();
+        lbl_descripcion = new javax.swing.JLabel();
+        txt_zona = new javax.swing.JTextField();
+        lbl_calle = new javax.swing.JLabel();
+        lbl_municipio = new javax.swing.JLabel();
+        txt_municipio = new javax.swing.JTextField();
         lbl_empleado = new javax.swing.JLabel();
+        txt_empleado = new javax.swing.JTextField();
+        jPanel3 = new javax.swing.JPanel();
+        btn_guardar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        btn_modificar = new javax.swing.JButton();
+        btn_eliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(667, 620));
+
+        jPanel1.setBackground(new java.awt.Color(29, 53, 87));
+
+        lbl_texto.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lbl_texto.setForeground(new java.awt.Color(255, 255, 255));
+        lbl_texto.setText("ZONAS DESTINADAS");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(161, 161, 161)
+                .addComponent(lbl_texto)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
+
+        jPanel2.setBackground(new java.awt.Color(241, 250, 238));
+
+        txt_buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_buscarActionPerformed(evt);
+            }
+        });
+        txt_buscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_buscarKeyTyped(evt);
+            }
+        });
+
+        txt_descripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_descripcionKeyTyped(evt);
+            }
+        });
+
+        txt_calles.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_callesKeyTyped(evt);
+            }
+        });
+
+        btn_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionBuscar.png"))); // NOI18N
+        btn_buscar.setText("Buscar");
+        btn_buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_buscarActionPerformed(evt);
+            }
+        });
+
+        lbl_codigo_zona.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lbl_codigo_zona.setText("ZONA");
+
+        lbl_descripcion.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lbl_descripcion.setText("DESCRIPCION");
+
+        txt_zona.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_zonaKeyTyped(evt);
+            }
+        });
+
+        lbl_calle.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lbl_calle.setText("CALLES");
+
+        lbl_municipio.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lbl_municipio.setText("MUNICIPIO");
+
+        txt_municipio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_municipioKeyTyped(evt);
+            }
+        });
+
+        lbl_empleado.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lbl_empleado.setText("EMPLEADO");
+
+        txt_empleado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_empleadoKeyTyped(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(42, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(85, 85, 85)
+                        .addComponent(btn_buscar))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_codigo_zona, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbl_descripcion)
+                            .addComponent(lbl_calle)
+                            .addComponent(lbl_municipio)
+                            .addComponent(lbl_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(96, 96, 96)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txt_calles)
+                            .addComponent(txt_descripcion)
+                            .addComponent(txt_zona, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+                            .addComponent(txt_municipio)
+                            .addComponent(txt_empleado))))
+                .addGap(28, 28, 28))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_buscar))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_codigo_zona)
+                    .addComponent(txt_zona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_calle)
+                    .addComponent(txt_calles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_descripcion)
+                    .addComponent(txt_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_municipio)
+                    .addComponent(txt_municipio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_empleado)
+                    .addComponent(txt_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(11, Short.MAX_VALUE))
+        );
+
+        jPanel3.setBackground(new java.awt.Color(168, 218, 220));
 
         btn_guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionGuardar.png"))); // NOI18N
         btn_guardar.setText("Guardar");
@@ -91,9 +243,11 @@ public class zonasdestinadas extends javax.swing.JFrame {
             }
         });
 
-        txt_zona.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txt_zonaKeyTyped(evt);
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionRegresar.png"))); // NOI18N
+        jButton1.setText("Regresar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -113,117 +267,54 @@ public class zonasdestinadas extends javax.swing.JFrame {
             }
         });
 
-        lbl_direccion.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lbl_direccion.setText("CODIGO MUNICIPIO");
-
-        lbl_texto.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        lbl_texto.setText("ZONAS DESTINADAS");
-
-        txt_empleado.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txt_empleadoKeyTyped(evt);
-            }
-        });
-
-        txt_municipio.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txt_municipioKeyTyped(evt);
-            }
-        });
-
-        btn_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionBuscar.png"))); // NOI18N
-        btn_buscar.setText("Buscar");
-        btn_buscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_buscarActionPerformed(evt);
-            }
-        });
-
-        lbl_codigo_zona.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lbl_codigo_zona.setText("NOMBRE ZONA");
-
-        lbl_empleado.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lbl_empleado.setText("CODIGO EMPLEADO");
-
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionRegresar.png"))); // NOI18N
-        jButton1.setText("Regresar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(54, 54, 54)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(btn_guardar)
+                        .addGap(223, 223, 223)
+                        .addComponent(btn_eliminar))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(158, 158, 158)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1)
+                            .addComponent(btn_modificar))))
+                .addContainerGap(67, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_guardar)
+                    .addComponent(btn_modificar)
+                    .addComponent(btn_eliminar))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(58, 58, 58)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btn_guardar)
-                                        .addGap(223, 223, 223)
-                                        .addComponent(btn_eliminar))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(158, 158, 158)
-                                        .addComponent(btn_modificar))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lbl_codigo_zona, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lbl_empleado)
-                                            .addComponent(lbl_direccion))
-                                        .addGap(96, 96, 96)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txt_municipio, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
-                                            .addComponent(txt_empleado, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
-                                            .addComponent(txt_zona, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(149, 149, 149)
-                                .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(85, 85, 85)
-                                .addComponent(btn_buscar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(201, 201, 201)
-                                .addComponent(lbl_texto)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_buscar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_codigo_zona)
-                    .addComponent(txt_zona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_direccion)
-                    .addComponent(txt_municipio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_empleado)
-                    .addComponent(txt_empleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_guardar)
-                    .addComponent(btn_modificar)
-                    .addComponent(btn_eliminar))
-                .addGap(62, 62, 62)
-                .addComponent(jButton1)
-                .addGap(182, 182, 182))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -240,10 +331,9 @@ public class zonasdestinadas extends javax.swing.JFrame {
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
         // TODO add your handling code here:
-        if ((txt_zona.getText().matches("[A-Z][a-zA-Z]*\\D{3}")) && (txt_municipio.getText().matches("[0-9]*")) && (txt_empleado.getText().matches("[0-9]*"))) {
-
+        if (txt_buscar.getText().matches("[0-9]*")) {
             try {
-                ps = (PreparedStatement) con.prepareStatement("DELETE FROM tbl_zona_destinada WHERE id_zona = ?");//Evitar sql injection.
+                ps = (PreparedStatement) con.prepareStatement("DELETE FROM tbl_zona_destino WHERE Pk_iId_Zona_Destino = ?");//Evitar sql injection.
                 ps.setInt(1, Integer.parseInt(txt_buscar.getText()));
 
                 int res = ps.executeUpdate();
@@ -256,30 +346,38 @@ public class zonasdestinadas extends javax.swing.JFrame {
                 //con.close();
 
                 txt_zona.setText("");
+                txt_calles.setText("");
+                txt_descripcion.setText("");
                 txt_municipio.setText("");
                 txt_empleado.setText("");
                 txt_buscar.setText("");
+                placeholder();
+                
+                global.GrabaBitacora(ClsBitacora.SystemUser, "Eliminacion en tabla de zonas de destino");
 
             } catch (Exception e) {
                 System.err.println("ERROR EN LA BASE DE DATOS.");
             }
         } else {
-            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos los datos.", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos.", JOptionPane.ERROR_MESSAGE);
 
         }
     }//GEN-LAST:event_btn_eliminarActionPerformed
 
     private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
         // TODO add your handling code here:
-        if ((txt_zona.getText().matches("[A-Z][a-zA-Z]*\\D{3}")) && (txt_municipio.getText().matches("[0-9]*")) && (txt_empleado.getText().matches("[0-9]*"))) {
+        if ((txt_zona.getText().matches("[a-zA-Z0-9]*")) && (txt_empleado.getText().matches("[0-9]*")) && (txt_municipio.getText().matches("[0-9]*"))
+                && (txt_calles.getText().matches("[a-zA-Z0-9]*")) && (txt_descripcion.getText().matches("[a-zA-Z0-9]*"))) {
             try {
-                ps = (PreparedStatement) con.prepareStatement("UPDATE tbl_zona_destinada SET  nombre_zona = ?,"
-                        + " tbl_municipio_id_municipio = ?, tbl_empleado_id_empleado = ? WHERE id_zona = ?");//Evitar sql injection.  
+                ps = (PreparedStatement) con.prepareStatement("UPDATE tbl_zona_destino SET  cNombre_Zona_Destino = ?,"
+                        + " cCalle_Y_Numero_De_Casa_Destino = ?, cDescripcion = ?, Fk_iId_Municipio = ?, Fk_iId_Empleado = ? WHERE Pk_iId_Zona_Destino = ?");//Evitar sql injection.  
 
                 ps.setString(1, txt_zona.getText());
-                ps.setString(2, txt_municipio.getText());
-                ps.setString(3, txt_empleado.getText());
-                ps.setString(4, txt_buscar.getText());
+                ps.setString(2, txt_calles.getText());
+                ps.setString(3, txt_descripcion.getText());
+                ps.setString(4, txt_municipio.getText());
+                ps.setString(5, txt_empleado.getText());
+                ps.setString(6, txt_buscar.getText());
 
                 int res = ps.executeUpdate();
 
@@ -291,39 +389,62 @@ public class zonasdestinadas extends javax.swing.JFrame {
                 //con.close();
 
                 txt_zona.setText("");
+                txt_calles.setText("");
+                txt_descripcion.setText("");
                 txt_municipio.setText("");
                 txt_empleado.setText("");
                 txt_buscar.setText("");
+                placeholder();
+                
+                
+                global.GrabaBitacora(ClsBitacora.SystemUser, "Modifico en tabla de zona de destino");
+
 
             } catch (Exception e) {
                 System.err.println(e);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos los datos.", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos.", JOptionPane.ERROR_MESSAGE);
 
         }
     }//GEN-LAST:event_btn_modificarActionPerformed
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here:
-        if ((txt_zona.getText().matches("[A-Z][a-zA-Z]*\\D{3}")) && (txt_municipio.getText().matches("[0-9]*")) && (txt_empleado.getText().matches("[0-9]*"))) {
+        if ((txt_zona.getText().matches("[a-zA-Z0-9]*")) && (txt_empleado.getText().matches("[0-9]*")) && (txt_municipio.getText().matches("[0-9]*"))
+                && (txt_calles.getText().matches("[a-zA-Z0-9]*")) && (txt_descripcion.getText().matches("[a-zA-Z0-9]*"))) {
             try {
 
-                ps = con.prepareStatement("INSERT INTO tbl_zona_destinda (nombre_zona, tbl_municipio_id_municipio,"
-                        + " tbl_empleado_id_empleado) VALUES(?,?,?)");
+                ps = con.prepareStatement("INSERT INTO tbl_zona_destino (cNombre_Zona_Destino, cCalle_Y_Numero_De_Casa_Destino,"
+                        + " cDescripcion, Fk_iId_Municipio, Fk_iId_Empleado) VALUES(?,?,?,?,?)");
 
                 String zona = txt_zona.getText();
+                String calle = txt_calles.getText();
+                String descripcion = txt_descripcion.getText();
                 String municipio = txt_municipio.getText();
                 String empleado = txt_empleado.getText();
 
                 ps.setString(1, zona);
-                ps.setString(2, municipio);
-                ps.setString(3, empleado);
+                ps.setString(2, calle);
+                ps.setString(3, descripcion);
+                ps.setString(4, municipio);
+                ps.setString(5, empleado);
 
                 txt_zona.setText("");
+                txt_calles.setText("");
+                txt_descripcion.setText("");
                 txt_municipio.setText("");
                 txt_empleado.setText("");
+                txt_buscar.setText("");
+
                 ps.executeUpdate();
+                placeholder();
+                
+                
+                JOptionPane.showMessageDialog(null, "Registro Exitoso");
+                
+                
+                global.GrabaBitacora(ClsBitacora.SystemUser, "Agrego en tabla de zona de destino");
 
                 //con.close();
             } catch (SQLException ex) {
@@ -331,7 +452,7 @@ public class zonasdestinadas extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, ex);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos los datos.", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos.", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btn_guardarActionPerformed
 
@@ -339,15 +460,17 @@ public class zonasdestinadas extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (txt_buscar.getText().matches("[0-9]*")) {
             try {
-                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM  tbl_zona_destinada WHERE id_zona = ? ");//Evitar sql injection.
+                ps = (PreparedStatement) con.prepareStatement("SELECT * FROM  tbl_zona_destino WHERE Pk_iId_Zona_Destino = ? ");//Evitar sql injection.
                 ps.setInt(1, Integer.parseInt(txt_buscar.getText()));
 
                 rs = ps.executeQuery();
 
                 if (rs.next()) {
-                    txt_zona.setText(rs.getString("nombre_zona"));
-                    txt_municipio.setText(rs.getString("tbl_municipio_id_municipio"));
-                    txt_empleado.setText(rs.getString("tbl_empleado_id_empleado"));
+                    txt_zona.setText(rs.getString("cNombre_Zona_Destino"));
+                    txt_calles.setText(rs.getString("cCalle_Y_Numero_De_Casa_Destino"));
+                    txt_descripcion.setText(rs.getString("cDescripcion"));
+                    txt_municipio.setText(rs.getString("Fk_iId_Municipio"));
+                    txt_empleado.setText(rs.getString("Fk_iId_Empleado"));
 
                 } else {
                     JOptionPane.showMessageDialog(null, "ERROR", "Error no se desplegaron los datos.", JOptionPane.ERROR_MESSAGE);
@@ -373,6 +496,32 @@ public class zonasdestinadas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txt_zonaKeyTyped
 
+    private void txt_callesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_callesKeyTyped
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_txt_callesKeyTyped
+
+    private void txt_descripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_descripcionKeyTyped
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_txt_descripcionKeyTyped
+
+    private void txt_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_buscarActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_txt_buscarActionPerformed
+
+    private void txt_buscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_buscarKeyTyped
+        // TODO add your handling code here:
+        char validar = evt.getKeyChar();
+        if (Character.isLetter(validar)) {
+            getToolkit().beep();
+            evt.consume();
+
+            JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
+        }
+    }//GEN-LAST:event_txt_buscarKeyTyped
+
     private void txt_municipioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_municipioKeyTyped
         // TODO add your handling code here:
         char validar = evt.getKeyChar();
@@ -386,7 +535,13 @@ public class zonasdestinadas extends javax.swing.JFrame {
 
     private void txt_empleadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_empleadoKeyTyped
         // TODO add your handling code here:
+        char validar = evt.getKeyChar();
+        if (Character.isLetter(validar)) {
+            getToolkit().beep();
+            evt.consume();
 
+            JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
+        }
     }//GEN-LAST:event_txt_empleadoKeyTyped
 
     /**
@@ -430,11 +585,18 @@ public class zonasdestinadas extends javax.swing.JFrame {
     private javax.swing.JButton btn_guardar;
     private javax.swing.JButton btn_modificar;
     private javax.swing.JButton jButton1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel lbl_calle;
     private javax.swing.JLabel lbl_codigo_zona;
-    private javax.swing.JLabel lbl_direccion;
+    private javax.swing.JLabel lbl_descripcion;
     private javax.swing.JLabel lbl_empleado;
+    private javax.swing.JLabel lbl_municipio;
     private javax.swing.JLabel lbl_texto;
     private javax.swing.JTextField txt_buscar;
+    private javax.swing.JTextField txt_calles;
+    private javax.swing.JTextField txt_descripcion;
     private javax.swing.JTextField txt_empleado;
     private javax.swing.JTextField txt_municipio;
     private javax.swing.JTextField txt_zona;

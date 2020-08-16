@@ -8,6 +8,10 @@ package sistemaderepartos;
 //import java.awt.Graphics;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -26,6 +30,14 @@ public class login extends javax.swing.JFrame {
     /**
      * Creates new form login
      */
+
+    Conexion cn = new Conexion();
+    Connection con = cn.getConnection();
+    PreparedStatement ps;
+    ResultSet rs;
+    
+    ClsBitacora global = new ClsBitacora();
+
     public login() {
         
         this.setContentPane(fondoso);
@@ -144,25 +156,63 @@ public class login extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_ingresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_ingresarMouseClicked
-        String Usuario= "Admin";
-        String Contraseña= "GDEI";
-
-        String Pass= new String(txt_contraseña.getPassword());
-        if(txt_usuario.getText().equals(Usuario)&& Pass.equals(Contraseña)){
-            //SEGUNDA VENTANA A ABRIR
-            //Menu Sl = new Menu();
-            //Sl.setVisible(true);
-            dispose();
-
-        }
-        else{
-            JOptionPane.showMessageDialog(this,"Usuario / Contraseña incorrecta");
-        }
+        validarusuario();
     }//GEN-LAST:event_btn_ingresarMouseClicked
+    
+    public void validarusuario() {
 
+        int resultado = 0;
+        String pass = String.valueOf(txt_contraseña.getPassword());
+        String usuario = txt_usuario.getText();
+        String cap = "";
+        String SQL = "select * from tbl_usuario where cNombre_Usuario = '" + usuario + "' and cContraseña = '" + pass + "' ";
+
+        try {
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(SQL);
+
+            while (rs.next()) {
+
+                cap = rs.getString("Fk_iId_Tipo_Usuario");
+
+            }
+
+            if (cap.equals("1")) {
+                JOptionPane.showMessageDialog(null, "Conexion establecida");
+                ClsBitacora.SystemUser = txt_usuario.getText();
+                menuRepartidor form = new menuRepartidor();
+                form.setVisible(true);
+                global.GrabaBitacora(ClsBitacora.SystemUser, "Ingresó al sistema");
+                this.dispose();
+            } else if (cap.equals("2")) {
+                JOptionPane.showMessageDialog(null, "Conexion establecida");
+                ClsBitacora.SystemUser = txt_usuario.getText();
+                menuPiloto acc = new menuPiloto();
+                acc.setVisible(true);
+                global.GrabaBitacora(ClsBitacora.SystemUser, "Ingresó al sistema");
+                this.dispose();
+            } else if (cap.equals("3")) {
+                JOptionPane.showMessageDialog(null, "Conexion establecida");
+                ClsBitacora.SystemUser = txt_usuario.getText();
+                menu cl = new menu();
+                cl.setVisible(true);
+                global.GrabaBitacora(ClsBitacora.SystemUser, "Ingresó al sistema");
+                this.dispose();
+            }else{
+                JOptionPane.showMessageDialog(null, "Error en el Acceso");
+                txt_contraseña.setText("");
+                txt_usuario.setText("");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error " + e.getMessage());
+        }
+
+    }
+    
     /**
      * @param args the command line arguments
      */
