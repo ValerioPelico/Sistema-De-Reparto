@@ -60,6 +60,8 @@
                   <EmptySpace min="-2" pref="161" max="-2" attributes="0"/>
                   <Component id="lbl_texto" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
+                  <Component id="img_ayuda2" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -69,6 +71,11 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lbl_texto" min="-2" pref="31" max="-2" attributes="0"/>
                   <EmptySpace pref="22" max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="img_ayuda2" min="-2" pref="30" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -84,6 +91,11 @@
             </Property>
             <Property name="text" type="java.lang.String" value="ZONAS DESTINADAS"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="img_ayuda2">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="img_ayuda2ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

@@ -7,6 +7,9 @@ package sistemaderepartos;
 
 import sistemaderepartos.menu;
 import com.placeholder.PlaceHolder;
+import java.awt.Image;
+import java.awt.event.KeyEvent;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -16,6 +19,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -47,7 +52,11 @@ public class accidente extends javax.swing.JFrame {
 
     public accidente() {
         initComponents();
-                placeholder();
+                placeholder();        
+        ImageIcon imagen = new ImageIcon("src/imagenes/ayuda.png");
+        Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(img_ayuda.getWidth(), img_ayuda.getHeight(), Image.SCALE_DEFAULT));
+        img_ayuda2.setIcon(icono);
+        this.repaint();
     }
 
     /**
@@ -59,8 +68,10 @@ public class accidente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        img_ayuda1 = new javax.swing.JButton();
         jnp_a = new javax.swing.JPanel();
         lbl_texto = new javax.swing.JLabel();
+        img_ayuda2 = new javax.swing.JButton();
         jpn_b = new javax.swing.JPanel();
         btn_buscar = new javax.swing.JButton();
         lbl_fecha = new javax.swing.JLabel();
@@ -75,6 +86,13 @@ public class accidente extends javax.swing.JFrame {
         btn_modificar = new javax.swing.JButton();
         btn_eliminar = new javax.swing.JButton();
         btn_regresar = new javax.swing.JButton();
+        img_ayuda = new javax.swing.JButton();
+
+        img_ayuda1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                img_ayuda1ActionPerformed(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -86,20 +104,30 @@ public class accidente extends javax.swing.JFrame {
         lbl_texto.setForeground(new java.awt.Color(255, 255, 255));
         lbl_texto.setText("ACCIDENTE");
 
+        img_ayuda2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                img_ayuda2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jnp_aLayout = new javax.swing.GroupLayout(jnp_a);
         jnp_a.setLayout(jnp_aLayout);
         jnp_aLayout.setHorizontalGroup(
             jnp_aLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jnp_aLayout.createSequentialGroup()
-                .addGap(253, 253, 253)
+                .addGap(256, 256, 256)
                 .addComponent(lbl_texto)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(img_ayuda2)
+                .addGap(18, 18, 18))
         );
         jnp_aLayout.setVerticalGroup(
             jnp_aLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jnp_aLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jnp_aLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lbl_texto, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                    .addComponent(img_ayuda2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -255,6 +283,12 @@ public class accidente extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        img_ayuda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                img_ayudaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -262,6 +296,11 @@ public class accidente extends javax.swing.JFrame {
             .addComponent(jnp_a, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jpn_b, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jpn_c, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(295, 295, 295)
+                    .addComponent(img_ayuda)
+                    .addContainerGap(296, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,6 +311,11 @@ public class accidente extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jpn_c, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(200, 200, 200)
+                    .addComponent(img_ayuda, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(200, Short.MAX_VALUE)))
         );
 
         pack();
@@ -452,13 +496,7 @@ public class accidente extends javax.swing.JFrame {
 
     private void txt_buscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_buscarKeyTyped
         // TODO add your handling code here:
-        char validar = evt.getKeyChar();
-        if (Character.isLetter(validar)) {
-            getToolkit().beep();
-            evt.consume();
-
-            JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
-        }
+        validacion(evt);
     }//GEN-LAST:event_txt_buscarKeyTyped
 
     private void txt_descripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_descripcionKeyTyped
@@ -468,15 +506,92 @@ public class accidente extends javax.swing.JFrame {
 
     private void txt_empleadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_empleadoKeyTyped
         // TODO add your handling code here:
-        char validar = evt.getKeyChar();
+        validacion(evt);
+    }//GEN-LAST:event_txt_empleadoKeyTyped
+
+    private void img_ayudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_ayudaActionPerformed
+
+        try {
+
+            if ((new File("ayudaFormulario.chm")).exists()) {
+
+                Process p = Runtime
+                .getRuntime()
+                .exec("rundll32 url.dll,FileProtocolHandler ayudaFormulario.chm");
+                p.waitFor();
+
+            } else {
+
+                System.out.println("La ayuda no Fue encontrada");
+
+            }
+
+            System.out.println("Correcto");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_img_ayudaActionPerformed
+
+    private void img_ayuda1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_ayuda1ActionPerformed
+        // TODO add your handling code here:
+        try {
+
+            if ((new File("ayudaFormulario.chm")).exists()) {
+
+                Process p = Runtime
+                .getRuntime()
+                .exec("rundll32 url.dll,FileProtocolHandler ayudaFormulario.chm");
+                p.waitFor();
+
+            } else {
+
+                System.out.println("La ayuda no Fue encontrada");
+
+            }
+
+            System.out.println("Correcto");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_img_ayuda1ActionPerformed
+
+    private void img_ayuda2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_ayuda2ActionPerformed
+        // TODO add your handling code here:
+        try {
+
+            if ((new File("ayudaFormulario.chm")).exists()) {
+
+                Process p = Runtime
+                .getRuntime()
+                .exec("rundll32 url.dll,FileProtocolHandler ayudaFormulario.chm");
+                p.waitFor();
+
+            } else {
+
+                System.out.println("La ayuda no Fue encontrada");
+
+            }
+
+            System.out.println("Correcto");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_img_ayuda2ActionPerformed
+
+    public void validacion(KeyEvent e){
+        char validar = e.getKeyChar();
         if (Character.isLetter(validar)) {
             getToolkit().beep();
-            evt.consume();
+            e.consume();
 
             JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
         }
-    }//GEN-LAST:event_txt_empleadoKeyTyped
-
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -518,6 +633,9 @@ public class accidente extends javax.swing.JFrame {
     private javax.swing.JButton btn_guardar;
     private javax.swing.JButton btn_modificar;
     private javax.swing.JButton btn_regresar;
+    private javax.swing.JButton img_ayuda;
+    private javax.swing.JButton img_ayuda1;
+    private javax.swing.JButton img_ayuda2;
     private javax.swing.JPanel jnp_a;
     private javax.swing.JPanel jpn_b;
     private javax.swing.JPanel jpn_c;

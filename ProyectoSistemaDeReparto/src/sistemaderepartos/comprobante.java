@@ -8,11 +8,16 @@ package sistemaderepartos;
 import sistemaderepartos.menu;
 import com.placeholder.PlaceHolder;
 import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.event.KeyEvent;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,26 +34,31 @@ public class comprobante extends javax.swing.JFrame {
     Connection con = cn.getConnection();
     PreparedStatement ps;
     ResultSet rs;
-    
+
     ClsBitacora global = new ClsBitacora();
 
     PlaceHolder holder;
-    
-    public void placeholder(){
-        
+
+    public void placeholder() {
+
         holder = new PlaceHolder(txt_buscar, "Codigo a buscar");
         holder = new PlaceHolder(txt_titulo, "Titulo Comprobante");
-        holder = new PlaceHolder(txt_paquete, "Codigo entrega");
-        holder = new PlaceHolder(txt_orden, "Codigo empleado");
-        holder = new PlaceHolder(txt_empleado, "Codigo cliente");
-        holder = new PlaceHolder(txt_cliente, "Codigo zona");
+        holder = new PlaceHolder(txt_paquete, "Codigo paquete");
+        holder = new PlaceHolder(txt_orden, "Codigo orden");
+        holder = new PlaceHolder(txt_empleado, "Codigo empleado");
+        holder = new PlaceHolder(txt_cliente, "Codigo cliente");
     }
-    
+
     public comprobante() {
         initComponents();
         this.setSize(new Dimension(650, 485));
-                placeholder();
+        placeholder();
+        ImageIcon imagen = new ImageIcon("src/imagenes/ayuda.png");
+        Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(img_ayuda2.getWidth(), img_ayuda2.getHeight(), Image.SCALE_DEFAULT));
+        img_ayuda2.setIcon(icono);
+        this.repaint();
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -60,6 +70,7 @@ public class comprobante extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         lbl_texto = new javax.swing.JLabel();
+        img_ayuda2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         txt_titulo = new javax.swing.JTextField();
         txt_paquete = new javax.swing.JTextField();
@@ -90,6 +101,12 @@ public class comprobante extends javax.swing.JFrame {
         lbl_texto.setForeground(new java.awt.Color(255, 255, 255));
         lbl_texto.setText("COMPROBANTE");
 
+        img_ayuda2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                img_ayuda2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -97,14 +114,21 @@ public class comprobante extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(245, 245, 245)
                 .addComponent(lbl_texto)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(img_ayuda2)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(21, Short.MAX_VALUE)
-                .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(img_ayuda2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
         jPanel2.setBackground(new java.awt.Color(241, 250, 238));
@@ -347,8 +371,7 @@ public class comprobante extends javax.swing.JFrame {
                 txt_cliente.setText("");
                 txt_buscar.setText("");
                 placeholder();
-                
-                
+
                 global.GrabaBitacora(ClsBitacora.SystemUser, "Elimino en comprobante");
 
             } catch (Exception e) {
@@ -391,7 +414,7 @@ public class comprobante extends javax.swing.JFrame {
                 txt_cliente.setText("");
                 txt_buscar.setText("");
                 placeholder();
-                
+
                 global.GrabaBitacora(ClsBitacora.SystemUser, "Modifico en comprobante");
 
             } catch (Exception e) {
@@ -414,17 +437,20 @@ public class comprobante extends javax.swing.JFrame {
                         + " Fk_iId_Empleado,Fk_iId_Clientes)"
                         + " VALUES(?,?,?,?,?)");
 
-                String entrega = txt_titulo.getText();
-                String orden = txt_paquete.getText();
-                String empleado = txt_orden.getText();
-                String cliente = txt_empleado.getText();
-                String zona = txt_cliente.getText();
+                String titulo = txt_titulo.getText();
+                String paquete = txt_paquete.getText();
+                String orden = txt_orden.getText();
+                String empleado = txt_empleado.getText();
+                String cliente = txt_cliente.getText();
 
-                ps.setString(1, entrega);
-                ps.setString(2, orden);
-                ps.setString(3, empleado);
-                ps.setString(4, cliente);
-                ps.setString(5, zona);
+                ps.setString(1, titulo);
+                ps.setString(2, paquete);
+                ps.setString(3, orden);
+                ps.setString(4, empleado);
+                ps.setString(5, cliente);
+
+                ps = con.prepareStatement("UPDATE tbl_ordenes_de_envio SET Fk_iId_Estado_Envio = '1' WHERE Pk_iId_Ordenes_De_Envio = ?");
+                ps.setInt(1, Integer.parseInt(txt_orden.getText()));
 
                 txt_paquete.setText("");
                 txt_titulo.setText("");
@@ -433,11 +459,9 @@ public class comprobante extends javax.swing.JFrame {
                 txt_cliente.setText("");
                 ps.executeUpdate();
                 placeholder();
-                
-                
+
                 JOptionPane.showMessageDialog(null, "Registro Exitoso");
-                
-                
+
                 global.GrabaBitacora(ClsBitacora.SystemUser, "Inserto en comprobante");
 
                 //con.close();
@@ -482,63 +506,67 @@ public class comprobante extends javax.swing.JFrame {
 
     private void txt_buscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_buscarKeyTyped
         // TODO add your handling code here:
-        char validar = evt.getKeyChar();
-        if (Character.isLetter(validar)) {
-            getToolkit().beep();
-            evt.consume();
-
-            JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
-        }
+        validacion(evt);
     }//GEN-LAST:event_txt_buscarKeyTyped
 
     private void txt_tituloKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_tituloKeyTyped
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_txt_tituloKeyTyped
 
     private void txt_paqueteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_paqueteKeyTyped
         // TODO add your handling code here:
-        char validar = evt.getKeyChar();
-        if (Character.isLetter(validar)) {
-            getToolkit().beep();
-            evt.consume();
-
-            JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
-        }
+        validacion(evt);
     }//GEN-LAST:event_txt_paqueteKeyTyped
 
     private void txt_ordenKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_ordenKeyTyped
         // TODO add your handling code here:
-        char validar = evt.getKeyChar();
-        if (Character.isLetter(validar)) {
-            getToolkit().beep();
-            evt.consume();
-
-            JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
-        }
+        validacion(evt);
     }//GEN-LAST:event_txt_ordenKeyTyped
 
     private void txt_empleadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_empleadoKeyTyped
         // TODO add your handling code here:
-        char validar = evt.getKeyChar();
-        if (Character.isLetter(validar)) {
-            getToolkit().beep();
-            evt.consume();
-
-            JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
-        }
+        validacion(evt);
     }//GEN-LAST:event_txt_empleadoKeyTyped
 
     private void txt_clienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_clienteKeyTyped
         // TODO add your handling code here:
-        char validar = evt.getKeyChar();
+        validacion(evt);
+    }//GEN-LAST:event_txt_clienteKeyTyped
+
+    private void img_ayuda2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_ayuda2ActionPerformed
+        // TODO add your handling code here:
+        try {
+
+            if ((new File("ayudaFormulario.chm")).exists()) {
+
+                Process p = Runtime
+                        .getRuntime()
+                        .exec("rundll32 url.dll,FileProtocolHandler ayudaFormulario.chm");
+                p.waitFor();
+
+            } else {
+
+                System.out.println("La ayuda no Fue encontrada");
+
+            }
+
+            System.out.println("Correcto");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_img_ayuda2ActionPerformed
+
+    public void validacion(KeyEvent e) {
+        char validar = e.getKeyChar();
         if (Character.isLetter(validar)) {
             getToolkit().beep();
-            evt.consume();
+            e.consume();
 
             JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
         }
-    }//GEN-LAST:event_txt_clienteKeyTyped
+    }
 
     /**
      * @param args the command line arguments
@@ -581,6 +609,7 @@ public class comprobante extends javax.swing.JFrame {
     private javax.swing.JButton btn_guardar;
     private javax.swing.JButton btn_modificar;
     private javax.swing.JButton btn_regresar;
+    private javax.swing.JButton img_ayuda2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

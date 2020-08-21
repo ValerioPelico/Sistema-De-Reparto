@@ -4,12 +4,18 @@
  * and open the template in the editor.
  */
 package sistemaderepartos;
+
 import com.placeholder.PlaceHolder;
 import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.event.KeyEvent;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import sistemaderepartos.menu;
 
@@ -23,24 +29,28 @@ public class usuarios extends javax.swing.JFrame {
      * Creates new form usuarios
      */
     PlaceHolder holder;
-    
+
     ClsBitacora global = new ClsBitacora();
-    
-    public void placeholder(){
-        
+
+    public void placeholder() {
+
         holder = new PlaceHolder(txt_buscar, "Ingrese codigo a buscar");
         holder = new PlaceHolder(txt_usuario, "Ingrese Usuario");
         holder = new PlaceHolder(txt_contraseña, "Ingrese contraseña");
         holder = new PlaceHolder(txt_tipo, "Tipo de permisos");
         holder = new PlaceHolder(txt_id_empleado, "ID del Empleado");
     }
-    
+
     public usuarios() {
         initComponents();
         this.setSize(new Dimension(625, 425));
-                placeholder();
+        placeholder();
+        ImageIcon imagen = new ImageIcon("src/imagenes/ayuda.png");
+        Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(img_ayuda2.getWidth(), img_ayuda2.getHeight(), Image.SCALE_DEFAULT));
+        img_ayuda2.setIcon(icono);
+        this.repaint();
     }
-    
+
     Conexion cn = new Conexion();
     Connection con = cn.getConnection();
     PreparedStatement ps;
@@ -57,6 +67,7 @@ public class usuarios extends javax.swing.JFrame {
 
         jnp_a = new javax.swing.JPanel();
         lbl_texto = new javax.swing.JLabel();
+        img_ayuda2 = new javax.swing.JButton();
         jpn_b = new javax.swing.JPanel();
         btn_buscar = new javax.swing.JButton();
         lbl_codigo_usuario = new javax.swing.JLabel();
@@ -85,6 +96,12 @@ public class usuarios extends javax.swing.JFrame {
         lbl_texto.setForeground(new java.awt.Color(255, 255, 255));
         lbl_texto.setText("USUARIOS");
 
+        img_ayuda2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                img_ayuda2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jnp_aLayout = new javax.swing.GroupLayout(jnp_a);
         jnp_a.setLayout(jnp_aLayout);
         jnp_aLayout.setHorizontalGroup(
@@ -92,14 +109,20 @@ public class usuarios extends javax.swing.JFrame {
             .addGroup(jnp_aLayout.createSequentialGroup()
                 .addGap(224, 224, 224)
                 .addComponent(lbl_texto)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(img_ayuda2)
+                .addContainerGap())
         );
         jnp_aLayout.setVerticalGroup(
             jnp_aLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jnp_aLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jnp_aLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(img_ayuda2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jnp_aLayout.createSequentialGroup()
+                        .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         jpn_b.setBackground(new java.awt.Color(241, 250, 238));
@@ -322,13 +345,7 @@ public class usuarios extends javax.swing.JFrame {
 
     private void txt_tipoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_tipoKeyTyped
         // TODO add your handling code here:
-        char validar = evt.getKeyChar();
-        if (Character.isLetter(validar)) {
-            getToolkit().beep();
-            evt.consume();
-
-            JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
-        }
+        validacion(evt);
     }//GEN-LAST:event_txt_tipoKeyTyped
 
     private void txt_contraseñaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_contraseñaKeyTyped
@@ -348,18 +365,12 @@ public class usuarios extends javax.swing.JFrame {
 
     private void txt_buscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_buscarKeyTyped
         // TODO add your handling code here:
-        char validar = evt.getKeyChar();
-        if (Character.isLetter(validar)) {
-            getToolkit().beep();
-            evt.consume();
-
-            JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
-        }
+        validacion(evt);
     }//GEN-LAST:event_txt_buscarKeyTyped
 
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here:
-        if ((txt_usuario.getText().matches("[a-zA-Z0-9]+")) && (txt_tipo.getText().matches("[0-9]*")) && (txt_id_empleado.getText().matches("[0-9]*")) 
+        if ((txt_usuario.getText().matches("[a-zA-Z0-9]+")) && (txt_tipo.getText().matches("[0-9]*")) && (txt_id_empleado.getText().matches("[0-9]*"))
                 && (txt_contraseña.getText().matches("[a-zA-Z0-9]+"))) {
 
             try {
@@ -382,11 +393,9 @@ public class usuarios extends javax.swing.JFrame {
                 txt_id_empleado.setText("");
                 ps.executeUpdate();
                 placeholder();
-                
-                
+
                 JOptionPane.showMessageDialog(null, "Registro Exitoso");
-                
-                
+
                 global.GrabaBitacora(ClsBitacora.SystemUser, "Agrego en usuarios");
 
                 //con.close();
@@ -401,12 +410,12 @@ public class usuarios extends javax.swing.JFrame {
 
     private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
         // TODO add your handling code here:
-        if ((txt_usuario.getText().matches("[a-zA-Z0-9]+")) && (txt_tipo.getText().matches("[0-9]*")) && (txt_id_empleado.getText().matches("[0-9]*")) 
+        if ((txt_usuario.getText().matches("[a-zA-Z0-9]+")) && (txt_tipo.getText().matches("[0-9]*")) && (txt_id_empleado.getText().matches("[0-9]*"))
                 && (txt_contraseña.getText().matches("[a-zA-Z0-9]+"))) {
 
             try {
                 ps = (PreparedStatement) con.prepareStatement("UPDATE tbl_usuario SET  cNombre_Usuario = ?,"
-                    + " cContraseña = ?, Fk_iId_Tipo_Usuario = ?, Fk_iId_Empleado = ? WHERE Pk_iId_Usuario = ?");//Evitar sql injection.
+                        + " cContraseña = ?, Fk_iId_Tipo_Usuario = ?, Fk_iId_Empleado = ? WHERE Pk_iId_Usuario = ?");//Evitar sql injection.
 
                 ps.setString(1, txt_usuario.getText());
                 ps.setString(2, txt_contraseña.getText());
@@ -429,7 +438,7 @@ public class usuarios extends javax.swing.JFrame {
                 txt_id_empleado.setText("");
                 txt_buscar.setText("");
                 placeholder();
-                
+
                 global.GrabaBitacora(ClsBitacora.SystemUser, "Modifico en usuarios");
 
             } catch (Exception e) {
@@ -463,8 +472,7 @@ public class usuarios extends javax.swing.JFrame {
                 txt_id_empleado.setText("");
                 txt_buscar.setText("");
                 placeholder();
-                
-                
+
                 global.GrabaBitacora(ClsBitacora.SystemUser, "elimino en usuarios");
 
             } catch (Exception e) {
@@ -485,14 +493,42 @@ public class usuarios extends javax.swing.JFrame {
 
     private void txt_id_empleadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_id_empleadoKeyTyped
         // TODO add your handling code here:
-        char validar = evt.getKeyChar();
+        validacion(evt);
+    }//GEN-LAST:event_txt_id_empleadoKeyTyped
+
+    private void img_ayuda2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_ayuda2ActionPerformed
+        // TODO add your handling code here:
+        try {
+
+            if ((new File("ayudaFormulario.chm")).exists()) {
+
+                Process p = Runtime
+                .getRuntime()
+                .exec("rundll32 url.dll,FileProtocolHandler ayudaFormulario.chm");
+                p.waitFor();
+
+            } else {
+
+                System.out.println("La ayuda no Fue encontrada");
+
+            }
+
+            System.out.println("Correcto");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_img_ayuda2ActionPerformed
+
+    public void validacion(KeyEvent e) {
+        char validar = e.getKeyChar();
         if (Character.isLetter(validar)) {
             getToolkit().beep();
-            evt.consume();
+            e.consume();
 
             JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
         }
-    }//GEN-LAST:event_txt_id_empleadoKeyTyped
+    }
 
     /**
      * @param args the command line arguments
@@ -535,6 +571,7 @@ public class usuarios extends javax.swing.JFrame {
     private javax.swing.JButton btn_guardar;
     private javax.swing.JButton btn_modificar;
     private javax.swing.JButton btn_regresar;
+    private javax.swing.JButton img_ayuda2;
     private javax.swing.JPanel jnp_a;
     private javax.swing.JPanel jpn_b;
     private javax.swing.JPanel jpn_c;

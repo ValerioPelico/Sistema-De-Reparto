@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="adee844e-5e7c-405b-9ba1-96e724646381">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT cNombre_Empleado, cNombre_Puesto_Empleado, cNombre_Zona_Destino, `tbl_entrega`.`cNombre_Entrega/Descricion`, Nombre_Estado
+FROM tbl_empleado, tbl_puesto_empleado, tbl_accidentes_empleado, tbl_zona_destino, tbl_entrega, tbl_entregas_de_empleado, tbl_estado_entrega
+WHERE tbl_empleado.Pk_iId_Empleado = tbl_zona_destino.Fk_iId_Empleado
+AND tbl_empleado.Fk_iId_Estado_Empleado = tbl_puesto_empleado.Pk_iId_Puesto_Empleado AND tbl_empleado.Pk_iId_Empleado = tbl_entregas_de_empleado.Pk_iId_Empleado
+AND tbl_entregas_de_empleado.Pk_iId_Entrega = tbl_entrega.Pk_iId_Entrega AND tbl_entrega.Fk_iId_Estado_Entrega = tbl_estado_entrega.Pk_iId_Estado_Entrega;]]>
+	</queryString>
+	<field name="cNombre_Empleado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cNombre_Puesto_Empleado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cDescripcion_Accidente" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cNombre_Zona_Destino" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cNombre_Entrega/Descricion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Nombre_Estado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="cNombre_Empleado">
+		<groupExpression><![CDATA[$F{cNombre_Empleado}]]></groupExpression>
+		<groupHeader>
+			<band height="68">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="100" height="32" forecolor="#666666" backcolor="#E6E6E6" uuid="1779253f-4a15-48e9-8ff2-8a57c94417d3"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[Nombre Empleado]]></text>
+				</staticText>
+				<textField>
+					<reportElement mode="Opaque" x="115" y="0" width="440" height="32" forecolor="#006699" backcolor="#E6E6E6" uuid="df82d8fc-3c71-4a67-986a-ed7ceca7d122"/>
+					<textElement>
+						<font size="24" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cNombre_Empleado}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="-20" y="32" width="595" height="1" forecolor="#666666" uuid="26ac0b9c-469b-48f2-88ba-c2ef53d794f1"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<group name="cNombre_Entrega_Descricion">
+		<groupExpression><![CDATA[$F{cNombre_Entrega/Descricion}]]></groupExpression>
+		<groupHeader>
+			<band height="68">
+				<textField>
+					<reportElement x="100" y="0" width="455" height="32" forecolor="#006699" uuid="2a893d8a-0f18-4d95-a304-463ae1c92cb4"/>
+					<textElement>
+						<font size="22" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cNombre_Entrega/Descricion}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="100" height="20" forecolor="#666666" uuid="14636629-a976-48cd-a19e-3e500a5444c9"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[Nombre Entrega]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<group name="cNombre_Zona_Destino">
+		<groupExpression><![CDATA[$F{cNombre_Zona_Destino}]]></groupExpression>
+		<groupHeader>
+			<band height="62">
+				<textField>
+					<reportElement x="140" y="0" width="415" height="32" forecolor="#006699" uuid="266a99ce-275e-426b-acb5-6c3cbf414f93"/>
+					<textElement>
+						<font size="16" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cNombre_Zona_Destino}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="124" height="20" forecolor="#666666" uuid="664c0415-5a0a-41b5-a351-dc8dca563bc8"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[Zona de Empleado]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699" uuid="186810b0-4f33-421c-b514-69c33ce3935d"/>
+				<staticText>
+					<reportElement x="20" y="20" width="234" height="43" forecolor="#FFFFFF" uuid="34d3089c-e328-4835-a393-eaf5e0e0acce"/>
+					<textElement>
+						<font size="34" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Pilotos]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="395" y="43" width="180" height="20" forecolor="#FFFFFF" uuid="c81b3466-d6ae-4be9-b93c-99c250d28fb7"/>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Reporte de Pilotos]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="37"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="53">
+			<line>
+				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="543f4f56-28e6-4821-96b6-faeef4a1840a"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="1" width="277" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="b51bea55-2fa9-4a51-9dc7-fd10262c2eb2"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Puesto de Empleado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="288" y="0" width="277" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="7ff398a3-11a8-4cf1-ad24-27633c4348b3"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Accidente de Empleado]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="33" width="277" height="20" uuid="799c44dd-8260-49e2-bca7-cc5fb944ef2e"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cNombre_Puesto_Empleado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="f5cb394d-79f9-4486-9237-14fc44f4cf5f"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="25">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="1937b344-e739-430c-bc03-7c447ff9f568"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="34381650-7f0a-4d1f-a505-b867330470ea"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" uuid="7db2c817-8256-435c-a3da-ef8ac3964d50"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

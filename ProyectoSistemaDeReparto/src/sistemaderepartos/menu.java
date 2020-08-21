@@ -38,18 +38,21 @@ import java.sql.SQLException;
  * @author dairy
  */
 public class menu extends javax.swing.JFrame {
-    
+
     //Instancias y variables---------
     Conexion cn = new Conexion();
     Connection con = cn.getConnection();
     PreparedStatement ps;
+    
+    ClsBitacora global = new ClsBitacora();
 
     FondoPanel fondoso = new FondoPanel();
+
     /**
      * Creates new form menu
      */
     public menu() {
-        
+
         this.setContentPane(fondoso);
         initComponents();
         this.setSize(new Dimension(660, 750));
@@ -57,92 +60,89 @@ public class menu extends javax.swing.JFrame {
         Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(img_cliente.getWidth(), img_cliente.getHeight(), Image.SCALE_DEFAULT));
         img_cliente.setIcon(icono);
         this.repaint();
-        
+
         ImageIcon imagen1 = new ImageIcon("src/imagenes/camion.png");
         Icon icono1 = new ImageIcon(imagen1.getImage().getScaledInstance(img_camion.getWidth(), img_camion.getHeight(), Image.SCALE_DEFAULT));
         img_camion.setIcon(icono1);
         this.repaint();
-        
+
         ImageIcon imagen2 = new ImageIcon("src/imagenes/consulta.png");
         Icon icono2 = new ImageIcon(imagen2.getImage().getScaledInstance(img_consulta.getWidth(), img_consulta.getHeight(), Image.SCALE_DEFAULT));
         img_consulta.setIcon(icono2);
         this.repaint();
-        
+
         ImageIcon imagen3 = new ImageIcon("src/imagenes/empleados.png");
         Icon icono3 = new ImageIcon(imagen3.getImage().getScaledInstance(img_empleados.getWidth(), img_empleados.getHeight(), Image.SCALE_DEFAULT));
         img_empleados.setIcon(icono3);
         this.repaint();
-        
+
         ImageIcon imagen4 = new ImageIcon("src/imagenes/paquete.png");
         Icon icono4 = new ImageIcon(imagen4.getImage().getScaledInstance(img_paquete.getWidth(), img_paquete.getHeight(), Image.SCALE_DEFAULT));
         img_paquete.setIcon(icono4);
         this.repaint();
-        
+
         ImageIcon imagen5 = new ImageIcon("src/imagenes/mantenimiento.png");
         Icon icono5 = new ImageIcon(imagen5.getImage().getScaledInstance(img_mantenimiento.getWidth(), img_mantenimiento.getHeight(), Image.SCALE_DEFAULT));
         img_mantenimiento.setIcon(icono5);
         this.repaint();
-        
+
         ImageIcon imagen6 = new ImageIcon("src/imagenes/acc.png");
         Icon icono6 = new ImageIcon(imagen6.getImage().getScaledInstance(img_accidente.getWidth(), img_accidente.getHeight(), Image.SCALE_DEFAULT));
         img_accidente.setIcon(icono6);
         this.repaint();
-        
+
         ImageIcon imagen7 = new ImageIcon("src/imagenes/bodega.png");
         Icon icono7 = new ImageIcon(imagen7.getImage().getScaledInstance(img_bodega.getWidth(), img_bodega.getHeight(), Image.SCALE_DEFAULT));
         img_bodega.setIcon(icono7);
         this.repaint();
-        
+
         ImageIcon imagen8 = new ImageIcon("src/imagenes/comprobante.png");
         Icon icono8 = new ImageIcon(imagen8.getImage().getScaledInstance(img_comprobante.getWidth(), img_comprobante.getHeight(), Image.SCALE_DEFAULT));
         img_comprobante.setIcon(icono8);
         this.repaint();
-        
+
         /*ImageIcon imagen9 = new ImageIcon("src/imagenes/departamento.png");
         Icon icono9 = new ImageIcon(imagen9.getImage().getScaledInstance(img_departamento.getWidth(), img_departamento.getHeight(), Image.SCALE_DEFAULT));
         img_departamento.setIcon(icono9);
         this.repaint();*/
-        
-        /*ImageIcon imagen10 = new ImageIcon("src/imagenes/muni.png");
+ /*ImageIcon imagen10 = new ImageIcon("src/imagenes/muni.png");
         Icon icono10 = new ImageIcon(imagen10.getImage().getScaledInstance(img_municipio.getWidth(), img_municipio.getHeight(), Image.SCALE_DEFAULT));
         img_municipio.setIcon(icono10);
         this.repaint();*/
-        
         ImageIcon imagen11 = new ImageIcon("src/imagenes/entrega.png");
         Icon icono11 = new ImageIcon(imagen11.getImage().getScaledInstance(img_entrega.getWidth(), img_entrega.getHeight(), Image.SCALE_DEFAULT));
         img_entrega.setIcon(icono11);
         this.repaint();
-        
+
         ImageIcon imagen12 = new ImageIcon("src/imagenes/orden.png");
         Icon icono12 = new ImageIcon(imagen12.getImage().getScaledInstance(img_orden.getWidth(), img_orden.getHeight(), Image.SCALE_DEFAULT));
         img_orden.setIcon(icono12);
         this.repaint();
-        
+
         /*ImageIcon imagen13 = new ImageIcon("src/imagenes/puesto.png");
         Icon icono13 = new ImageIcon(imagen13.getImage().getScaledInstance(img_puesto.getWidth(), img_puesto.getHeight(), Image.SCALE_DEFAULT));
         img_puesto.setIcon(icono13);
         this.repaint();*/
-        
         ImageIcon imagen14 = new ImageIcon("src/imagenes/queja.png");
         Icon icono14 = new ImageIcon(imagen14.getImage().getScaledInstance(img_quejas.getWidth(), img_quejas.getHeight(), Image.SCALE_DEFAULT));
         img_quejas.setIcon(icono14);
         this.repaint();
-        
+
         ImageIcon imagen15 = new ImageIcon("src/imagenes/zona.png");
         Icon icono15 = new ImageIcon(imagen15.getImage().getScaledInstance(img_zonas.getWidth(), img_zonas.getHeight(), Image.SCALE_DEFAULT));
         img_zonas.setIcon(icono15);
         this.repaint();
-        
+
         ImageIcon imagen16 = new ImageIcon("src/imagenes/usuario.png");
         Icon icono16 = new ImageIcon(imagen16.getImage().getScaledInstance(img_usuario.getWidth(), img_usuario.getHeight(), Image.SCALE_DEFAULT));
         img_usuario.setIcon(icono16);
         this.repaint();
-        
+
         ImageIcon imagen17 = new ImageIcon("src/imagenes/cerrar.png");
         Icon icono17 = new ImageIcon(imagen17.getImage().getScaledInstance(img_cerrar.getWidth(), img_cerrar.getHeight(), Image.SCALE_DEFAULT));
         img_cerrar.setIcon(icono17);
         this.repaint();
-        
+
     }
 
     /**
@@ -525,104 +525,104 @@ public class menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void img_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_clienteActionPerformed
-         cliente volver = new cliente();
-            volver.setVisible(true);
-            dispose();
-             volver.setLocationRelativeTo(null);
+        cliente volver = new cliente();
+        volver.setVisible(true);
+        dispose();
+        volver.setLocationRelativeTo(null);
     }//GEN-LAST:event_img_clienteActionPerformed
 
     private void img_camionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_camionActionPerformed
         vehiculo volver = new vehiculo();
-            volver.setVisible(true);
-            dispose();
-             volver.setLocationRelativeTo(null);
+        volver.setVisible(true);
+        dispose();
+        volver.setLocationRelativeTo(null);
     }//GEN-LAST:event_img_camionActionPerformed
 
     private void img_accidenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_accidenteActionPerformed
         accidente volver = new accidente();
-            volver.setVisible(true);
-            dispose();
-             volver.setLocationRelativeTo(null);
+        volver.setVisible(true);
+        dispose();
+        volver.setLocationRelativeTo(null);
         // TODO add your handling code here:
     }//GEN-LAST:event_img_accidenteActionPerformed
 
     private void img_bodegaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_bodegaActionPerformed
         bodega volver = new bodega();
-            volver.setVisible(true);
-            dispose();
-             volver.setLocationRelativeTo(null);
+        volver.setVisible(true);
+        dispose();
+        volver.setLocationRelativeTo(null);
         // TODO add your handling code here:
     }//GEN-LAST:event_img_bodegaActionPerformed
 
     private void img_comprobanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_comprobanteActionPerformed
         comprobante volver = new comprobante();
-            volver.setVisible(true);
-            dispose();
-             volver.setLocationRelativeTo(null);
+        volver.setVisible(true);
+        dispose();
+        volver.setLocationRelativeTo(null);
         // TODO add your handling code here:
     }//GEN-LAST:event_img_comprobanteActionPerformed
 
     private void img_entregaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_entregaActionPerformed
         entregas volver = new entregas();
-            volver.setVisible(true);
-            dispose();
-             volver.setLocationRelativeTo(null);
+        volver.setVisible(true);
+        dispose();
+        volver.setLocationRelativeTo(null);
         // TODO add your handling code here:
     }//GEN-LAST:event_img_entregaActionPerformed
 
     private void img_ordenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_ordenActionPerformed
         ordenes volver = new ordenes();
-            volver.setVisible(true);
-            dispose();
-             volver.setLocationRelativeTo(null);
+        volver.setVisible(true);
+        dispose();
+        volver.setLocationRelativeTo(null);
         // TODO add your handling code here:
     }//GEN-LAST:event_img_ordenActionPerformed
 
     private void img_quejasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_quejasActionPerformed
         quejas volver = new quejas();
-            volver.setVisible(true);
-            dispose();
-             volver.setLocationRelativeTo(null);
+        volver.setVisible(true);
+        dispose();
+        volver.setLocationRelativeTo(null);
         // TODO add your handling code here:
     }//GEN-LAST:event_img_quejasActionPerformed
 
     private void img_zonasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_zonasActionPerformed
         zonasdestinadas volver = new zonasdestinadas();
-            volver.setVisible(true);
-            dispose();
-             volver.setLocationRelativeTo(null);
+        volver.setVisible(true);
+        dispose();
+        volver.setLocationRelativeTo(null);
         // TODO add your handling code here:
     }//GEN-LAST:event_img_zonasActionPerformed
 
     private void img_consultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_consultaActionPerformed
         consultas volver = new consultas();
-            volver.setVisible(true);
-            dispose();
-             volver.setLocationRelativeTo(null);
+        volver.setVisible(true);
+        dispose();
+        volver.setLocationRelativeTo(null);
         // TODO add your handling code here:
     }//GEN-LAST:event_img_consultaActionPerformed
 
     private void img_mantenimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_mantenimientoActionPerformed
-           mantenimientoVehiculo volver = new mantenimientoVehiculo();
-            volver.setVisible(true);
-            dispose();
-             volver.setLocationRelativeTo(null);
+        mantenimientoVehiculo volver = new mantenimientoVehiculo();
+        volver.setVisible(true);
+        dispose();
+        volver.setLocationRelativeTo(null);
         // TODO add your handling code here:
     }//GEN-LAST:event_img_mantenimientoActionPerformed
 
     private void img_empleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_empleadosActionPerformed
         empleado volver = new empleado();
-            volver.setVisible(true);
-            dispose();
-             volver.setLocationRelativeTo(null);
+        volver.setVisible(true);
+        dispose();
+        volver.setLocationRelativeTo(null);
         // TODO add your handling code here:
     }//GEN-LAST:event_img_empleadosActionPerformed
 
     private void img_paqueteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_paqueteActionPerformed
         paquete volver = new paquete();
-            volver.setVisible(true);
-            dispose();
-             volver.setLocationRelativeTo(null);
+        volver.setVisible(true);
+        dispose();
+        volver.setLocationRelativeTo(null);
         // TODO add your handling code here:
     }//GEN-LAST:event_img_paqueteActionPerformed
 
@@ -631,6 +631,7 @@ public class menu extends javax.swing.JFrame {
         volver.setVisible(true);
         dispose();
         volver.setLocationRelativeTo(null);
+        global.GrabaBitacora(ClsBitacora.SystemUser, "Salio del Programa");
         // TODO add your handling code here:
     }//GEN-LAST:event_img_cerrarActionPerformed
 
@@ -723,20 +724,19 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_zonas;
     // End of variables declaration//GEN-END:variables
 
-  class FondoPanel extends JPanel
-    {
-            private Image imagen;
-            
-            @Override           
-            public void paint(Graphics g)
-            {
-                imagen = new ImageIcon(getClass().getResource("/imagenes/fondo1.png")).getImage();
-                
-                g.drawImage(imagen, 0, 0, getWidth(), getHeight(),this);
-                
-                setOpaque(false);
-                
-                super.paint(g);
-            }
+    class FondoPanel extends JPanel {
+
+        private Image imagen;
+
+        @Override
+        public void paint(Graphics g) {
+            imagen = new ImageIcon(getClass().getResource("/imagenes/fondo1.png")).getImage();
+
+            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
+
+            setOpaque(false);
+
+            super.paint(g);
+        }
     }
 }
