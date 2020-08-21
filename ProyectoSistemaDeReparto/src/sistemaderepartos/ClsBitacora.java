@@ -39,11 +39,6 @@ public class ClsBitacora {
         //variable para dar formato
         SimpleDateFormat formato = new SimpleDateFormat("yyyy-mm-dd");
 
-        //query para insertar
-        /*query = "INSERT INTO tbl_bitacora VALUES(";
-        query = query + "'" + user + "',";
-        query = query + "'" + formato.format(dateHoy) + "',";
-        query = query + "'" + descripcion + "')";*/
         String fecha = formato.format(dateHoy);
 
         java.util.Date fecha1 = null; // crea objetos tipo util.Date y sql.Date

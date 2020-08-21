@@ -7,11 +7,15 @@ package sistemaderepartos;
 
 import sistemaderepartos.menu;
 import com.placeholder.PlaceHolder;
+import java.awt.Image;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -28,22 +32,26 @@ public class vehiculo extends javax.swing.JFrame {
     Connection con = cn.getConnection();
     PreparedStatement ps;
     ResultSet rs;
-    
+
     ClsBitacora global = new ClsBitacora();
 
     PlaceHolder holder;
-    
-    public void placeholder(){
-        
+
+    public void placeholder() {
+
         holder = new PlaceHolder(txt_buscar, "Ingrese codigo a buscar");
         holder = new PlaceHolder(txt_placa, "Placa del vehiculo");
         holder = new PlaceHolder(txt_marca, "Marca Vehiculo");
         holder = new PlaceHolder(txt_linea, "Linea Vehiculo");
     }
-    
+
     public vehiculo() {
         initComponents();
-                placeholder();
+        placeholder();
+        ImageIcon imagen = new ImageIcon("src/imagenes/ayuda.png");
+        Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(img_ayuda2.getWidth(), img_ayuda2.getHeight(), Image.SCALE_DEFAULT));
+        img_ayuda2.setIcon(icono);
+        this.repaint();
 
     }
 
@@ -58,6 +66,7 @@ public class vehiculo extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         lbl_texto = new javax.swing.JLabel();
+        img_ayuda2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         btn_buscar = new javax.swing.JButton();
         lbl_linea = new javax.swing.JLabel();
@@ -85,21 +94,34 @@ public class vehiculo extends javax.swing.JFrame {
         lbl_texto.setForeground(new java.awt.Color(255, 255, 255));
         lbl_texto.setText("VEHICULO");
 
+        img_ayuda2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                img_ayuda2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(231, 231, 231)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbl_texto)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(187, 187, 187)
+                .addComponent(img_ayuda2)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(img_ayuda2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))))
         );
 
         jPanel2.setBackground(new java.awt.Color(241, 250, 238));
@@ -297,8 +319,7 @@ public class vehiculo extends javax.swing.JFrame {
                 txt_linea.setText("");
                 txt_buscar.setText("");
                 placeholder();
-                
-                
+
                 global.GrabaBitacora(ClsBitacora.SystemUser, "Elimino en vehiculo");
 
             } catch (Exception e) {
@@ -337,8 +358,7 @@ public class vehiculo extends javax.swing.JFrame {
                 txt_marca.setText("");
                 txt_buscar.setText("");
                 placeholder();
-                
-                
+
                 global.GrabaBitacora(ClsBitacora.SystemUser, "Modifico en vehiculo");
 
             } catch (Exception e) {
@@ -371,11 +391,9 @@ public class vehiculo extends javax.swing.JFrame {
                 txt_linea.setText("");
                 ps.executeUpdate();
                 placeholder();
-                
-                
+
                 JOptionPane.showMessageDialog(null, "Registro Exitoso");
-                
-                
+
                 global.GrabaBitacora(ClsBitacora.SystemUser, "agrego a vehiculo");
 
                 //con.close();
@@ -430,8 +448,32 @@ public class vehiculo extends javax.swing.JFrame {
 
     private void txt_lineaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_lineaKeyTyped
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_txt_lineaKeyTyped
+
+    private void img_ayuda2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_ayuda2ActionPerformed
+        // TODO add your handling code here:
+        try {
+
+            if ((new File("ayudaFormulario.chm")).exists()) {
+
+                Process p = Runtime
+                .getRuntime()
+                .exec("rundll32 url.dll,FileProtocolHandler ayudaFormulario.chm");
+                p.waitFor();
+
+            } else {
+
+                System.out.println("La ayuda no Fue encontrada");
+
+            }
+
+            System.out.println("Correcto");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_img_ayuda2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -479,6 +521,7 @@ public class vehiculo extends javax.swing.JFrame {
     private javax.swing.JButton btn_guardar;
     private javax.swing.JButton btn_modificar;
     private javax.swing.JButton btn_regresar;
+    private javax.swing.JButton img_ayuda2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

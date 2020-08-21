@@ -8,11 +8,16 @@ package sistemaderepartos;
 import sistemaderepartos.menu;
 import com.placeholder.PlaceHolder;
 import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.event.KeyEvent;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -32,9 +37,9 @@ public class cliente extends javax.swing.JFrame {
     ClsBitacora global = new ClsBitacora();
 
     PlaceHolder holder;
-    
-    public void placeholder(){
-        
+
+    public void placeholder() {
+
         holder = new PlaceHolder(txt_buscar, "Codigo a buscar");
         holder = new PlaceHolder(txt_nombre, "Nombre cliente");
         holder = new PlaceHolder(txt_apellido, "Apellido");
@@ -44,8 +49,13 @@ public class cliente extends javax.swing.JFrame {
     public cliente() {
         initComponents();
         this.setSize(new Dimension(660, 395));
-                placeholder();
+        placeholder();
+        ImageIcon imagen = new ImageIcon("src/imagenes/ayuda.png");
+        Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(img_ayuda2.getWidth(), img_ayuda2.getHeight(), Image.SCALE_DEFAULT));
+        img_ayuda2.setIcon(icono);
+        this.repaint();
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -57,6 +67,7 @@ public class cliente extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         lbl_texto = new javax.swing.JLabel();
+        img_ayuda2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         lbl_nombre = new javax.swing.JLabel();
         txt_buscar = new javax.swing.JTextField();
@@ -83,21 +94,31 @@ public class cliente extends javax.swing.JFrame {
         lbl_texto.setForeground(new java.awt.Color(255, 255, 255));
         lbl_texto.setText("CLIENTE");
 
+        img_ayuda2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                img_ayuda2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(230, 230, 230)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(193, 193, 193)
+                .addComponent(img_ayuda2)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(19, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(img_ayuda2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         jPanel2.setBackground(new java.awt.Color(241, 250, 238));
@@ -321,7 +342,7 @@ public class cliente extends javax.swing.JFrame {
                 txt_nit.setText("");
                 txt_buscar.setText("");
                 placeholder();
-                
+
                 global.GrabaBitacora(ClsBitacora.SystemUser, "Elimino en cliente");
 
             } catch (Exception e) {
@@ -360,7 +381,7 @@ public class cliente extends javax.swing.JFrame {
                 txt_nit.setText("");
                 txt_buscar.setText("");
                 placeholder();
-                
+
                 global.GrabaBitacora(ClsBitacora.SystemUser, "Modifico en cliente");
 
             } catch (Exception e) {
@@ -393,10 +414,9 @@ public class cliente extends javax.swing.JFrame {
                 txt_nit.setText("");
                 ps.executeUpdate();
                 placeholder();
-                
-                
+
                 JOptionPane.showMessageDialog(null, "Registro Exitoso");
-                
+
                 global.GrabaBitacora(ClsBitacora.SystemUser, "Inserto en cliente");
 
                 //con.close();
@@ -411,25 +431,47 @@ public class cliente extends javax.swing.JFrame {
 
     private void txt_buscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_buscarKeyTyped
         // TODO add your handling code here:
-        char validar = evt.getKeyChar();
-        if (Character.isLetter(validar)) {
-            getToolkit().beep();
-            evt.consume();
-
-            JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
-        }
+        validacion(evt);
     }//GEN-LAST:event_txt_buscarKeyTyped
 
     private void txt_nitKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_nitKeyTyped
         // TODO add your handling code here:
-        char validar = evt.getKeyChar();
+        validacion(evt);
+    }//GEN-LAST:event_txt_nitKeyTyped
+
+    private void img_ayuda2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_ayuda2ActionPerformed
+        // TODO add your handling code here:
+        try {
+
+            if ((new File("ayudaFormulario.chm")).exists()) {
+
+                Process p = Runtime
+                        .getRuntime()
+                        .exec("rundll32 url.dll,FileProtocolHandler ayudaFormulario.chm");
+                p.waitFor();
+
+            } else {
+
+                System.out.println("La ayuda no Fue encontrada");
+
+            }
+
+            System.out.println("Correcto");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_img_ayuda2ActionPerformed
+
+    public void validacion(KeyEvent e) {
+        char validar = e.getKeyChar();
         if (Character.isLetter(validar)) {
             getToolkit().beep();
-            evt.consume();
+            e.consume();
 
             JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
         }
-    }//GEN-LAST:event_txt_nitKeyTyped
+    }
 
     /**
      * @param args the command line arguments
@@ -472,6 +514,7 @@ public class cliente extends javax.swing.JFrame {
     private javax.swing.JButton btn_guardar;
     private javax.swing.JButton btn_modificar;
     private javax.swing.JButton btn_regresar;
+    private javax.swing.JButton img_ayuda2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

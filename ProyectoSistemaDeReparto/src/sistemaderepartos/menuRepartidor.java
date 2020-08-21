@@ -23,6 +23,7 @@ public class menuRepartidor extends javax.swing.JFrame {
     /**
      * Creates new form menuRepartidor
      */
+    ClsBitacora global = new ClsBitacora();
     
     FondoPanel fondoso = new FondoPanel();
     
@@ -136,6 +137,7 @@ public class menuRepartidor extends javax.swing.JFrame {
     private void img_cerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_cerrarActionPerformed
         login volver = new login();
         volver.setVisible(true);
+        global.GrabaBitacora(ClsBitacora.SystemUser, "Salió del Programa");
         dispose();
         volver.setLocationRelativeTo(null);
         // TODO add your handling code here:

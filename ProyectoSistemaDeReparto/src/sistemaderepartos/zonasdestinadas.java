@@ -9,12 +9,16 @@ import sistemaderepartos.menu;
 import com.placeholder.PlaceHolder;
 import static com.sun.tools.doclint.Entity.amp;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -31,13 +35,13 @@ public class zonasdestinadas extends javax.swing.JFrame {
     Connection con = cn.getConnection();
     PreparedStatement ps;
     ResultSet rs;
-    
+
     ClsBitacora global = new ClsBitacora();
 
     PlaceHolder holder;
-    
-    public void placeholder(){
-        
+
+    public void placeholder() {
+
         holder = new PlaceHolder(txt_buscar, "Ingrese codigo a buscar");
         holder = new PlaceHolder(txt_zona, "Numero zona");
         holder = new PlaceHolder(txt_calles, "Calle");
@@ -45,11 +49,15 @@ public class zonasdestinadas extends javax.swing.JFrame {
         holder = new PlaceHolder(txt_municipio, "ID Municipio");
         holder = new PlaceHolder(txt_empleado, "ID empleado");
     }
-    
+
     public zonasdestinadas() {
         initComponents();
         this.setSize(new Dimension(575, 450));
-                placeholder();
+        placeholder();
+        ImageIcon imagen = new ImageIcon("src/imagenes/ayuda.png");
+        Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(img_ayuda2.getWidth(), img_ayuda2.getHeight(), Image.SCALE_DEFAULT));
+        img_ayuda2.setIcon(icono);
+        this.repaint();
     }
 
     /**
@@ -63,6 +71,7 @@ public class zonasdestinadas extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         lbl_texto = new javax.swing.JLabel();
+        img_ayuda2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         txt_buscar = new javax.swing.JTextField();
         txt_descripcion = new javax.swing.JTextField();
@@ -92,6 +101,12 @@ public class zonasdestinadas extends javax.swing.JFrame {
         lbl_texto.setForeground(new java.awt.Color(255, 255, 255));
         lbl_texto.setText("ZONAS DESTINADAS");
 
+        img_ayuda2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                img_ayuda2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -99,7 +114,9 @@ public class zonasdestinadas extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(161, 161, 161)
                 .addComponent(lbl_texto)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(img_ayuda2)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,6 +124,10 @@ public class zonasdestinadas extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(22, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(img_ayuda2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanel2.setBackground(new java.awt.Color(241, 250, 238));
@@ -352,7 +373,7 @@ public class zonasdestinadas extends javax.swing.JFrame {
                 txt_empleado.setText("");
                 txt_buscar.setText("");
                 placeholder();
-                
+
                 global.GrabaBitacora(ClsBitacora.SystemUser, "Eliminacion en tabla de zonas de destino");
 
             } catch (Exception e) {
@@ -395,10 +416,8 @@ public class zonasdestinadas extends javax.swing.JFrame {
                 txt_empleado.setText("");
                 txt_buscar.setText("");
                 placeholder();
-                
-                
-                global.GrabaBitacora(ClsBitacora.SystemUser, "Modifico en tabla de zona de destino");
 
+                global.GrabaBitacora(ClsBitacora.SystemUser, "Modifico en tabla de zona de destino");
 
             } catch (Exception e) {
                 System.err.println(e);
@@ -439,11 +458,9 @@ public class zonasdestinadas extends javax.swing.JFrame {
 
                 ps.executeUpdate();
                 placeholder();
-                
-                
+
                 JOptionPane.showMessageDialog(null, "Registro Exitoso");
-                
-                
+
                 global.GrabaBitacora(ClsBitacora.SystemUser, "Agrego en tabla de zona de destino");
 
                 //con.close();
@@ -487,62 +504,72 @@ public class zonasdestinadas extends javax.swing.JFrame {
 
     private void txt_zonaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_zonaKeyTyped
         // TODO add your handling code here:
-        char validar = evt.getKeyChar();
-        if (Character.isLetter(validar)) {
-            getToolkit().beep();
-            evt.consume();
-
-            JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
-        }
+        validacion(evt);
     }//GEN-LAST:event_txt_zonaKeyTyped
 
     private void txt_callesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_callesKeyTyped
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_txt_callesKeyTyped
 
     private void txt_descripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_descripcionKeyTyped
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_txt_descripcionKeyTyped
 
     private void txt_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_buscarActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_txt_buscarActionPerformed
 
     private void txt_buscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_buscarKeyTyped
         // TODO add your handling code here:
-        char validar = evt.getKeyChar();
-        if (Character.isLetter(validar)) {
-            getToolkit().beep();
-            evt.consume();
-
-            JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
-        }
+        validacion(evt);
     }//GEN-LAST:event_txt_buscarKeyTyped
 
     private void txt_municipioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_municipioKeyTyped
         // TODO add your handling code here:
-        char validar = evt.getKeyChar();
-        if (Character.isLetter(validar)) {
-            getToolkit().beep();
-            evt.consume();
-
-            JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
-        }
+        validacion(evt);
     }//GEN-LAST:event_txt_municipioKeyTyped
 
     private void txt_empleadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_empleadoKeyTyped
         // TODO add your handling code here:
-        char validar = evt.getKeyChar();
+        validacion(evt);
+    }//GEN-LAST:event_txt_empleadoKeyTyped
+
+    private void img_ayuda2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_ayuda2ActionPerformed
+        // TODO add your handling code here:
+        try {
+
+            if ((new File("ayudaFormulario.chm")).exists()) {
+
+                Process p = Runtime
+                .getRuntime()
+                .exec("rundll32 url.dll,FileProtocolHandler ayudaFormulario.chm");
+                p.waitFor();
+
+            } else {
+
+                System.out.println("La ayuda no Fue encontrada");
+
+            }
+
+            System.out.println("Correcto");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_img_ayuda2ActionPerformed
+
+    public void validacion(KeyEvent e) {
+        char validar = e.getKeyChar();
         if (Character.isLetter(validar)) {
             getToolkit().beep();
-            evt.consume();
+            e.consume();
 
             JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
         }
-    }//GEN-LAST:event_txt_empleadoKeyTyped
+    }
 
     /**
      * @param args the command line arguments
@@ -584,6 +611,7 @@ public class zonasdestinadas extends javax.swing.JFrame {
     private javax.swing.JButton btn_eliminar;
     private javax.swing.JButton btn_guardar;
     private javax.swing.JButton btn_modificar;
+    private javax.swing.JButton img_ayuda2;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

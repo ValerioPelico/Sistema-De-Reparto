@@ -4,6 +4,29 @@
  * and open the template in the editor.
  */
 package sistemaderepartos;
+import java.awt.Image;
+import java.awt.event.ItemEvent;
+import java.io.File;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
+import static sistemaderepartos.consultaAppRepartidor.reiniciarJTable;
 import sistemaderepartos.consultas;
 
 /**
@@ -15,8 +38,19 @@ public class consultaRepartidor extends javax.swing.JFrame {
     /**
      * Creates new form consultaRepartidor
      */
+    Conexion cn = new Conexion();
+    Connection con = cn.getConnection();
+    PreparedStatement ps;
+    ResultSet rs;
+    DefaultTableModel tabla = new DefaultTableModel();
+    ClsBitacora global = new ClsBitacora();
+    
     public consultaRepartidor() {
         initComponents();
+        ImageIcon imagen = new ImageIcon("src/imagenes/ayuda.png");
+        Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(img_ayuda2.getWidth(), img_ayuda2.getHeight(), Image.SCALE_DEFAULT));
+        img_ayuda2.setIcon(icono);
+        this.repaint();
     }
 
     /**
@@ -30,13 +64,13 @@ public class consultaRepartidor extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         lbl_titulo = new javax.swing.JLabel();
+        img_ayuda2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         cbx_repartidor = new javax.swing.JComboBox<>();
-        btn_consultar = new javax.swing.JButton();
         btn_reporte = new javax.swing.JButton();
         btn_regresar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jlt_repartidor = new javax.swing.JList<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -47,29 +81,49 @@ public class consultaRepartidor extends javax.swing.JFrame {
         lbl_titulo.setForeground(new java.awt.Color(255, 255, 255));
         lbl_titulo.setText("Consultas Repartidores");
 
+        img_ayuda2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                img_ayuda2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(66, 66, 66)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbl_titulo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(174, 174, 174)
+                .addComponent(img_ayuda2)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 11, Short.MAX_VALUE)
                 .addComponent(lbl_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(img_ayuda2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanel2.setBackground(new java.awt.Color(69, 155, 157));
 
-        cbx_repartidor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quejas Negativas por Parte del Consumidor", "Quejas Positivas por Parte del Consumidor", "Entregas Incompletas" }));
-
-        btn_consultar.setText("CONSULTAR");
+        cbx_repartidor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Elija una opcion-", "Repartidores con quejas negativas por parte del consumidor.", "Repartidores con entregas incompletas", "Repartidores con quejas positivas por parte del consumidor.", " " }));
+        cbx_repartidor.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbx_repartidorItemStateChanged(evt);
+            }
+        });
 
         btn_reporte.setText("GENERAR REPORTE");
+        btn_reporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_reporteActionPerformed(evt);
+            }
+        });
 
         btn_regresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionRegresar.png"))); // NOI18N
         btn_regresar.setText("Regresar");
@@ -79,7 +133,18 @@ public class consultaRepartidor extends javax.swing.JFrame {
             }
         });
 
-        jScrollPane1.setViewportView(jlt_repartidor);
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -87,28 +152,28 @@ public class consultaRepartidor extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(cbx_repartidor, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-                        .addComponent(btn_consultar))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(btn_reporte)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_regresar)))
+                .addComponent(btn_reporte)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 482, Short.MAX_VALUE)
+                .addComponent(btn_regresar)
                 .addGap(23, 23, 23))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(90, 90, 90)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 561, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(164, 164, 164)
+                        .addComponent(cbx_repartidor, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbx_repartidor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_consultar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addContainerGap()
+                .addComponent(cbx_repartidor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_reporte, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btn_regresar, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -142,6 +207,179 @@ public class consultaRepartidor extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_regresarActionPerformed
 
+    private void cbx_repartidorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbx_repartidorItemStateChanged
+        // TODO add your handling code here:
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            if (cbx_repartidor.getSelectedItem().toString().equals("Repartidores con quejas negativas por parte del consumidor.")) {
+                reiniciarJTable(jTable1);
+                cargarTitulosColumas();
+                try {
+                    cargarDatos();
+                    global.GrabaBitacora(ClsBitacora.SystemUser, "Consultó en Repartidor");
+                } catch (SQLException ex) {
+                    Logger.getLogger(bitacora.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else if (cbx_repartidor.getSelectedItem().toString().equals("Repartidores con entregas incompletas")) {
+                reiniciarJTable(jTable1);
+                cargarTitulosColumas1();
+                try {
+                    cargarDatos1();
+                    global.GrabaBitacora(ClsBitacora.SystemUser, "Consultó en Repartidor");
+                } catch (SQLException ex) {
+                    Logger.getLogger(bitacora.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else if (cbx_repartidor.getSelectedItem().toString().equals("Repartidores con quejas positivas por parte del consumidor.")) {
+                reiniciarJTable(jTable1);
+                cargarTitulosColumas2();
+                try {
+                    cargarDatos2();
+                    global.GrabaBitacora(ClsBitacora.SystemUser, "Consultó en Repartidor");
+                } catch (SQLException ex) {
+                    Logger.getLogger(bitacora.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }//GEN-LAST:event_cbx_repartidorItemStateChanged
+
+    private void img_ayuda2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_ayuda2ActionPerformed
+        // TODO add your handling code here:
+        try {
+
+            if ((new File("ayudaFormulario.chm")).exists()) {
+
+                Process p = Runtime
+                .getRuntime()
+                .exec("rundll32 url.dll,FileProtocolHandler ayudaConsulta.chm");
+                p.waitFor();
+
+            } else {
+
+                System.out.println("La ayuda no Fue encontrada");
+
+            }
+
+            System.out.println("Correcto");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_img_ayuda2ActionPerformed
+
+    private void btn_reporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reporteActionPerformed
+        // TODO add your handling code here:
+        try {
+		//Llamada al Reporte//D:\\Clases Universidad\\Analisis de Sistemas II\\Tareas Primer Parcial\\Proyecto 1\\Programa Tercera Entrega\\SistemaDeRepartos\\
+            JasperDesign jdesign = JRXmlLoader.load("src\\sistemaderepartos\\Repartidor.jrxml");
+		//Compilaci[on del Reporte
+            JasperReport jreport = JasperCompileManager.compileReport(jdesign);
+		// LLenado del reporte
+            JasperPrint jprint = JasperFillManager.fillReport(jreport, null,con);
+		// Visualizar reporte
+            JasperViewer.viewReport(jprint);
+            
+                    global.GrabaBitacora(ClsBitacora.SystemUser, "Genero Reporte en Piloto");
+
+        } catch (JRException ex) {
+            Logger.getLogger(consultaEnBodega.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btn_reporteActionPerformed
+
+    public static void reiniciarJTable(javax.swing.JTable Tabla) {
+        DefaultTableModel modelo = (DefaultTableModel) Tabla.getModel();
+        while (modelo.getRowCount() > 0) {
+            modelo.removeRow(0);
+        }
+
+        TableColumnModel modCol = Tabla.getColumnModel();
+        while (modCol.getColumnCount() > 0) {
+            modCol.removeColumn(modCol.getColumn(0));
+        }
+    }
+
+    public void cargarTitulosColumas() {
+        tabla.addColumn("Nombre de Empleado");
+        tabla.addColumn("Titulo de queja");
+        tabla.addColumn("Nombre de Estado");
+        this.jTable1.setModel(tabla);
+    }
+
+    public void cargarDatos() throws SQLException {
+        String datos[] = new String[3];    //Variable que almacena los datos de la consulta
+        ps = (PreparedStatement) con.prepareStatement("SELECT cNombre_Empleado, cTitulo_Queja, cNombre_Estado\n"
+                + "FROM tbl_empleado, tbl_quejas, tbl_estado_queja, tbl_comprobante\n"
+                + "WHERE tbl_empleado.Pk_iId_Empleado = tbl_comprobante.Fk_iId_Empleado AND tbl_comprobante.Pk_iId_Comprobante = tbl_quejas.Fk_iId_Comprobante\n"
+                + "AND tbl_estado_queja.Pk_iId_Estado_Queja = tbl_quejas.Fk_iId_Estado_Queja AND tbl_estado_queja.Pk_iId_Estado_Queja LIKE 4;");//Evitar sql injection
+        try {
+            rs = ps.executeQuery();  //Linea que ejecuta la consulta sql y almacena los datos en resultado
+
+            while (rs.next()) {                                    //Bucle que recorre la consulta obtenida
+                datos[0] = rs.getString("cNombre_Empleado");
+                datos[1] = rs.getString("cTitulo_Queja");
+                datos[2] = rs.getString("cNombre_Estado");
+                tabla.addRow(datos);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al cargar los Datos\n" + ex);
+        }
+    }
+
+    public void cargarTitulosColumas1() {
+        tabla.addColumn("Nombre de Empleado");
+        tabla.addColumn("Nombre puesto");
+        tabla.addColumn("Nombre de entrega");
+        tabla.addColumn("Nombre de estado");
+        this.jTable1.setModel(tabla);
+    }
+
+    public void cargarDatos1() throws SQLException {
+        String datos[] = new String[4];    //Variable que almacena los datos de la consulta
+        ps = (PreparedStatement) con.prepareStatement("SELECT cNombre_Empleado, cNombre_Puesto_Empleado, cNombre_Entrega_Descricion, Nombre_Estado\n"
+                + "FROM tbl_empleado,  tbl_puesto_empleado, tbl_entrega, tbl_estado_entrega, tbl_entregas_de_empleado\n"
+                + "WHERE tbl_empleado.Pk_iId_Empleado = tbl_entregas_de_empleado.Pk_iId_Empleado AND tbl_entrega.Pk_iId_Entrega = tbl_entregas_de_empleado.Pk_iId_Entrega\n"
+                + "AND tbl_entrega.Fk_iId_Estado_Entrega = tbl_estado_entrega.Pk_iId_Estado_Entrega AND tbl_estado_entrega.Pk_iId_Estado_Entrega LIKE 2\n"
+                + "AND tbl_puesto_empleado.Pk_iId_Puesto_Empleado LIKE 5;");//Evitar sql injection
+        try {
+            rs = ps.executeQuery();  //Linea que ejecuta la consulta sql y almacena los datos en resultado
+
+            while (rs.next()) {                                    //Bucle que recorre la consulta obtenida
+                datos[0] = rs.getString("cNombre_Empleado");
+                datos[1] = rs.getString("cNombre_Puesto_Empleado");
+                datos[2] = rs.getString("cNombre_Entrega_Descricion");
+                datos[3] = rs.getString("Nombre_Estado");
+                tabla.addRow(datos);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al cargar los Datos\n" + ex);
+        }
+    }
+
+    public void cargarTitulosColumas2() {
+        tabla.addColumn("Nombre de empleado");
+        tabla.addColumn("Titulo de queja");
+        tabla.addColumn("Nombre de estado");
+        this.jTable1.setModel(tabla);
+    }
+
+    public void cargarDatos2() throws SQLException {
+        String datos[] = new String[3];    //Variable que almacena los datos de la consulta
+        ps = (PreparedStatement) con.prepareStatement("SELECT cNombre_Empleado, cTitulo_Queja, cNombre_Estado\n"
+                + "FROM tbl_empleado, tbl_quejas, tbl_estado_queja, tbl_comprobante\n"
+                + "WHERE tbl_empleado.Pk_iId_Empleado = tbl_comprobante.Fk_iId_Empleado AND tbl_comprobante.Pk_iId_Comprobante = tbl_quejas.Fk_iId_Comprobante\n"
+                + "AND tbl_estado_queja.Pk_iId_Estado_Queja = tbl_quejas.Fk_iId_Estado_Queja AND tbl_estado_queja.Pk_iId_Estado_Queja LIKE 3;");//Evitar sql injection
+        try {
+            rs = ps.executeQuery();  //Linea que ejecuta la consulta sql y almacena los datos en resultado
+
+            while (rs.next()) {             //Bucle que recorre la consulta obtenida
+                datos[0] = rs.getString("cNombre_Empleado");             //Bucle que recorre la consulta obtenida
+                datos[1] = rs.getString("cTitulo_Queja");            //Bucle que recorre la consulta obtenida
+                datos[2] = rs.getString("cNombre_Estado");
+                tabla.addRow(datos);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al cargar los Datos\n" + ex);
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -178,14 +416,14 @@ public class consultaRepartidor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_consultar;
     private javax.swing.JButton btn_regresar;
     private javax.swing.JButton btn_reporte;
     private javax.swing.JComboBox<String> cbx_repartidor;
+    private javax.swing.JButton img_ayuda2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList<String> jlt_repartidor;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lbl_titulo;
     // End of variables declaration//GEN-END:variables
 }

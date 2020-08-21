@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a4a7e1b6-3c9a-4be6-8521-b122e2493205">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT `tbl_ordenes_de_envio`.`cNombre_Ordenes_De_Envio`, `tbl_ordenes_de_envio`.`Fk_iId_Vehiculo`, `tbl_vehiculos_empleado`.`cMarca_Vehiculo` 
+FROM `tbl_vehiculos_empleado` 
+LEFT JOIN `tbl_ordenes_de_envio` ON `tbl_ordenes_de_envio`.`Fk_iId_Vehiculo` = `tbl_vehiculos_empleado`.`Pk_iId_Vehiculo`]]>
+	</queryString>
+	<field name="cNombre_Ordenes_De_Envio" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Fk_iId_Vehiculo" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cMarca_Vehiculo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="cNombre_Ordenes_De_Envio">
+		<groupExpression><![CDATA[$F{cNombre_Ordenes_De_Envio}]]></groupExpression>
+		<groupHeader>
+			<band height="51">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="100" height="32" forecolor="#666666" backcolor="#E6E6E6" uuid="eb837f11-6791-4ea4-9c09-d576eaddf9fe"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[NOMBRE DE ORDEN]]></text>
+				</staticText>
+				<textField>
+					<reportElement mode="Opaque" x="100" y="0" width="455" height="32" forecolor="#006699" backcolor="#E6E6E6" uuid="fc5b0b4a-86c5-451b-89f4-0814f19d42c6"/>
+					<textElement>
+						<font size="24" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cNombre_Ordenes_De_Envio}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="-20" y="32" width="595" height="1" forecolor="#666666" uuid="e12a65c2-6434-4d7a-8f0f-03454630199d"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<group name="Fk_iId_Vehiculo">
+		<groupExpression><![CDATA[$F{Fk_iId_Vehiculo}]]></groupExpression>
+		<groupHeader>
+			<band height="52">
+				<textField>
+					<reportElement x="100" y="0" width="455" height="32" forecolor="#006699" uuid="ca99a754-7415-4064-a6db-2a0180f7fb3c"/>
+					<textElement>
+						<font size="22" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Fk_iId_Vehiculo}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="100" height="20" forecolor="#666666" uuid="7c4e78b0-2ea4-4ae3-b939-7a059a711c79"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[ID VEHICULO]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<group name="cMarca_Vehiculo">
+		<groupExpression><![CDATA[$F{cMarca_Vehiculo}]]></groupExpression>
+		<groupHeader>
+			<band height="48">
+				<textField>
+					<reportElement x="126" y="0" width="429" height="32" forecolor="#006699" uuid="24a92066-a9af-450d-817e-aac34217325e"/>
+					<textElement>
+						<font size="20" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cMarca_Vehiculo}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="115" height="20" forecolor="#666666" uuid="3b825165-6223-4219-9a12-f57776cbfab6"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[MARCA VEHICULO]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699" uuid="c85c05b9-c71f-4dbf-bec8-3a6e2392098f"/>
+				<staticText>
+					<reportElement x="20" y="20" width="335" height="43" forecolor="#FFFFFF" uuid="ad9d988f-9545-4d7b-b65f-13458842607d"/>
+					<textElement>
+						<font size="34" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Reportes Camiones]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="338" y="63" width="237" height="20" forecolor="#FFFFFF" uuid="8d4057e3-6547-49fc-a3e9-4b6b161fa902"/>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Camiones Cargadas con Ordenes]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="2078a999-cc1f-4365-9f17-bba643867aac"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="9493e0fe-cc22-475e-94b2-771a74fc71a7"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="d48bd222-88d9-455e-90e7-f82d92323dd4"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="1f0b1c76-f975-458d-8fef-b74cc4dc9af9"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" uuid="7fe54b97-eca3-4510-918b-68c5b866f438"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

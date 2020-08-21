@@ -271,7 +271,7 @@ public class bitacora extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresarActionPerformed
-        consultas volver = new consultas();
+        menu volver = new menu();
         volver.setVisible(true);
         dispose();
         volver.setLocationRelativeTo(null);
@@ -279,7 +279,7 @@ public class bitacora extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_regresarActionPerformed
 
     private void btn_regresar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresar1ActionPerformed
-        consultas volver = new consultas();
+        menu volver = new menu();
         volver.setVisible(true);
         dispose();
         volver.setLocationRelativeTo(null);
@@ -287,7 +287,7 @@ public class bitacora extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_regresar1ActionPerformed
 
     private void btn_regresar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_regresar2ActionPerformed
-        consultas volver = new consultas();
+        menu volver = new menu();
         volver.setVisible(true);
         dispose();
         volver.setLocationRelativeTo(null);

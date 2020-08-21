@@ -8,6 +8,9 @@ package sistemaderepartos;
 import sistemaderepartos.menu;
 import com.placeholder.PlaceHolder;
 import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.event.KeyEvent;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -17,6 +20,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -52,12 +57,10 @@ public class quejas extends javax.swing.JFrame {
         initComponents();
         this.setSize(new Dimension(660, 500));
         placeholder();
-        /*holder = new PlaceHolder(txt_buscar, "Codigo a buscar");
-        holder = new PlaceHolder(txt_titulo, "Titulo de queja");
-        holder = new PlaceHolder(txt_descripcion, "Descripcion");
-        holder = new PlaceHolder(txt_fecha, "Fecha");
-        holder = new PlaceHolder(txt_estado, "Estado Queja");
-        holder = new PlaceHolder(txt_comprobante, "Codigo Comprobante");*/
+        ImageIcon imagen = new ImageIcon("src/imagenes/ayuda.png");
+        Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(img_ayuda2.getWidth(), img_ayuda2.getHeight(), Image.SCALE_DEFAULT));
+        img_ayuda2.setIcon(icono);
+        this.repaint();
     }
 
     /**
@@ -71,6 +74,7 @@ public class quejas extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         lbl_texto = new javax.swing.JLabel();
+        img_ayuda2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         txt_comprobante = new javax.swing.JTextField();
         txt_titulo = new javax.swing.JTextField();
@@ -101,6 +105,12 @@ public class quejas extends javax.swing.JFrame {
         lbl_texto.setForeground(new java.awt.Color(255, 255, 255));
         lbl_texto.setText("QUEJAS");
 
+        img_ayuda2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                img_ayuda2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -108,7 +118,9 @@ public class quejas extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(248, 248, 248)
                 .addComponent(lbl_texto)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(img_ayuda2)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,6 +128,10 @@ public class quejas extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(19, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(img_ayuda2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanel2.setBackground(new java.awt.Color(241, 250, 238));
@@ -432,17 +448,17 @@ public class quejas extends javax.swing.JFrame {
                 ps = con.prepareStatement("INSERT INTO tbl_quejas (cTitulo_Queja, cDescripcion_Queja, d_Fecha_Queja,"
                         + " Fk_iId_Estado_Queja, Fk_iId_Comprobante) VALUES(?,?,?,?,?)");
 
-                String descripcion = txt_titulo.getText();
+                String titulo = txt_titulo.getText();
                 //String fecha = txt_descripcion.getText();
-                String cliente = txt_fecha.getText();
-                String comprobante = txt_estado.getText();
-                String estado = txt_comprobante.getText();
+                String descripcion = txt_descripcion.getText();
+                String estado = txt_estado.getText();
+                String comprobante = txt_comprobante.getText();
 
-                ps.setString(1, descripcion);
-                ps.setDate(2, fecha2);
-                ps.setString(3, cliente);
-                ps.setString(4, comprobante);
-                ps.setString(5, estado);
+                ps.setString(1, titulo);
+                ps.setString(2, descripcion);
+                ps.setDate(3, fecha2);
+                ps.setString(4, estado);
+                ps.setString(5, comprobante);
 
                 txt_titulo.setText("");
                 txt_descripcion.setText("");
@@ -501,48 +517,58 @@ public class quejas extends javax.swing.JFrame {
 
     private void txt_buscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_buscarKeyTyped
         // TODO add your handling code here:
-        char validar = evt.getKeyChar();
-        if (Character.isLetter(validar)) {
-            getToolkit().beep();
-            evt.consume();
-
-            JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
-        }
+        validacion(evt);
     }//GEN-LAST:event_txt_buscarKeyTyped
 
     private void txt_fechaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_fechaKeyTyped
         // TODO add your handling code here:
-        char validar = evt.getKeyChar();
-        if (Character.isLetter(validar)) {
-            getToolkit().beep();
-            evt.consume();
-
-            JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
-        }
+        validacion(evt);
     }//GEN-LAST:event_txt_fechaKeyTyped
 
     private void txt_estadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_estadoKeyTyped
         // TODO add your handling code here:
-        char validar = evt.getKeyChar();
-        if (Character.isLetter(validar)) {
-            getToolkit().beep();
-            evt.consume();
-
-            JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
-        }
+        validacion(evt);
     }//GEN-LAST:event_txt_estadoKeyTyped
 
     private void txt_comprobanteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_comprobanteKeyTyped
         // TODO add your handling code here:
-        char validar = evt.getKeyChar();
+        validacion(evt);
+    }//GEN-LAST:event_txt_comprobanteKeyTyped
+
+    private void img_ayuda2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_ayuda2ActionPerformed
+        // TODO add your handling code here:
+        try {
+
+            if ((new File("ayudaFormulario.chm")).exists()) {
+
+                Process p = Runtime
+                .getRuntime()
+                .exec("rundll32 url.dll,FileProtocolHandler ayudaFormulario.chm");
+                p.waitFor();
+
+            } else {
+
+                System.out.println("La ayuda no Fue encontrada");
+
+            }
+
+            System.out.println("Correcto");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_img_ayuda2ActionPerformed
+
+    public void validacion(KeyEvent e){
+        char validar = e.getKeyChar();
         if (Character.isLetter(validar)) {
             getToolkit().beep();
-            evt.consume();
+            e.consume();
 
             JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
         }
-    }//GEN-LAST:event_txt_comprobanteKeyTyped
-
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -584,6 +610,7 @@ public class quejas extends javax.swing.JFrame {
     private javax.swing.JButton btn_guardar;
     private javax.swing.JButton btn_modificar;
     private javax.swing.JButton btn_regresar;
+    private javax.swing.JButton img_ayuda2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

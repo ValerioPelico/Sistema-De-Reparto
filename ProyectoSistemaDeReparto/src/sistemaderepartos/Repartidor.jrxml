@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ed909478-a206-4406-bc6d-45c76e1d7a40">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT cNombre_Empleado, cTitulo_Queja, cNombre_Estado, Nombre_Estado
+FROM tbl_empleado, tbl_quejas, tbl_estado_queja, tbl_estado_entrega, tbl_comprobante, tbl_entregas_de_empleado, tbl_entrega
+WHERE tbl_empleado.Pk_iId_Empleado = tbl_comprobante.Fk_iId_Empleado AND tbl_quejas.Fk_iId_Comprobante = tbl_comprobante.Pk_iId_Comprobante
+AND tbl_estado_queja.Pk_iId_Estado_Queja = tbl_quejas.Pk_iId_Quejas AND tbl_empleado.Pk_iId_Empleado = tbl_entregas_de_empleado.Pk_iId_Empleado
+AND tbl_entregas_de_empleado.Pk_iId_Entrega = tbl_entrega.Pk_iId_Entrega AND tbl_entrega.Fk_iId_Estado_Entrega = tbl_estado_entrega.Pk_iId_Estado_Entrega
+AND tbl_estado_entrega.Pk_iId_Estado_Entrega LIKE 3;]]>
+	</queryString>
+	<field name="cNombre_Empleado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cTitulo_Queja" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cNombre_Estado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Nombre_Estado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="cNombre_Empleado">
+		<groupExpression><![CDATA[$F{cNombre_Empleado}]]></groupExpression>
+		<groupHeader>
+			<band height="33">
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="0" width="100" height="32" forecolor="#666666" backcolor="#E6E6E6" uuid="4ff2c8fb-1a07-4f49-aa6c-16fcb28f90be"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[NOMBRE DE EMPLEADO]]></text>
+				</staticText>
+				<textField>
+					<reportElement mode="Opaque" x="100" y="0" width="455" height="32" forecolor="#006699" backcolor="#E6E6E6" uuid="44a6293c-4608-4223-9ca4-0e7bff2377b7"/>
+					<textElement>
+						<font size="24" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cNombre_Empleado}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="-20" y="32" width="595" height="1" forecolor="#666666" uuid="b2f8bdc9-efec-4524-9907-3cfaa192fe44"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<group name="cTitulo_Queja">
+		<groupExpression><![CDATA[$F{cTitulo_Queja}]]></groupExpression>
+		<groupHeader>
+			<band height="32">
+				<textField>
+					<reportElement x="100" y="0" width="455" height="32" forecolor="#006699" uuid="56859c44-78e3-4261-a959-0e6e4c070d5e"/>
+					<textElement>
+						<font size="22" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cTitulo_Queja}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="100" height="20" forecolor="#666666" uuid="d61dd682-45ba-476a-b6ba-9b76bd645368"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[TITULO QUEJA]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<group name="cNombre_Estado">
+		<groupExpression><![CDATA[$F{cNombre_Estado}]]></groupExpression>
+		<groupHeader>
+			<band height="32">
+				<textField>
+					<reportElement x="100" y="0" width="434" height="32" forecolor="#006699" uuid="93bfc857-c5db-4977-b8ee-d6a788eaf37a"/>
+					<textElement>
+						<font size="20" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cNombre_Estado}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="100" height="32" forecolor="#666666" uuid="9487cf25-2f99-4544-92f8-52b85264f0d0"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[NOMBRE ESTADO QUEJA]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<group name="Nombre_Estado">
+		<groupExpression><![CDATA[$F{Nombre_Estado}]]></groupExpression>
+		<groupHeader>
+			<band height="32">
+				<textField>
+					<reportElement x="119" y="0" width="415" height="32" forecolor="#006699" uuid="e7a01c43-4c50-4f3a-8c48-8e563b2fae9e"/>
+					<textElement>
+						<font size="16" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{Nombre_Estado}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="119" height="32" forecolor="#666666" uuid="4c65f796-74f9-4c31-990d-aa0938fc7543"/>
+					<textElement>
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[NOMBRE ESTADO ORDEN]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699" uuid="68d417e1-cee8-40ec-9ff1-be66f221ab7a"/>
+				<staticText>
+					<reportElement x="20" y="20" width="319" height="43" forecolor="#FFFFFF" uuid="c938dcf3-ed5b-4944-9243-3e82a8b53624"/>
+					<textElement>
+						<font size="34" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Reporte Repartidor]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="372" y="63" width="203" height="20" forecolor="#FFFFFF" uuid="9738df4e-bb3c-44df-97f9-ead45963f8a6"/>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Quejas y ordenes incompletas]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="99e77123-0115-48b6-88a1-087ba135a5ea"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="095f56b2-1ddf-40e6-bed1-b4c410e75564"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="9e79cdcc-a0bd-4442-9982-8fed8ecf72b0"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="300fdbb1-3555-42de-a327-d2ce43ffadf4"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" uuid="13f1296a-1f3a-4316-b66c-01cf7916d402"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

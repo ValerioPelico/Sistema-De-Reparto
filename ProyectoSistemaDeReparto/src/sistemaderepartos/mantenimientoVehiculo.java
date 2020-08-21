@@ -7,6 +7,9 @@ package sistemaderepartos;
 
 import com.placeholder.PlaceHolder;
 import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.event.KeyEvent;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,6 +19,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import sistemaderepartos.menu;
 
@@ -51,11 +56,10 @@ public class mantenimientoVehiculo extends javax.swing.JFrame {
         initComponents();
         this.setSize(new Dimension(660, 410));
                 placeholder();
-        /*holder = new PlaceHolder(txt_buscar, "Ingrese codigo a buscar");
-        holder = new PlaceHolder(txt_fecha, "Fecha servicio  Formato yyyy-mm-dd");
-        holder = new PlaceHolder(txt_kilometraje, "KM al momento de servicio");
-        holder = new PlaceHolder(txt_descripcion, "Descripcion de servicio");
-        holder = new PlaceHolder(txt_id_vehiculo, "ID del vehiculo");*/
+        ImageIcon imagen = new ImageIcon("src/imagenes/ayuda.png");
+        Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(img_ayuda2.getWidth(), img_ayuda2.getHeight(), Image.SCALE_DEFAULT));
+        img_ayuda2.setIcon(icono);
+        this.repaint();
     }
 
     /**
@@ -69,6 +73,7 @@ public class mantenimientoVehiculo extends javax.swing.JFrame {
 
         jnp_a = new javax.swing.JPanel();
         lbl_texto = new javax.swing.JLabel();
+        img_ayuda2 = new javax.swing.JButton();
         jpn_b = new javax.swing.JPanel();
         btn_buscar = new javax.swing.JButton();
         lbl_codigo_vehiculo = new javax.swing.JLabel();
@@ -97,21 +102,31 @@ public class mantenimientoVehiculo extends javax.swing.JFrame {
         lbl_texto.setForeground(new java.awt.Color(255, 255, 255));
         lbl_texto.setText("Mantenimiento Vehiculos");
 
+        img_ayuda2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                img_ayuda2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jnp_aLayout = new javax.swing.GroupLayout(jnp_a);
         jnp_a.setLayout(jnp_aLayout);
         jnp_aLayout.setHorizontalGroup(
             jnp_aLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jnp_aLayout.createSequentialGroup()
-                .addGap(160, 160, 160)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbl_texto)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(155, 155, 155)
+                .addComponent(img_ayuda2)
+                .addContainerGap())
         );
         jnp_aLayout.setVerticalGroup(
             jnp_aLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jnp_aLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jnp_aLayout.createSequentialGroup()
+                .addGap(0, 23, Short.MAX_VALUE)
+                .addGroup(jnp_aLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(img_ayuda2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         jpn_b.setBackground(new java.awt.Color(241, 250, 238));
@@ -466,7 +481,7 @@ public class mantenimientoVehiculo extends javax.swing.JFrame {
 
             try {
                 ps = (PreparedStatement) con.prepareStatement("UPDATE tbl_servicios_vehiculo SET  dFecha_Servicio = ?,"
-                        + " cKilimetraje_En_el_momento = ?, cDescripcion_Del_Servicio_Realizado = ?, Fk_iId_Vehiculo = ? WHERE Pk_iId_Servicios_Vehiculo = ?");//Evitar sql injection.
+                        + " cKilimetraje_En_El momento = ?, cDescripcion_Del_Servicio_Realizado = ?, Fk_iId_Vehiculo = ? WHERE Pk_iId_Servicios_Vehiculo = ?");//Evitar sql injection.
 
                 ps.setDate(1, fecha2);
                 ps.setString(2, txt_kilometraje.getText());
@@ -544,26 +559,48 @@ public class mantenimientoVehiculo extends javax.swing.JFrame {
 
     private void txt_fechaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_fechaKeyTyped
         // TODO add your handling code here:
-        char validar = evt.getKeyChar();
-        if (Character.isLetter(validar)) {
-            getToolkit().beep();
-            evt.consume();
-
-            JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
-        }
+        validacion(evt);
     }//GEN-LAST:event_txt_fechaKeyTyped
 
     private void txt_id_vehiculoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_id_vehiculoKeyTyped
         // TODO add your handling code here:
-        char validar = evt.getKeyChar();
+        validacion(evt);
+    }//GEN-LAST:event_txt_id_vehiculoKeyTyped
+
+    private void img_ayuda2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_ayuda2ActionPerformed
+        // TODO add your handling code here:
+        try {
+
+            if ((new File("ayudaFormulario.chm")).exists()) {
+
+                Process p = Runtime
+                .getRuntime()
+                .exec("rundll32 url.dll,FileProtocolHandler ayudaFormulario.chm");
+                p.waitFor();
+
+            } else {
+
+                System.out.println("La ayuda no Fue encontrada");
+
+            }
+
+            System.out.println("Correcto");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_img_ayuda2ActionPerformed
+
+    public void validacion(KeyEvent e){
+        char validar = e.getKeyChar();
         if (Character.isLetter(validar)) {
             getToolkit().beep();
-            evt.consume();
+            e.consume();
 
             JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
         }
-    }//GEN-LAST:event_txt_id_vehiculoKeyTyped
-
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -605,6 +642,7 @@ public class mantenimientoVehiculo extends javax.swing.JFrame {
     private javax.swing.JButton btn_guardar;
     private javax.swing.JButton btn_modificar;
     private javax.swing.JButton btn_regresar;
+    private javax.swing.JButton img_ayuda2;
     private javax.swing.JPanel jnp_a;
     private javax.swing.JPanel jpn_b;
     private javax.swing.JPanel jpn_c;

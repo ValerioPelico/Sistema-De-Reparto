@@ -4,6 +4,30 @@
  * and open the template in the editor.
  */
 package sistemaderepartos;
+
+import java.awt.Image;
+import java.awt.event.ItemEvent;
+import java.io.File;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
+import static sistemaderepartos.consultaEnBodega.reiniciarJTable;
 import sistemaderepartos.consultas;
 
 /**
@@ -15,8 +39,21 @@ public class consultaEnCamiones extends javax.swing.JFrame {
     /**
      * Creates new form consultaEnCamiones
      */
+    Conexion cn = new Conexion();
+    Connection con = cn.getConnection();
+    PreparedStatement ps;
+    ResultSet rs;
+
+    ClsBitacora global = new ClsBitacora();
+
+    DefaultTableModel tabla = new DefaultTableModel();
+
     public consultaEnCamiones() {
         initComponents();
+        ImageIcon imagen = new ImageIcon("src/imagenes/ayuda.png");
+        Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(img_ayuda2.getWidth(), img_ayuda2.getHeight(), Image.SCALE_DEFAULT));
+        img_ayuda2.setIcon(icono);
+        this.repaint();
     }
 
     /**
@@ -30,13 +67,13 @@ public class consultaEnCamiones extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         lbl_titulo = new javax.swing.JLabel();
+        img_ayuda2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         cbx_encamion = new javax.swing.JComboBox<>();
-        btn_consultar = new javax.swing.JButton();
         btn_reporte = new javax.swing.JButton();
         btn_regresar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jlt_encamion = new javax.swing.JList<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -47,29 +84,49 @@ public class consultaEnCamiones extends javax.swing.JFrame {
         lbl_titulo.setForeground(new java.awt.Color(255, 255, 255));
         lbl_titulo.setText("Consultas Encargados de Camiones");
 
+        img_ayuda2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                img_ayuda2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(209, 209, 209)
                 .addComponent(lbl_titulo)
-                .addGap(19, 19, 19))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(img_ayuda2)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 11, Short.MAX_VALUE)
                 .addComponent(lbl_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(img_ayuda2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanel2.setBackground(new java.awt.Color(69, 155, 157));
 
-        cbx_encamion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Camiones a su Cargo", "Ordenes Cargadas en Camiones Asignados", "Carga Incompleta" }));
-
-        btn_consultar.setText("CONSULTAR");
+        cbx_encamion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Elija una opcion-", "Camiones a su Cargo", "Ordenes Cargadas en Camiones Asignados", "Carga Incompleta" }));
+        cbx_encamion.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbx_encamionItemStateChanged(evt);
+            }
+        });
 
         btn_reporte.setText("GENERAR REPORTE");
+        btn_reporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_reporteActionPerformed(evt);
+            }
+        });
 
         btn_regresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/OpcionRegresar.png"))); // NOI18N
         btn_regresar.setText("Regresar");
@@ -79,7 +136,18 @@ public class consultaEnCamiones extends javax.swing.JFrame {
             }
         });
 
-        jScrollPane1.setViewportView(jlt_encamion);
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -87,39 +155,33 @@ public class consultaEnCamiones extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(cbx_encamion, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
-                        .addComponent(btn_consultar))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btn_reporte)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_regresar)))
+                        .addComponent(btn_regresar))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(cbx_encamion, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(293, 293, 293)))
                 .addGap(23, 23, 23))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
-                    .addContainerGap()))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(125, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(151, 151, 151))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbx_encamion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_consultar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
+                .addComponent(cbx_encamion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_reporte, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btn_regresar, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                    .addContainerGap(47, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(48, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -127,14 +189,16 @@ public class consultaEnCamiones extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -148,6 +212,176 @@ public class consultaEnCamiones extends javax.swing.JFrame {
         volver.setLocationRelativeTo(null);
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_regresarActionPerformed
+
+    private void cbx_encamionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbx_encamionItemStateChanged
+        // TODO add your handling code here:
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            if (cbx_encamion.getSelectedItem().toString().equals("Camiones a su Cargo")) {
+                reiniciarJTable(jTable1);
+                cargarTitulosColumas();
+                try {
+                    cargarDatos();
+                    global.GrabaBitacora(ClsBitacora.SystemUser, "Consultó en camiones");
+                } catch (SQLException ex) {
+                    Logger.getLogger(bitacora.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else if (cbx_encamion.getSelectedItem().toString().equals("Ordenes Cargadas en Camiones Asignados")) {
+                reiniciarJTable(jTable1);
+                cargarTitulosColumas1();
+                try {
+                    cargarDatos1();
+                    global.GrabaBitacora(ClsBitacora.SystemUser, "Consultó en camiones");
+                } catch (SQLException ex) {
+                    Logger.getLogger(bitacora.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                global.GrabaBitacora(ClsBitacora.SystemUser, "Consultó en camiones");
+            } else if (cbx_encamion.getSelectedItem().toString().equals("Carga Incompleta")) {
+                reiniciarJTable(jTable1);
+                cargarTitulosColumas2();
+                try {
+                    cargarDatos2();
+                    global.GrabaBitacora(ClsBitacora.SystemUser, "Consultó en camiones");
+                } catch (SQLException ex) {
+                    Logger.getLogger(bitacora.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                global.GrabaBitacora(ClsBitacora.SystemUser, "Consultó en camiones");
+            }
+        }
+    }//GEN-LAST:event_cbx_encamionItemStateChanged
+
+    private void btn_reporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_reporteActionPerformed
+        // TODO add your handling code here:
+        try {
+		//Llamada al Reporte
+            JasperDesign jdesign = JRXmlLoader.load("src\\sistemaderepartos\\Camion.jrxml");
+		//Compilaci[on del Reporte
+            JasperReport jreport = JasperCompileManager.compileReport(jdesign);
+		// LLenado del reporte
+            JasperPrint jprint = JasperFillManager.fillReport(jreport, null,con);
+		// Visualizar reporte
+            JasperViewer.viewReport(jprint);
+            
+                    global.GrabaBitacora(ClsBitacora.SystemUser, "Genero Reporte en Piloto");
+
+        } catch (JRException ex) {
+            Logger.getLogger(consultaEnBodega.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btn_reporteActionPerformed
+
+    private void img_ayuda2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_ayuda2ActionPerformed
+        // TODO add your handling code here:
+        try {
+
+            if ((new File("ayudaFormulario.chm")).exists()) {
+
+                Process p = Runtime
+                .getRuntime()
+                .exec("rundll32 url.dll,FileProtocolHandler ayudaConsulta.chm");
+                p.waitFor();
+
+            } else {
+
+                System.out.println("La ayuda no Fue encontrada");
+
+            }
+
+            System.out.println("Correcto");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_img_ayuda2ActionPerformed
+
+    public static void reiniciarJTable(javax.swing.JTable Tabla) {
+        DefaultTableModel modelo = (DefaultTableModel) Tabla.getModel();
+        while (modelo.getRowCount() > 0) {
+            modelo.removeRow(0);
+        }
+
+        TableColumnModel modCol = Tabla.getColumnModel();
+        while (modCol.getColumnCount() > 0) {
+            modCol.removeColumn(modCol.getColumn(0));
+        }
+    }
+
+    public void cargarTitulosColumas() {
+        tabla.addColumn("Nombre de Empleado");
+        tabla.addColumn("Placa del Vehiculo");
+        tabla.addColumn("fecha de asignacion");
+        this.jTable1.setModel(tabla);
+    }
+
+    public void cargarDatos() throws SQLException {
+        String datos[] = new String[3];    //Variable que almacena los datos de la consulta
+        ps = (PreparedStatement) con.prepareStatement("SELECT cNombre_Empleado, cPlacas_Vehiculo, dFecha_De_Asignacion FROM tbl_empleado, tbl_vehiculos_empleado, tbl_registro_de_vehiculos_a_empleados \n"
+                + "WHERE tbl_registro_de_vehiculos_a_empleados.Pk_iId_Empleado = tbl_empleado.Pk_iId_Empleado AND tbl_vehiculos_empleado.Pk_iId_Vehiculo = tbl_registro_de_vehiculos_a_empleados.Pk_iId_Vehiculo \n"
+                + "ORDER BY tbl_empleado.Pk_iId_Empleado;");//Evitar sql injection
+        try {
+            rs = ps.executeQuery();  //Linea que ejecuta la consulta sql y almacena los datos en resultado
+
+            while (rs.next()) {                                    //Bucle que recorre la consulta obtenida
+                datos[0] = rs.getString("cNombre_Empleado");
+                datos[1] = rs.getString("cPlacas_Vehiculo");
+                datos[2] = rs.getString("dFecha_De_Asignacion");
+                tabla.addRow(datos);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al cargar los Datos\n" + ex);
+        }
+    }
+
+    public void cargarTitulosColumas1() {
+        tabla.addColumn("Nombre de Orden");
+        tabla.addColumn("ID del Vehiculo");
+        tabla.addColumn("Marca de Vehiculo");
+        this.jTable1.setModel(tabla);
+    }
+
+    public void cargarDatos1() throws SQLException {
+        String datos[] = new String[3];    //Variable que almacena los datos de la consulta
+        ps = (PreparedStatement) con.prepareStatement("	SELECT `tbl_ordenes_de_envio`.`cNombre_Ordenes_De_Envio`, `tbl_ordenes_de_envio`.`Fk_iId_Vehiculo`, `tbl_vehiculos_empleado`.`cMarca_Vehiculo` \n"
+                + "	FROM `tbl_vehiculos_empleado` \n"
+                + "	LEFT JOIN `tbl_ordenes_de_envio` ON `tbl_ordenes_de_envio`.`Fk_iId_Vehiculo` = `tbl_vehiculos_empleado`.`Pk_iId_Vehiculo` ;");//Evitar sql injection
+        try {
+            rs = ps.executeQuery();  //Linea que ejecuta la consulta sql y almacena los datos en resultado
+
+            while (rs.next()) {                                    //Bucle que recorre la consulta obtenida
+                datos[0] = rs.getString("cNombre_Ordenes_De_Envio");
+                datos[1] = rs.getString("Fk_iId_Vehiculo");
+                datos[2] = rs.getString("cMarca_Vehiculo");
+                tabla.addRow(datos);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al cargar los Datos\n" + ex);
+        }
+    }
+
+    public void cargarTitulosColumas2() {
+        tabla.addColumn("ID de Orden de envio");
+        tabla.addColumn("Nombre de orden");
+        tabla.addColumn("Estado de envio");
+        this.jTable1.setModel(tabla);
+    }
+
+    public void cargarDatos2() throws SQLException {
+        String datos[] = new String[3];    //Variable que almacena los datos de la consulta
+        ps = (PreparedStatement) con.prepareStatement("SELECT `tbl_ordenes_de_envio`.`Pk_iId_Ordenes_De_Envio`, `tbl_ordenes_de_envio`.`cNombre_Ordenes_De_Envio`, `tbl_estado_envio`.`cNombre_Estado_Envio` \n"
+                + "FROM `tbl_estado_envio` LEFT JOIN `tbl_ordenes_de_envio` \n"
+                + "ON `tbl_ordenes_de_envio`.`Fk_iId_Estado_Envio` = `tbl_estado_envio`.`Pk_iId_Estado_Envio` \n"
+                + "WHERE (`tbl_estado_envio`.`cNombre_Estado_Envio` Like'%incompleto%') ;");//Evitar sql injection
+        try {
+            rs = ps.executeQuery();  //Linea que ejecuta la consulta sql y almacena los datos en resultado
+
+            while (rs.next()) {                                    //Bucle que recorre la consulta obtenida
+                datos[0] = rs.getString("Pk_iId_Ordenes_De_Envio");
+                datos[1] = rs.getString("cNombre_Ordenes_De_Envio");
+                datos[2] = rs.getString("cNombre_Estado_Envio");
+                tabla.addRow(datos);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al cargar los Datos\n" + ex);
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -185,14 +419,14 @@ public class consultaEnCamiones extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_consultar;
     private javax.swing.JButton btn_regresar;
     private javax.swing.JButton btn_reporte;
     private javax.swing.JComboBox<String> cbx_encamion;
+    private javax.swing.JButton img_ayuda2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList<String> jlt_encamion;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lbl_titulo;
     // End of variables declaration//GEN-END:variables
 }

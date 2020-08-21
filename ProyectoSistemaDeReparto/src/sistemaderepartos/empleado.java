@@ -8,6 +8,9 @@ package sistemaderepartos;
 import sistemaderepartos.menu;
 import com.placeholder.PlaceHolder;
 import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.event.KeyEvent;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -17,6 +20,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -36,24 +41,28 @@ public class empleado extends javax.swing.JFrame {
     ClsBitacora global = new ClsBitacora();
 
     PlaceHolder holder;
-    
-    public void placeholder(){
-        
-        
+
+    public void placeholder() {
+
         holder = new PlaceHolder(txt_buscar, "Codigo a buscar");
         holder = new PlaceHolder(txt_nombre, "nombre");
         holder = new PlaceHolder(txt_apellido, "apellido ");
         holder = new PlaceHolder(txt_dpi, "dpi");
-        holder = new PlaceHolder(txt_fecha_nac, "edad");
+        holder = new PlaceHolder(txt_fecha_nac, "Fecha nacimiento yyyy-mm-dd");
         holder = new PlaceHolder(txt_puesto, "Codigo Puesto");
-        holder = new PlaceHolder(txt_estado_cliente, "Codigo Estado de empleado");
+        holder = new PlaceHolder(txt_estado_emp, "Codigo Estado de empleado");
     }
-    
+
     public empleado() {
         initComponents();
         this.setSize(new Dimension(625, 525));
-                placeholder();
+        placeholder();
+        ImageIcon imagen = new ImageIcon("src/imagenes/ayuda.png");
+        Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(img_ayuda2.getWidth(), img_ayuda2.getHeight(), Image.SCALE_DEFAULT));
+        img_ayuda2.setIcon(icono);
+        this.repaint();
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -67,6 +76,7 @@ public class empleado extends javax.swing.JFrame {
         buttonGroup2 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         lbl_texto = new javax.swing.JLabel();
+        img_ayuda2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         btn_buscar = new javax.swing.JButton();
         txt_nombre = new javax.swing.JTextField();
@@ -75,7 +85,7 @@ public class empleado extends javax.swing.JFrame {
         txt_puesto = new javax.swing.JTextField();
         txt_fecha_nac = new javax.swing.JTextField();
         lbl_nombre = new javax.swing.JLabel();
-        txt_estado_cliente = new javax.swing.JTextField();
+        txt_estado_emp = new javax.swing.JTextField();
         lbl_codigo_emp = new javax.swing.JLabel();
         lbl_correo = new javax.swing.JLabel();
         lbl_nacimiento = new javax.swing.JLabel();
@@ -99,6 +109,12 @@ public class empleado extends javax.swing.JFrame {
         lbl_texto.setForeground(new java.awt.Color(255, 255, 255));
         lbl_texto.setText("EMPLEADO");
 
+        img_ayuda2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                img_ayuda2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -106,13 +122,17 @@ public class empleado extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(232, 232, 232)
                 .addComponent(lbl_texto)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(img_ayuda2)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
-                .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(img_ayuda2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -147,9 +167,9 @@ public class empleado extends javax.swing.JFrame {
         lbl_nombre.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbl_nombre.setText("APELLIDO");
 
-        txt_estado_cliente.addKeyListener(new java.awt.event.KeyAdapter() {
+        txt_estado_emp.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txt_estado_clienteKeyTyped(evt);
+                txt_estado_empKeyTyped(evt);
             }
         });
 
@@ -196,7 +216,7 @@ public class empleado extends javax.swing.JFrame {
                             .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_fecha_nac, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_estado_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txt_estado_emp, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(59, 59, 59)
                         .addComponent(txt_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -234,7 +254,7 @@ public class empleado extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_nacimiento)
-                    .addComponent(txt_estado_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_estado_emp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -341,7 +361,7 @@ public class empleado extends javax.swing.JFrame {
                 ss.setInt(1, Integer.parseInt(txt_buscar.getText()));
                 ps = (PreparedStatement) con.prepareStatement("DELETE FROM tbl_empleado WHERE Pk_iId_Empleado = ?");//Evitar sql injection.
                 ps.setInt(1, Integer.parseInt(txt_buscar.getText()));
-                
+
                 int res1 = ss.executeUpdate();
                 int res = ps.executeUpdate();
 
@@ -357,10 +377,10 @@ public class empleado extends javax.swing.JFrame {
                 txt_dpi.setText("");
                 txt_fecha_nac.setText("");
                 txt_puesto.setText("");
-                txt_estado_cliente.setText("");
+                txt_estado_emp.setText("");
                 txt_buscar.setText("");
                 placeholder();
-                
+
                 global.GrabaBitacora(ClsBitacora.SystemUser, "Elimino en empleado");
 
             } catch (Exception e) {
@@ -375,8 +395,8 @@ public class empleado extends javax.swing.JFrame {
         // TODO add your handling code here:
         if ((txt_nombre.getText().matches("[a-zA-Z]+")) && (txt_apellido.getText().matches("[a-zA-Z]+"))
                 && (txt_dpi.getText().matches("[0-9]+")) && (txt_puesto.getText().matches("[0-9]+"))
-                && (txt_estado_cliente.getText().matches("[0-9]+"))) {
-            
+                && (txt_estado_emp.getText().matches("[0-9]+"))) {
+
             String fc = txt_fecha_nac.getText();
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-mm-dd");
             java.util.Date fecha1 = null; // crea objetos tipo util.Date y sql.Date
@@ -387,7 +407,7 @@ public class empleado extends javax.swing.JFrame {
                 Logger.getLogger(mantenimientoVehiculo.class.getName()).log(Level.SEVERE, null, ex);
             }
             fecha2 = new java.sql.Date(fecha1.getTime()); // convierte el util.Date en sql.Date
-            
+
             try {
                 ps = (PreparedStatement) con.prepareStatement("UPDATE tbl_empleado SET  cNombre_Empleado = ?,"
                         + " cAoellido_Empleado = ?, cDpi_Empleado = ?, dFecha_Nacimiento_Empleado = ?, Fk_iId_Puesto_Empleado = ?, Fk_iId_Estado_Empleado = ?"
@@ -398,7 +418,7 @@ public class empleado extends javax.swing.JFrame {
                 ps.setString(3, txt_dpi.getText());
                 ps.setDate(4, fecha2);
                 ps.setString(5, txt_puesto.getText());
-                ps.setString(6, txt_estado_cliente.getText());
+                ps.setString(6, txt_estado_emp.getText());
                 ps.setString(7, txt_buscar.getText());
 
                 int res = ps.executeUpdate();
@@ -415,10 +435,10 @@ public class empleado extends javax.swing.JFrame {
                 txt_dpi.setText("");
                 txt_fecha_nac.setText("");
                 txt_puesto.setText("");
-                txt_estado_cliente.setText("");
+                txt_estado_emp.setText("");
                 txt_buscar.setText("");
                 placeholder();
-                
+
                 global.GrabaBitacora(ClsBitacora.SystemUser, "IModifico en empleado");
 
             } catch (Exception e) {
@@ -433,8 +453,8 @@ public class empleado extends javax.swing.JFrame {
         // TODO add your handling code here:
         if ((txt_nombre.getText().matches("[a-zA-Z]+")) && (txt_apellido.getText().matches("[a-zA-Z]+"))
                 && (txt_dpi.getText().matches("[0-9]+")) && (txt_puesto.getText().matches("[0-9]+"))
-                && (txt_estado_cliente.getText().matches("[0-9]+"))) {
-            
+                && (txt_estado_emp.getText().matches("[0-9]+"))) {
+
             String fc = txt_fecha_nac.getText();
             SimpleDateFormat formato = new SimpleDateFormat("yyyy-mm-dd");
             java.util.Date fecha1 = null; // crea objetos tipo util.Date y sql.Date
@@ -445,7 +465,7 @@ public class empleado extends javax.swing.JFrame {
                 Logger.getLogger(mantenimientoVehiculo.class.getName()).log(Level.SEVERE, null, ex);
             }
             fecha2 = new java.sql.Date(fecha1.getTime()); // convierte el util.Date en sql.Date
-            
+
             try {
 
                 ps = con.prepareStatement("INSERT INTO tbl_empleado (cNombre_Empleado, cAoellido_Empleado, cDpi_Empleado, dFecha_Nacimiento_Empleado,"
@@ -456,7 +476,7 @@ public class empleado extends javax.swing.JFrame {
                 String dpi = txt_dpi.getText();
                 //String edad = txt_fecha_nac.getText();
                 String puesto = txt_puesto.getText();
-                String vehiculo = txt_estado_cliente.getText();
+                String vehiculo = txt_estado_emp.getText();
 
                 ps.setString(1, nombre);
                 ps.setString(2, apellido);
@@ -470,13 +490,12 @@ public class empleado extends javax.swing.JFrame {
                 txt_dpi.setText("");
                 txt_fecha_nac.setText("");
                 txt_puesto.setText("");
-                txt_estado_cliente.setText("");
+                txt_estado_emp.setText("");
                 ps.executeUpdate();
                 placeholder();
-                
+
                 global.GrabaBitacora(ClsBitacora.SystemUser, "Inserto en empleado");
-                
-                
+
                 JOptionPane.showMessageDialog(null, "Registro Exitoso");
 
                 //con.close();
@@ -505,7 +524,7 @@ public class empleado extends javax.swing.JFrame {
                     txt_dpi.setText(rs.getString("cDpi_Empleado"));
                     txt_fecha_nac.setText(rs.getString("dFecha_Nacimiento_Empleado"));
                     txt_puesto.setText(rs.getString("Fk_iId_Puesto_Empleado"));
-                    txt_estado_cliente.setText(rs.getString("Fk_iId_Estado_Empleado"));
+                    txt_estado_emp.setText(rs.getString("Fk_iId_Estado_Empleado"));
 
                 } else {
                     JOptionPane.showMessageDialog(null, "ERROR", "Error no se desplegaron los datos.", JOptionPane.ERROR_MESSAGE);
@@ -522,58 +541,62 @@ public class empleado extends javax.swing.JFrame {
 
     private void txt_buscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_buscarKeyTyped
         // TODO add your handling code here:
-        char validar = evt.getKeyChar();
-        if (Character.isLetter(validar)) {
-            getToolkit().beep();
-            evt.consume();
-
-            JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
-        }
+        validacion(evt);
     }//GEN-LAST:event_txt_buscarKeyTyped
 
     private void txt_dpiKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_dpiKeyTyped
         // TODO add your handling code here:
-        char validar = evt.getKeyChar();
-        if (Character.isLetter(validar)) {
-            getToolkit().beep();
-            evt.consume();
-
-            JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
-        }
+        validacion(evt);
     }//GEN-LAST:event_txt_dpiKeyTyped
 
     private void txt_fecha_nacKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_fecha_nacKeyTyped
         // TODO add your handling code here:
-        char validar = evt.getKeyChar();
-        if (Character.isLetter(validar)) {
-            getToolkit().beep();
-            evt.consume();
-
-            JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
-        }
+        validacion(evt);
     }//GEN-LAST:event_txt_fecha_nacKeyTyped
 
     private void txt_puestoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_puestoKeyTyped
         // TODO add your handling code here:
-        char validar = evt.getKeyChar();
-        if (Character.isLetter(validar)) {
-            getToolkit().beep();
-            evt.consume();
-
-            JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
-        }
+        validacion(evt);
     }//GEN-LAST:event_txt_puestoKeyTyped
 
-    private void txt_estado_clienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_estado_clienteKeyTyped
+    private void txt_estado_empKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_estado_empKeyTyped
         // TODO add your handling code here:
-        char validar = evt.getKeyChar();
+        validacion(evt);
+    }//GEN-LAST:event_txt_estado_empKeyTyped
+
+    private void img_ayuda2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_ayuda2ActionPerformed
+        // TODO add your handling code here:
+        try {
+
+            if ((new File("ayudaFormulario.chm")).exists()) {
+
+                Process p = Runtime
+                .getRuntime()
+                .exec("rundll32 url.dll,FileProtocolHandler ayudaFormulario.chm");
+                p.waitFor();
+
+            } else {
+
+                System.out.println("La ayuda no Fue encontrada");
+
+            }
+
+            System.out.println("Correcto");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_img_ayuda2ActionPerformed
+
+    public void validacion(KeyEvent e) {
+        char validar = e.getKeyChar();
         if (Character.isLetter(validar)) {
             getToolkit().beep();
-            evt.consume();
+            e.consume();
 
             JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
         }
-    }//GEN-LAST:event_txt_estado_clienteKeyTyped
+    }
 
     /**
      * @param args the command line arguments
@@ -618,6 +641,7 @@ public class empleado extends javax.swing.JFrame {
     private javax.swing.JButton btn_regresar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.JButton img_ayuda2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -631,7 +655,7 @@ public class empleado extends javax.swing.JFrame {
     private javax.swing.JTextField txt_apellido;
     private javax.swing.JTextField txt_buscar;
     private javax.swing.JTextField txt_dpi;
-    private javax.swing.JTextField txt_estado_cliente;
+    private javax.swing.JTextField txt_estado_emp;
     private javax.swing.JTextField txt_fecha_nac;
     private javax.swing.JTextField txt_nombre;
     private javax.swing.JTextField txt_puesto;

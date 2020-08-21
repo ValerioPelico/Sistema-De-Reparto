@@ -8,11 +8,16 @@ package sistemaderepartos;
 import sistemaderepartos.menu;
 import com.placeholder.PlaceHolder;
 import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.event.KeyEvent;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,23 +34,27 @@ public class entregas extends javax.swing.JFrame {
     Connection con = cn.getConnection();
     PreparedStatement ps;
     ResultSet rs;
-    
+
     ClsBitacora global = new ClsBitacora();
 
     PlaceHolder holder;
-    
-    public void placeholder(){
-        
+
+    public void placeholder() {
+
         holder = new PlaceHolder(txt_buscar, "Codigo a buscar");
         holder = new PlaceHolder(txt_descripcion, "Descripcion entrega");
         holder = new PlaceHolder(txt_estado, "ID Estado");
         holder = new PlaceHolder(txt_zona, "ID Zona");
     }
-    
+
     public entregas() {
         initComponents();
         this.setSize(new Dimension(660, 375));
-                placeholder();
+        placeholder();
+        ImageIcon imagen = new ImageIcon("src/imagenes/ayuda.png");
+        Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(img_ayuda2.getWidth(), img_ayuda2.getHeight(), Image.SCALE_DEFAULT));
+        img_ayuda2.setIcon(icono);
+        this.repaint();
     }
 
     /**
@@ -59,6 +68,7 @@ public class entregas extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         lbl_texto = new javax.swing.JLabel();
+        img_ayuda2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         lbl_descripcion = new javax.swing.JLabel();
         txt_estado = new javax.swing.JTextField();
@@ -85,17 +95,29 @@ public class entregas extends javax.swing.JFrame {
         lbl_texto.setForeground(new java.awt.Color(255, 255, 255));
         lbl_texto.setText("ENTREGAS");
 
+        img_ayuda2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                img_ayuda2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(235, 235, 235)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbl_texto)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(203, 203, 203)
+                .addComponent(img_ayuda2)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(img_ayuda2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -309,7 +331,7 @@ public class entregas extends javax.swing.JFrame {
                 txt_zona.setText("");
                 txt_buscar.setText("");
                 placeholder();
-                
+
                 global.GrabaBitacora(ClsBitacora.SystemUser, "Elimino en entregas");
 
             } catch (Exception e) {
@@ -325,7 +347,7 @@ public class entregas extends javax.swing.JFrame {
         if ((txt_estado.getText().matches("[0-9]*")) && (txt_descripcion.getText().matches("[a-zA-Z]*")) && (txt_estado.getText().matches("[0-9]*"))) {
 
             try {
-                ps = (PreparedStatement) con.prepareStatement("UPDATE tbl_entrega SET  cNombre_Entrega/Descricion = ?,"
+                ps = (PreparedStatement) con.prepareStatement("UPDATE tbl_entrega SET  cNombre_Entrega_Descricion = ?,"
                         + " Fk_iId_Estado_Entrega = ?, Fk_iId_Zona_Destino = ? WHERE Pk_iId_Entrega = ?");//Evitar sql injection.  
 
                 ps.setString(1, txt_descripcion.getText());
@@ -347,7 +369,7 @@ public class entregas extends javax.swing.JFrame {
                 txt_zona.setText("");
                 txt_buscar.setText("");
                 placeholder();
-                
+
                 global.GrabaBitacora(ClsBitacora.SystemUser, "Modifico en entregas");
 
             } catch (Exception e) {
@@ -364,7 +386,7 @@ public class entregas extends javax.swing.JFrame {
 
             try {
 
-                ps = con.prepareStatement("INSERT INTO tbl_entrega (cNombre_Entrega/Descricion, Fk_iId_Estado_Entrega, Fk_iId_Zona_Destino) VALUES(?,?,?)");
+                ps = con.prepareStatement("INSERT INTO tbl_entrega (cNombre_Entrega_Descricion, Fk_iId_Estado_Entrega, Fk_iId_Zona_Destino) VALUES(?,?,?)");
 
                 String descripcion = txt_descripcion.getText();
                 String estado = txt_estado.getText();
@@ -380,11 +402,9 @@ public class entregas extends javax.swing.JFrame {
                 txt_buscar.setText("");
                 ps.executeUpdate();
                 placeholder();
-                
-                
+
                 JOptionPane.showMessageDialog(null, "Registro Exitoso");
-                
-                
+
                 global.GrabaBitacora(ClsBitacora.SystemUser, "Inserto en entregas");
 
                 //con.close();
@@ -408,7 +428,7 @@ public class entregas extends javax.swing.JFrame {
                 rs = ps.executeQuery();
 
                 if (rs.next()) {
-                    txt_descripcion.setText(rs.getString("cNombre_Entrega/Descricion"));
+                    txt_descripcion.setText(rs.getString("cNombre_Entrega_Descricion"));
                     txt_estado.setText(rs.getString("Fk_iId_Estado_Entrega"));
                     txt_zona.setText(rs.getString("Fk_iId_Zona_Destino"));
 
@@ -427,41 +447,57 @@ public class entregas extends javax.swing.JFrame {
 
     private void txt_buscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_buscarKeyTyped
         // TODO add your handling code here:
-        char validar = evt.getKeyChar();
-        if (Character.isLetter(validar)) {
-            getToolkit().beep();
-            evt.consume();
-
-            JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
-        }
+        validacion(evt);
     }//GEN-LAST:event_txt_buscarKeyTyped
 
     private void txt_descripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_descripcionKeyTyped
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_txt_descripcionKeyTyped
 
     private void txt_estadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_estadoKeyTyped
         // TODO add your handling code here:
-        char validar = evt.getKeyChar();
-        if (Character.isLetter(validar)) {
-            getToolkit().beep();
-            evt.consume();
-
-            JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
-        }
+        validacion(evt);
     }//GEN-LAST:event_txt_estadoKeyTyped
 
     private void txt_zonaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_zonaKeyTyped
         // TODO add your handling code here:
-        char validar = evt.getKeyChar();
+        validacion(evt);
+    }//GEN-LAST:event_txt_zonaKeyTyped
+
+    private void img_ayuda2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_ayuda2ActionPerformed
+        // TODO add your handling code here:
+        try {
+
+            if ((new File("ayudaFormulario.chm")).exists()) {
+
+                Process p = Runtime
+                        .getRuntime()
+                        .exec("rundll32 url.dll,FileProtocolHandler ayudaFormulario.chm");
+                p.waitFor();
+
+            } else {
+
+                System.out.println("La ayuda no Fue encontrada");
+
+            }
+
+            System.out.println("Correcto");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_img_ayuda2ActionPerformed
+
+    public void validacion(KeyEvent e) {
+        char validar = e.getKeyChar();
         if (Character.isLetter(validar)) {
             getToolkit().beep();
-            evt.consume();
+            e.consume();
 
             JOptionPane.showMessageDialog(rootPane, "Ingresar solo numeros");
         }
-    }//GEN-LAST:event_txt_zonaKeyTyped
+    }
 
     /**
      * @param args the command line arguments
@@ -504,6 +540,7 @@ public class entregas extends javax.swing.JFrame {
     private javax.swing.JButton btn_guardar;
     private javax.swing.JButton btn_modificar;
     private javax.swing.JButton btn_regresar;
+    private javax.swing.JButton img_ayuda2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

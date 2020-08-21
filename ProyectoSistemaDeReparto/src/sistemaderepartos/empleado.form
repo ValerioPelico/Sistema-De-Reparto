@@ -66,14 +66,19 @@
                   <EmptySpace min="-2" pref="232" max="-2" attributes="0"/>
                   <Component id="lbl_texto" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
+                  <Component id="img_ayuda2" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="23" max="32767" attributes="0"/>
-                  <Component id="lbl_texto" min="-2" pref="31" max="-2" attributes="0"/>
+                  <EmptySpace pref="16" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="img_ayuda2" min="-2" pref="23" max="-2" attributes="0"/>
+                      <Component id="lbl_texto" min="-2" pref="31" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -90,6 +95,11 @@
             </Property>
             <Property name="text" type="java.lang.String" value="EMPLEADO"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="img_ayuda2">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="img_ayuda2ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -122,7 +132,7 @@
                               <Component id="txt_nombre" min="-2" pref="214" max="-2" attributes="0"/>
                               <Component id="txt_apellido" min="-2" pref="214" max="-2" attributes="0"/>
                               <Component id="txt_fecha_nac" min="-2" pref="214" max="-2" attributes="0"/>
-                              <Component id="txt_estado_cliente" min="-2" pref="214" max="-2" attributes="0"/>
+                              <Component id="txt_estado_emp" min="-2" pref="214" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -172,7 +182,7 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lbl_nacimiento" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txt_estado_cliente" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txt_estado_emp" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="20" max="32767" attributes="0"/>
               </Group>
@@ -218,9 +228,9 @@
             <Property name="text" type="java.lang.String" value="APELLIDO"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txt_estado_cliente">
+        <Component class="javax.swing.JTextField" name="txt_estado_emp">
           <Events>
-            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txt_estado_clienteKeyTyped"/>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txt_estado_empKeyTyped"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lbl_codigo_emp">

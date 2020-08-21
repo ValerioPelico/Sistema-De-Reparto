@@ -8,11 +8,15 @@ package sistemaderepartos;
 import sistemaderepartos.menu;
 import com.placeholder.PlaceHolder;
 import java.awt.Dimension;
+import java.awt.Image;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -32,19 +36,24 @@ public class bodega extends javax.swing.JFrame {
     ClsBitacora global = new ClsBitacora();
 
     PlaceHolder holder;
-    
-    public void placeholder(){
-        
+
+    public void placeholder() {
+
         holder = new PlaceHolder(txt_buscar, "Codigo a buscar");
         holder = new PlaceHolder(txt_nombre, "Nombre bodega");
         holder = new PlaceHolder(txt_direccion, "Direccion bodega");
     }
-    
+
     public bodega() {
         initComponents();
         this.setSize(new Dimension(550, 350));
-                placeholder();
+        placeholder();
+        ImageIcon imagen = new ImageIcon("src/imagenes/ayuda.png");
+        Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(img_ayuda2.getWidth(), img_ayuda2.getHeight(), Image.SCALE_DEFAULT));
+        img_ayuda2.setIcon(icono);
+        this.repaint();
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -56,6 +65,7 @@ public class bodega extends javax.swing.JFrame {
 
         jpn_a = new javax.swing.JPanel();
         lbl_texto = new javax.swing.JLabel();
+        img_ayuda2 = new javax.swing.JButton();
         jpn_b = new javax.swing.JPanel();
         lbl_nombre = new javax.swing.JLabel();
         btn_buscar = new javax.swing.JButton();
@@ -80,6 +90,12 @@ public class bodega extends javax.swing.JFrame {
         lbl_texto.setForeground(new java.awt.Color(255, 255, 255));
         lbl_texto.setText("BODEGA");
 
+        img_ayuda2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                img_ayuda2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jpn_aLayout = new javax.swing.GroupLayout(jpn_a);
         jpn_a.setLayout(jpn_aLayout);
         jpn_aLayout.setHorizontalGroup(
@@ -87,7 +103,9 @@ public class bodega extends javax.swing.JFrame {
             .addGroup(jpn_aLayout.createSequentialGroup()
                 .addGap(200, 200, 200)
                 .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(img_ayuda2)
+                .addContainerGap())
         );
         jpn_aLayout.setVerticalGroup(
             jpn_aLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -95,6 +113,10 @@ public class bodega extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(lbl_texto, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(23, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpn_aLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(img_ayuda2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jpn_b.setBackground(new java.awt.Color(241, 250, 238));
@@ -309,7 +331,7 @@ public class bodega extends javax.swing.JFrame {
                 txt_direccion.setText("");
                 txt_buscar.setText("");
                 placeholder();
-                
+
                 global.GrabaBitacora(ClsBitacora.SystemUser, "Elimino en bodega");
 
             } catch (Exception e) {
@@ -323,69 +345,65 @@ public class bodega extends javax.swing.JFrame {
     private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
         // TODO add your handling code here:
         if ((txt_nombre.getText().matches("[A-Z][a-zA-Z]*")) && (txt_direccion.getText().matches("[A-Z][a-zA-Z]*"))) {
-        try {
+            try {
 
-            ps = con.prepareStatement("INSERT INTO tbl_bodega (cNombre_Bodefa, cDireccion_Bodega) VALUES(?,?)");
+                ps = con.prepareStatement("INSERT INTO tbl_bodega (cNombre_Bodefa, cDireccion_Bodega) VALUES(?,?)");
 
-            String nombre = txt_nombre.getText();
-            String puesto = txt_direccion.getText();
+                String nombre = txt_nombre.getText();
+                String puesto = txt_direccion.getText();
 
-            ps.setString(1, nombre);
-            ps.setString(2, puesto);
+                ps.setString(1, nombre);
+                ps.setString(2, puesto);
 
-            txt_nombre.setText("");
-            txt_direccion.setText("");
-            ps.executeUpdate();
-            placeholder();
-            
-            
-            JOptionPane.showMessageDialog(null, "Registro Exitoso");
-            
+                txt_nombre.setText("");
+                txt_direccion.setText("");
+                ps.executeUpdate();
+                placeholder();
+
+                JOptionPane.showMessageDialog(null, "Registro Exitoso");
+
                 global.GrabaBitacora(ClsBitacora.SystemUser, "inserto en bodega");
 
-            //con.close();
-        } catch (SQLException ex) {
+                //con.close();
+            } catch (SQLException ex) {
 
-            JOptionPane.showMessageDialog(null, ex);
-        }
-    }
-
-    
-        else {
+                JOptionPane.showMessageDialog(null, ex);
+            }
+        } else {
             JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos.", JOptionPane.ERROR_MESSAGE);
-    }
+        }
     }//GEN-LAST:event_btn_guardarActionPerformed
 
     private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
         // TODO add your handling code here:
         if ((txt_nombre.getText().matches("[A-Z][a-zA-Z]*")) && (txt_direccion.getText().matches("[A-Z][a-zA-Z]*"))) {
-        try {
-            ps = (PreparedStatement) con.prepareStatement("UPDATE tbl_bodega SET  cNombre_Bodefa = ?,"
-                    + " cDireccion_Bodega = ? WHERE Pk_iId_Bodega = ?");//Evitar sql injection.  
+            try {
+                ps = (PreparedStatement) con.prepareStatement("UPDATE tbl_bodega SET  cNombre_Bodefa = ?,"
+                        + " cDireccion_Bodega = ? WHERE Pk_iId_Bodega = ?");//Evitar sql injection.  
 
-            ps.setString(1, txt_nombre.getText());
-            ps.setString(2, txt_direccion.getText());
-            ps.setString(3, txt_buscar.getText());
+                ps.setString(1, txt_nombre.getText());
+                ps.setString(2, txt_direccion.getText());
+                ps.setString(3, txt_buscar.getText());
 
-            int res = ps.executeUpdate();
+                int res = ps.executeUpdate();
 
-            if (res > 0) {
-                JOptionPane.showMessageDialog(null, "Modificado correctamente.", "ÉXITO", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(null, "ERROR", "ERROR AL GUARDAR", JOptionPane.ERROR_MESSAGE);
-            }
-            //con.close();
+                if (res > 0) {
+                    JOptionPane.showMessageDialog(null, "Modificado correctamente.", "ÉXITO", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "ERROR", "ERROR AL GUARDAR", JOptionPane.ERROR_MESSAGE);
+                }
+                //con.close();
 
-            txt_nombre.setText("");
-            txt_direccion.setText("");
-            txt_buscar.setText("");
-            placeholder();
-            
+                txt_nombre.setText("");
+                txt_direccion.setText("");
+                txt_buscar.setText("");
+                placeholder();
+
                 global.GrabaBitacora(ClsBitacora.SystemUser, "Modifico en bodega");
 
-        } catch (Exception e) {
-            System.err.println(e);
-        }
+            } catch (Exception e) {
+                System.err.println(e);
+            }
         } else {
             JOptionPane.showMessageDialog(null, "ERROR", "Error en los datos.", JOptionPane.ERROR_MESSAGE);
         }
@@ -404,8 +422,32 @@ public class bodega extends javax.swing.JFrame {
 
     private void txt_direccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_direccionKeyTyped
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_txt_direccionKeyTyped
+
+    private void img_ayuda2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_img_ayuda2ActionPerformed
+        // TODO add your handling code here:
+        try {
+
+            if ((new File("ayudaFormulario.chm")).exists()) {
+
+                Process p = Runtime
+                .getRuntime()
+                .exec("rundll32 url.dll,FileProtocolHandler ayudaFormulario.chm");
+                p.waitFor();
+
+            } else {
+
+                System.out.println("La ayuda no Fue encontrada");
+
+            }
+
+            System.out.println("Correcto");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_img_ayuda2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -422,30 +464,20 @@ public class bodega extends javax.swing.JFrame {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
 
-}
+                }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(bodega.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-
-catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(bodega.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-
-catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(bodega.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-
-catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(bodega.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(bodega.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(bodega.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(bodega.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(bodega.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -463,6 +495,7 @@ catch (javax.swing.UnsupportedLookAndFeelException ex) {
     private javax.swing.JButton btn_guardar;
     private javax.swing.JButton btn_modificar;
     private javax.swing.JButton btn_regresar;
+    private javax.swing.JButton img_ayuda2;
     private javax.swing.JPanel jpn_a;
     private javax.swing.JPanel jpn_b;
     private javax.swing.JPanel jpn_c;
